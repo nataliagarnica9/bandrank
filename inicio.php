@@ -35,6 +35,16 @@
                 </div>
             </a>
         </div>
+        <!-- Evaluación -->
+        <div class="col">
+            <a href="<?= base_url?>pages/criteriosEvaluacion/evaluacion.php" class="tarjeta-opcion">
+                <div class="card border-light shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Criterios de Evaluación</h5>
+                        <p class="card-text">Crea los distintos factores que se tendrán en cuenta a la hora de calificar las bandas.</p>
+                    </div>
+                    <!-- Evaluación -->
+                </div>
         <div class="col">
             <a href="#" class="tarjeta-opcion">
                 <div class="card border-light shadow-sm">

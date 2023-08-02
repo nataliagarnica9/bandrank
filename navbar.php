@@ -15,7 +15,8 @@
 
     <ul class="nav-list">
         <li>
-            <a href="<?= base_url?> pages/jurados/jurados.php">Registro jurado</a></li>
+            <a href="<?= base_url?>pages/jurados/jurados.php">Registro jurado</a></li>
+            <a href="<?= base_url?>pages/criteriosEvaluacion/evaluacion.php">Criterios de Evaluación</a></li>
         <li><a href="#">Participación</a></li>
         <li><a href="#">Lectura de QR</a></li>
     </ul>

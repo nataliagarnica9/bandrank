@@ -15,15 +15,9 @@
 
     <ul class="nav-list">
         <li>
-            <a href="<?=base_url?>inicio.php"><i class="fas fa-home"></i></a>
-        </li>
-        <li>
-            <a href="<?= base_url?>pages/participantes/jurados/jurados.php">Registro jurado</a></li>
-        <li>
-            <a href="#">Participación</a>
-        </li>
-        <li>
-            <a href="#">Lectura de QR</a>
-        </li>
+            <a href="<?= base_url?>pages/jurados/jurados.php">Registro jurado</a></li>
+            <a href="<?= base_url?>pages/criteriosEvaluacion/evaluacion.php">Criterios de Evaluación</a></li>
+        <li><a href="#">Participación</a></li>
+        <li><a href="#">Lectura de QR</a></li>
     </ul>
 </nav>

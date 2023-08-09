@@ -12,3 +12,6 @@ CREATE TABLE jurado
     CONSTRAINT jurado_pk
         PRIMARY KEY (id)
 );
+
+CREATE TABLE `bandrank`.`concurso` (`id_concurso` INT(11) NOT NULL AUTO_INCREMENT , `nombre_concurso` VARCHAR(255) NOT NULL , `ubicacion` VARCHAR(255) NOT NULL , `director` VARCHAR(255) NOT NULL , PRIMARY KEY (`id_concurso`)) ENGINE = InnoDB;
+ALTER TABLE `concurso` ADD `eliminado` INT(1) NOT NULL AFTER `director`;

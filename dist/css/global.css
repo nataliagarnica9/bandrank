@@ -17,6 +17,10 @@ body {
     font-family: "Inter", sans-serif !important;
 }
 
+.container {
+    margin-top: 6em;
+}
+
 .bg-bandrank {
     background-color: #FF751F;
 }
@@ -72,6 +76,7 @@ body {
     display: flex;
     align-items: center;
     height: 4em;
+    padding: 0 8em;
 }
 
 .nav-br > .nav-header {
@@ -160,19 +165,18 @@ body {
 
 .bloque-presentacion {
     width: 100%;
-    text-align: center;
-    align-content: center;
-    align-items: center;
     height: 40vh;
+    padding: 0 6em;
 }
 
 .titulo-bienv {
     text-align: center;
     margin-top: 5em;
+    font-weight: bold;
 }
 
 .subtitulo-bienv {
-
+    text-align: center;
 }
 
 .btn-bienv {
@@ -209,4 +213,22 @@ body {
 
 .tarjeta-opcion {
     text-decoration: none;
+}
+
+.bloque-inicial {
+    width: 100vw;
+    height: 100vh;
+    background-color: #FF751F;
+    text-align: center;
+    padding: 10em;
+    color: #FFFFFF;
+}
+
+.bloque-inicial h1{
+    font-weight: bold;
+}
+
+.img-inicio {
+    width: 25vw;
+    margin-bottom: 5em;
 }

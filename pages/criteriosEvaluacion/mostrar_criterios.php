@@ -1,9 +1,4 @@
-<!doctype html>
-<html lang="es">
-<head>
-    <?php require("../../head.php"); ?>
-</head>
-<body>
+
    
 <?php require("../../head.php"); ?>
 </head>
@@ -12,7 +7,7 @@
 
     <div class="container mt-5">
         <?php if (empty($criterios)): ?>
-            <p>No se han encontrado criterios de evaluación.</p>
+            <p>Se ha realizado el cambio correctamente.</p>
         <?php else: ?>
             <h3>Criterios de evaluación registrados</h3>
             <table class="table">

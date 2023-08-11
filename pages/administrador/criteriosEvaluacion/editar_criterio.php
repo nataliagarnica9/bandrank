@@ -1,10 +1,11 @@
 <!doctype html>
 <html lang="es">
 <head>
-    <?php require("../../head.php"); ?>
+<?php require("../../../head.php"); ?>
+
 </head>
 <body>
-    <?php require("../../navbar.php");?>
+    <?php require("../../../navbar.php");?>
 
     <div class="container mt-5">
         <?php
@@ -31,6 +32,6 @@
         <a href="mostrar_criterios.php" class="btn btn-secondary">Volver</a>
     </div>
 
-    <?php require("../../footer.php"); ?>
+    <?php require("../../../footer.php"); ?>
 </body>
 </html>

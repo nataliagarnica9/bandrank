@@ -65,7 +65,7 @@ if(isset($_REQUEST["action"])) {
 }
 
 function actualizarCriterio() {
-    include "../../config.php";
+    include "../../../config.php";
     
     if(isset($_POST['id']) && isset($_POST['criterio'])) {
         $id = $_POST['id'];

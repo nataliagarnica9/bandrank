@@ -6,7 +6,7 @@ if (isset($_POST['id']) && !empty($_POST['id'])) {
     include "Evaluaciones.php";
 
     // Inicializamos la conexión a la base de datos
-    include "../../config.php";
+    include "../../../config.php";
 
     // Creamos el objeto del modelo
     $evaluacion_model = new Evaluacion($db);

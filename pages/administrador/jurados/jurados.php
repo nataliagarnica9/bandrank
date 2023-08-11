@@ -4,7 +4,7 @@
 <body>
 <?php require("../../navbar.php");?>
 
-<div class="container mt-5">
+<div class="container mt-navbar">
     <?php if(isset($_REQUEST["status"]) && $_REQUEST["status"] == 'success'): ?>
             <div class="alert-band">
                 <i class="fas fa-check" style="color: #00FF00"></i> El registro se guardó exitosamente.

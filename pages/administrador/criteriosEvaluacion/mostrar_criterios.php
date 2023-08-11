@@ -10,7 +10,7 @@
 <body>
     <?php require("../../navbar.php");?>
 
-    <div class="container mt-5">
+    <div class="container mt-navbar">
         <?php if (empty($criterios)): ?>
             <p>No se han encontrado criterios de evaluación.</p>
         <?php else: ?>

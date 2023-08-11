@@ -1,60 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php require("head.php"); ?>
-<body>
-<?php require("navbar.php");?>
 
-<div class="bloque-presentacion">
-    <h1 class="titulo-bienv">Bienvenido a BandRank</h1>
-    <p class="subtitulo-bienv">Sistema de Evaluación de Eventos Marciales</p>
-    <button class="btn-bienv">Iniciar</button>
-    <img src="<?= base_url?>dist/images/bandrank_isotipo.png" class="imagen-inicial" alt="Ilustración gráfica del sistema">
-</div>
-<div class="bloque-vector">
-    <img src="<?= base_url?>dist/images/curva.png">
-</div>
-<div class="bloque-tarjetas">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-            <a href="<?= base_url?>pages/jurados/jurados.php" class="tarjeta-opcion">
-                <div class="card border-light shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Registro de jurado</h5>
-                        <p class="card-text">Crea el perfil de jurado para poder realizar la calificación de las bandas participantes.</p>
-                    </div>
+<body>
+    <div class="bloque-inicial">
+        <img src="<?=base_url?>dist/images/bandrank_isotipo_blanco.png"
+            class="img-inicio animate__animated animate__backInDown">
+        <h1 class="animate__animated animate__backInDown">Bienvenido</h1>
+        <p class="animate__animated animate__backInUp">
+            ¿A dónde deseas ingresar?
+        </p>
+        <a class="btn-bandrank animate__animated animate__backInUp" data-bs-toggle="modal" data-bs-target="#modal_autenticacion">Administrador</a>
+        <a href="<?= base_url ?>pages/participantes/inicio.php"
+            class="btn-bandrank animate__animated animate__backInUp">Participante</a>
+    </div>
+    <!--href="<?= base_url ?>pages/administrador/inicio.php"-->
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal_autenticacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Autenticación</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </a>
-        </div>
-        <div class="col">
-            <a href="#" class="tarjeta-opcion">
-                <div class="card border-light shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Registro de banda participante</h5>
-                        <p class="card-text">...</p>
+                <div class="modal-body">
+                    <div class="alert-band" id="alert-band" style="display: none;">
+                        <i class="fas fa-times" style="color:red;"></i> Autenticación de administrador incorrecta. Intenta de nuevo. <br>
                     </div>
+                    <div class="mb-3">
+                        <label for="clave_admin" class="form-label">Ingresa clave de administrador</label>
+                        <input type="password" class="form-control" id="clave_admin">
+                      </div>
                 </div>
-            </a>
-        </div>
-        <!-- Evaluación -->
-        <div class="col">
-            <a href="<?= base_url?>pages/criteriosEvaluacion/evaluacion.php" class="tarjeta-opcion">
-                <div class="card border-light shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Criterios de Evaluación</h5>
-                        <p class="card-text">Crea los distintos factores que se tendrán en cuenta a la hora de calificar las bandas.</p>
-                    </div>
-                    <!-- Evaluación -->
+                <div class="modal-footer">
+                    <button type="button" class="btn-bandrank" onclick="comprobarAdministrador()">Comprobar</button>
                 </div>
-        <div class="col">
-            <a href="#" class="tarjeta-opcion">
-                <div class="card border-light shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Penalizacion</h5>
-                        <p class="card-text">...</p>
-                    </div>
-                </div>
-            </a>
+            </div>
         </div>
     </div>
 </body>
+<?php require("footer.php"); ?>
+<script>
+    function comprobarAdministrador() {
+        let vlr_autenticacion = $('#clave_admin').val();
+        $.ajax({
+            url: 'autenticacion.php',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                'vlr_autenticacion': vlr_autenticacion
+            }
+        }).done(function(result){
+            if(result.status == 'success') {
+                location.href = 'pages/administrador/inicio.php';
+            } else if(result.status == 'error') {
+                $('#alert-band').css('width','100%');
+                $('#alert-band').css('display','block');
+                $('#alert-band').css('color','red');
+            } else {
+                $('#alert-band').css('display','block');
+            }
+        })
+    }
+</script>
 </html>

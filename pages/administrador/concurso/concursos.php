@@ -4,7 +4,7 @@
 <body>
 <?php require("../../../navbar.php");?>
 
-    <div class="container">
+    <div class="container mt-navbar">
         <div class="row">
             <div class="col-sm-4">
                 <div class="input-group mb-3">
@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="row">
-            <h2 class="mb-5"><strong>Concursos registrados</strong> <a onclic="crearNuevoConcurso()" class="btn-bandrank" style="padding: 6px 9px;font-size: 14px;"><i class="fas fa-plus"></i> Agregar nuevo</a></h2>
+            <h2 class="mb-5"><strong>Concursos registrados</strong> <a onclick="crearNuevoConcurso()" class="btn-bandrank" style="padding: 6px 9px;font-size: 14px;"><i class="fas fa-plus"></i> Agregar nuevo</a></h2>
             <div class="col-4">
                 <div class="card">
                     <div class="card-body">

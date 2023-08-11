@@ -76,7 +76,7 @@ body {
     display: flex;
     align-items: center;
     height: 4em;
-    padding: 0 8em;
+    padding: 0 3em;
 }
 
 .nav-br > .nav-header {
@@ -103,11 +103,13 @@ body {
     text-decoration: none;
     color: #FF751F;
     cursor: pointer;
+    font-size: 12px;
 }
 
 .nav-br > #nav-check {
     display: none;
 }
+
 @media (max-width: 480px) {
     .nav-br {
         padding: 1rem;
@@ -200,11 +202,12 @@ body {
 
 .bloque-vector {
     width: 100%;
+    margin-top: 6em;
 }
 
 .bloque-vector img{
-    width: 100%;
-    height: 30em;
+    width: 114%;
+    height: 19em;
 }
 
 .bloque-tarjetas {
@@ -220,7 +223,7 @@ body {
     height: 100vh;
     background-color: #FF751F;
     text-align: center;
-    padding: 10em;
+    padding: 9em;
     color: #FFFFFF;
 }
 
@@ -229,6 +232,51 @@ body {
 }
 
 .img-inicio {
-    width: 25vw;
+    width: 40vw;
     margin-bottom: 5em;
+}
+
+.mt-navbar {
+    margin-top: 6rem !important;
+}
+
+@media screen and (min-width: 1024px){
+    .nav-br {
+        padding: 0 8em;
+    }
+    
+    .nav-br > .nav-list > li a {
+        font-size: 16px;
+    }
+    
+    .nav-br > #nav-check {
+        display: none;
+    }
+
+    .img-inicio {
+        width: 32vw;
+    }
+
+    .bloque-inicial {
+        padding: 3em;
+    }
+
+    .bloque-vector img{
+        width: 100%;
+        height: 30em;
+    }
+
+    .bloque-vector {
+        margin-top: 0;
+    }
+}
+
+@media screen and (min-width: 1600px){
+    .img-inicio {
+        width: 20vw;
+    }
+
+    .bloque-inicial {
+        padding: 8em;
+    }
 }

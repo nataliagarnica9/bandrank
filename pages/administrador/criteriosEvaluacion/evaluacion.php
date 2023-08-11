@@ -6,7 +6,7 @@
 <body>
     <?php require("../../navbar.php");?>
 
-    <div class="container mt-5">
+    <div class="container mt-navbar">
         <h3>Registro de evaluación</h3>
 
         <form action="evaluacion_controller.php?action=guardar_criterios" method="POST">

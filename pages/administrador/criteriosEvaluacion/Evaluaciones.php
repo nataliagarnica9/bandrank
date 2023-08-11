@@ -44,4 +44,15 @@ class Evaluacion {
             // En caso de error, puedes manejarlo o simplemente retornar false
             return false;
         }}
-}
+        public function actualizarCriterio($id, $criterio) {
+            try {
+                $stmt = $this->db->prepare("UPDATE criterios_evaluacion SET criterio = ? WHERE id = ?");
+                $stmt->execute([$criterio, $id]);
+    
+                return true;
+            } catch (PDOException $e) {
+                return false;
+            }
+        }
+    }
+

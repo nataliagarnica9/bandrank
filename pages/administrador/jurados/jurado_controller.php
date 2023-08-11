@@ -15,7 +15,7 @@ if(isset($_REQUEST["action"])) {
 
 // Creo las funciones que me conectan al modelo
 function guardar() {
-    include "../../config.php";
+    include "../../../config.php";
 
     // Inicio el objeto del modelo
     $jurado_model = new Jurado($db);

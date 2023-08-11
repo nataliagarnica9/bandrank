@@ -1,10 +1,8 @@
 <!doctype html>
 <html lang="es">
-<head>
-    <?php require("../../head.php"); ?>
-</head>
+    <?php require("../../../head.php"); ?>
 <body>
-    <?php require("../../navbar.php");?>
+    <?php require("../../../navbar.php");?>
 
     <div class="container mt-navbar">
         <h3>Registro de evaluación</h3>
@@ -20,7 +18,7 @@
         <a href="evaluacion_controller.php?action=mostrar_criterios" class="btn btn-secondary">Mostrar Criterios Registrados</a>
     </div>
 
-    <?php require("../../footer.php"); ?>
+    <?php require("../../../footer.php"); ?>
     <style>
         /* Estilos personalizados para el contenedor de criterios */
         .input-group {

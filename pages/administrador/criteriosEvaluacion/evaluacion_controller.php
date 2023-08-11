@@ -1,5 +1,5 @@
 <?php
-require "../../config.php";
+require "../../../config.php";
 require "Evaluaciones.php";
 
 // Valido si la petición tiene la acción

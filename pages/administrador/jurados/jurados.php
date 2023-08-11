@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="es">
-    <?php require("../../head.php"); ?>
+    <?php require("../../../head.php"); ?>
 <body>
-<?php require("../../navbar.php");?>
+<?php require("../../../navbar.php");?>
 
 <div class="container mt-navbar">
     <?php if(isset($_REQUEST["status"]) && $_REQUEST["status"] == 'success'): ?>

@@ -1,9 +1,7 @@
-
-   
-<?php require("../../head.php"); ?>
+<?php require("../../../head.php"); ?>
 </head>
 <body>
-    <?php require("../../navbar.php");?>
+    <?php require("../../../navbar.php");?>
 
     <div class="container mt-navbar">
         <?php if (empty($criterios)): ?>
@@ -35,7 +33,7 @@
         <button type="button" class="btn btn-primary" onclick="volver()">Volver</button>
     </div>
 
-    <?php require("../../footer.php"); ?>
+    <?php require("../../../footer.php"); ?>
     
     <!-- Script para el botón Volver -->
     <script>

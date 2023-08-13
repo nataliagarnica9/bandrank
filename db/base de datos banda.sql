@@ -1,0 +1,1 @@
+CREATE TABLE `bandrank`.`banda` (`id_banda` INT(11) NOT NULL AUTO_INCREMENT , `nombre` VARCHAR(50) NOT NULL , `ubicacion` VARCHAR(50) NOT NULL , `nombre_instructor` VARCHAR(50) NOT NULL , `correo_instructor` VARCHAR(50) NOT NULL , PRIMARY KEY (`id_banda`)) ENGINE = InnoDB;

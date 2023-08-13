@@ -26,7 +26,7 @@
             </a>
         </div>
         <div class="col-md-12 col-lg-4">
-            <a href="<?= base_url ?>pages/administrador/criteriosEvaluacion/evaluacion.php" class="tarjeta-opcion">
+            <a href="<?= base_url ?>pages/administrador/bandas/bandas.php" class="tarjeta-opcion">
                 <div class="card border-light shadow-sm">
                     <div class="card-body">
                         <div class="row">

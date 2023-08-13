@@ -12,13 +12,14 @@ class Jurado
 
     public function guardar($data) {
         try {
-            $query = $this->db->prepare("INSERT INTO jurado (documento_identificacion, nombres, apellidos, celular, correo, fecha_registro) VALUES (?, ?, ?, ?, ?, ?);");
+            $query = $this->db->prepare("INSERT INTO jurado (documento_identificacion, nombres, apellidos, celular, correo, fecha_registro, id_concurso) VALUES (?, ?, ?, ?, ?, ?, ?);");
             $query->bindValue(1, $data["documento_identificacion"]);
             $query->bindValue(2, $data["nombres"]);
             $query->bindValue(3, $data["apellidos"]);
             $query->bindValue(4, $data["celular"]);
             $query->bindValue(5, $data["correo"]);
             $query->bindValue(6, date("Y-m-d H:i:s"));
+            $query->bindValue(7, $data["concurso"]);
             $query->execute();
 
             $status = $query->errorInfo();

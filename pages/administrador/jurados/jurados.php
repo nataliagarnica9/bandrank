@@ -20,39 +20,72 @@
 
     <h3> Registro de jurado</h3>
 
-    <form action="jurado_controller.php?action=guardar" method="POST" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col-3 mb-3">
-                <label for="nombres" class="form-label">Nombres <i class="required">*</i></label>
-                <input type="text" class="form-control form-control-lg" id="nombres" name="nombres" required autocomplete="off">
-            </div>
-            <div class="col-3 mb-3">
-                <label for="apellidos" class="form-label">Apellidos <i class="required">*</i></label>
-                <input type="text" class="form-control form-control-lg" id="apellidos" name="apellidos" required autocomplete="off">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 mb-3">
-                <label for="documento_identificacion" class="form-label">Documento de identificación <i class="required">*</i></label>
-                <input type="text" class="form-control form-control-lg" id="documento_identificacion" name="documento_identificacion" required autocomplete="off">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 mb-3">
-                <label for="celular" class="form-label">Celular</label>
-                <input type="number" class="form-control form-control-lg" id="celular" name="celular"  maxlength="10" autocomplete="off">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 mb-3">
-                <label for="correo" class="form-label">Correo electrónico <i class="required">*</i></label>
-                <input type="email" class="form-control form-control-lg" name="correo" id="correo" required>
-            </div>
-        </div>
+    <div class="row">
+        <div class="col-6">
+            <form action="jurado_controller.php?action=guardar" method="POST" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label for="nombres" class="form-label">Nombres <i class="required">*</i></label>
+                        <input type="text" class="form-control form-control-lg" id="nombres" name="nombres" required autocomplete="off">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label for="apellidos" class="form-label">Apellidos <i class="required">*</i></label>
+                        <input type="text" class="form-control form-control-lg" id="apellidos" name="apellidos" required autocomplete="off">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label for="documento_identificacion" class="form-label">Documento de identificación <i class="required">*</i></label>
+                        <input type="text" class="form-control form-control-lg" id="documento_identificacion" name="documento_identificacion" required autocomplete="off">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label for="celular" class="form-label">Celular</label>
+                        <input type="number" class="form-control form-control-lg" id="celular" name="celular"  maxlength="10" autocomplete="off">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label for="correo" class="form-label">Correo electrónico <i class="required">*</i></label>
+                        <input type="email" class="form-control form-control-lg" name="correo" id="correo" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label for="correo" class="form-label">Concurso <i class="required">*</i></label>
+                        <select class="form-control form-control-lg" name="concurso" id="concurso">
+                            <option value="">Selecciona una opción</option>
+                            <?php 
+                            $query = $db->query("SELECT * FROM concurso");
+                            $fetch_concurso = $query->fetchAll(PDO::FETCH_OBJ);
 
-        <button type="submit" class="btn-bandrank">Registrar</button>
-    </form>
+                            foreach($fetch_concurso as $concurso) { ?>
+                                <option value="<?= $concurso->id_concurso ?>"><?= $concurso->nombre_concurso?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
 
+                <button type="submit" class="btn-bandrank">Registrar</button>
+            </form>
+        </div>
+        <div class="col-6">
+            <table class="table table-bordered mt-5" id="tabla-concurso">
+                <thead>
+                    <tr>
+                        <td><b>N</b></td>
+                        <td><b>Nombre completo</b></td>
+                        <td><b>Documento</b></td>
+                        <td><b>Correo</b></td>
+                        <td><b>Concurso</b></td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
 </div>
 
 </body>

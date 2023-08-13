@@ -17,3 +17,5 @@ CREATE TABLE `bandrank`.`concurso` (`id_concurso` INT(11) NOT NULL AUTO_INCREMEN
 ALTER TABLE `concurso` ADD `eliminado` INT(1) NOT NULL AFTER `director`;
 
 CREATE TABLE `bandrank`.`autenticacion` (`clave_administrador` VARCHAR(50) NULL ) ENGINE = InnoDB;
+
+ALTER TABLE `jurado` ADD `id_concurso` INT NOT NULL AFTER `fecha_registro`;

@@ -19,3 +19,9 @@ ALTER TABLE `concurso` ADD `eliminado` INT(1) NOT NULL AFTER `director`;
 CREATE TABLE `bandrank`.`autenticacion` (`clave_administrador` VARCHAR(50) NULL ) ENGINE = InnoDB;
 
 ALTER TABLE `jurado` ADD `id_concurso` INT NOT NULL AFTER `fecha_registro`;
+
+ALTER TABLE `concurso` ADD `finalizado` INT NOT NULL DEFAULT '0' COMMENT '0 para concurso activo, 1 para concurso finalizado' AFTER `eliminado`;
+
+CREATE TABLE `bandrank`.`categorias_concurso` (`id_categoria` INT NOT NULL AUTO_INCREMENT , `nombre_categoria` VARCHAR(255) NOT NULL , `eliminado` INT NOT NULL DEFAULT '0' COMMENT '0 para activo, 1 para eliminado' , PRIMARY KEY (`id_categoria`)) ENGINE = InnoDB;
+
+ALTER TABLE `concurso` ADD `id_categoria` INT NOT NULL AFTER `director`, ADD `fecha_evento` DATE NOT NULL AFTER `id_categoria`;

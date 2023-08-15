@@ -16,8 +16,15 @@
 
     <ul class="nav-list">
         <li>
-            <a href="<?= base_url?>pages/administrador/jurados/jurados.php">Registro jurado</a>
+            <a href="<?= base_url?>pages/administrador/jurados/jurados.php"><i class="fas fa-plus"></i> Registro</a>
+            <ul class="shadow-sm rounded">
+                <li><a href="#">Jurado</a></li>
+                <li><a href="#">Banda</a></li>
+                <li><a href="#">Concurso</a></li>
+                <li><a href="#">Criterio</a></li>
+            </ul>
         </li>
+        
         <li>
             <a href="<?= base_url?>pages/administrador/criteriosEvaluacion/evaluacion.php">Criterios de Evaluación</a>
         </li>

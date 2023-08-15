@@ -21,7 +21,8 @@ class Concurso {
                     id_concurso,
                     nombre_concurso,
                     ubicacion,
-                    director
+                    director,
+                    finalizado
                 FROM
                   concurso
                 WHERE eliminado = 0';
@@ -46,5 +47,30 @@ class Concurso {
         $response['totalTableRows'] = count($concursos);
         $response['countRenderRows'] = count($concursos);
         return $response;
+    }
+
+    public function save($data) {
+        try {
+            $query = $this->db->prepare("INSERT INTO concurso (nombre_concurso, ubicacion, director, eliminado, id_categoria, fecha_evento) VALUES (?, ?, ?, ?, ?, ?);");
+            $query->bindValue(1, $data["nombre_concurso"]);
+            $query->bindValue(2, $data["ubicacion"]);
+            $query->bindValue(3, $data["director"]);
+            $query->bindValue(4, '0');
+            $query->bindValue(5, $data["categoria"]);
+            $query->bindValue(6, $data["fecha_evento"]);
+            $query->execute();
+
+            $status = $query->errorInfo();
+
+            // Valido que el código de mensaje sea válido para identificar que si se guardó el registro
+            if($status[0] == 00000) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception $ex) {
+            return $ex;
+        }
     }
 }

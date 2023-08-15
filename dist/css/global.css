@@ -74,7 +74,7 @@ body {
     width: 100%;
     background-color: #FFFFFF;
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
     height: 4em;
     padding: 0 3em;
 }
@@ -93,6 +93,7 @@ body {
     display: flex;
     gap: 2rem;
     margin-top: 1rem;
+    position: relative;
 }
 
 .nav-br > .nav-list > li {
@@ -109,6 +110,51 @@ body {
 .nav-br > #nav-check {
     display: none;
 }
+
+.nav-br a {
+    display: block;
+}
+
+.nav-br ul {
+	padding: 0;
+    margin: 0;
+	list-style: none;
+	position: relative;
+}
+
+/* Hide Dropdowns by Default */
+.nav-br ul ul {
+	display: none;
+	position: absolute;
+    top: 2em;
+    padding: 10px;
+    background: #FFF;
+    z-index: 100;
+}
+	
+/* Display Dropdowns on Hover */
+.nav-br ul li:hover > ul {
+	display:inherit;
+}
+	
+/* Fisrt Tier Dropdown */
+.nav-br ul ul li {
+	width:170px;
+	float:none;
+	display:list-item;
+	position: relative;
+    margin: 8px 0;
+}
+
+/* Second, Third and more Tiers	*/
+.nav-br ul ul ul li {
+	position: relative;
+	top:-60px; 
+	left:170px;
+}
+
+/* Change this in order to change the Dropdown symbol */
+li > a:only-child:after { content: ''; }
 
 @media (max-width: 480px) {
     .nav-br {

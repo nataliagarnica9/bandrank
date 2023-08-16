@@ -59,8 +59,8 @@
                 </div>
             </a>
         </div>
-        <div class="col-md-12 col-lg-4">
-            <a href="<?= base_url ?>pages/administrador/penalizacion/penalizacion.php" class="tarjeta-opcion">
+        <div class="col">
+            <a href="#" class="tarjeta-opcion">
                 <div class="card border-light shadow-sm">
                     <div class="card-body">
                     <div class="row">
@@ -69,13 +69,14 @@
                             </div>
                             <div class="col-10">
                                 <h5 class="card-title">Penalizacion</h5>
-                                <p class="card-text">Crea los items por los cuales se penaliza el puntaje.</p>
+                                <p class="card-text">...</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </a>
         </div>
+        
     </div>
     <!--<img src="dist/images/bandrank_isotipo.png" class="imagen-inicial" alt="Ilustración gráfica del sistema">-->
 </div>

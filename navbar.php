@@ -26,7 +26,7 @@
         </li>
         
         <li>
-            <a href="<?= base_url?>pages/administrador/criteriosEvaluacion/evaluacion.php">Criterios de Evaluación</a>
+            <a href="<?= base_url?>pages/administrador/criteriosEvaluacion/evaluacion.php">Criterios de evaluación</a>
         </li>
         </li>
         <li><a href="#">Participación</a></li>

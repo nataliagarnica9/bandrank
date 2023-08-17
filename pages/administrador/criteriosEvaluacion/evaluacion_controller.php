@@ -50,7 +50,7 @@ function mostrarCriterios() {
 if(isset($_REQUEST["action"])) {
     switch ($_REQUEST["action"]) {
         case 'guardar_criterios':
-            // ...
+            
             break;
         case 'actualizar_criterio':
             actualizarCriterio();

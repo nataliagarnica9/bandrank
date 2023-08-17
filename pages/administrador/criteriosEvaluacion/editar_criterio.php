@@ -1,9 +1,8 @@
 <!doctype html>
 <html lang="es">
-<head>
+
 <?php require("../../../head.php"); ?>
 
-</head>
 <body>
     <?php require("../../../navbar.php");?>
 
@@ -18,7 +17,7 @@
         }
         ?>
 
-        <h3>Editar Criterio</h3>
+        <h3 style="margin-top: 100px;">Editar Criterio</h3>
 
         <form action="evaluacion_controller.php?action=actualizar_criterio" method="POST">
             <input type="hidden" name="id" value="<?php echo $id; ?>">
@@ -29,7 +28,7 @@
             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
         </form>
         
-        <a href="mostrar_criterios.php" class="btn btn-secondary">Volver</a>
+        <a href="evaluacion.php" class="btn btn-secondary">Volver</a>
     </div>
 
     <?php require("../../../footer.php"); ?>

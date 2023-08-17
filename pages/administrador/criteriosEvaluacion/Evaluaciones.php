@@ -36,14 +36,15 @@ class Evaluacion {
 
     public function eliminarCriterio($id_criterio) {
         try {
-            $stmt = $this->db->prepare("DELETE FROM criterios_evaluacion WHERE id = ?");
+            $stmt = $this->db->prepare("UPDATE criterios_evaluacion SET eliminado = 1 WHERE id = ?");
             $stmt->execute([$id_criterio]);
-
+    
             return true;
         } catch (PDOException $e) {
-            // En caso de error, puedes manejarlo o simplemente retornar false
             return false;
-        }}
+        }
+    }
+    
         public function actualizarCriterio($id, $criterio) {
             try {
                 $stmt = $this->db->prepare("UPDATE criterios_evaluacion SET criterio = ? WHERE id = ?");

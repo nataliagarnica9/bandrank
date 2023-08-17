@@ -62,7 +62,7 @@
         </div>
         <div class="row row-cols-1 row-cols-md-3 g-4 m-5">
         <div class="col">
-            <a href="<?= base_url?>pages/participantes/jurados/Categorias.php" class="tarjeta-opcion">
+            <a href="<?= base_url?>pages/participantes/jurados/concurso.php" class="tarjeta-opcion">
                 <div class="card border-light shadow-sm">
                     <div class="card-body">
                     <div class="row">

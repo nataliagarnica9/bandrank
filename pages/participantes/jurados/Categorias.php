@@ -43,7 +43,8 @@
             foreach ($fetch_categorias as $categoria) {?>
             <tr>
                 <td><?=$categoria->nombre_categoria?></td>
-                <td><button class="btn-bandrank">Seleccionar</button></td>
+                <td><a href="../jurados/calificacion_jurados.php"<?=$concurso->id_concurso?> class="btn-bandrank">Seleccionar</a></td>
+                
             </tr>
 
             <?php

@@ -11,9 +11,10 @@ $bandas = count($fetch_bandas);
 ?>
 <!doctype html>
 <html lang="es">
-    <?php require("../../../head.php"); ?>
+<?php require("../../../head.php"); ?>
+
 <body>
-<?php require("../../../navbar.php");?>
+    <?php require("../../../navbar.php"); ?>
 
     <div class="container mt-navbar">
 
@@ -37,7 +38,7 @@ $bandas = count($fetch_bandas);
                 <div class="col-4">
                     <div class="card">
                         <div class="card-body">
-                        <div class="row">
+                            <div class="row">
                                 <div class="col-2">
                                     <h2><?= $bandas ?></h2>
                                 </div>
@@ -48,14 +49,6 @@ $bandas = count($fetch_bandas);
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-body">
-                            This is some text within a card body.
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
             <div class="row mt-5">
@@ -74,50 +67,51 @@ $bandas = count($fetch_bandas);
                 </div>
             </div>
         </div>
-        
+
     </div>
-        
+
     </div>
-    <?php require("../../../footer.php");?>
+    <?php require("../../../footer.php"); ?>
     <script>
-    $(document).ready( function () {
-        $('#tabla-concurso').DataTable({
-            "bProcessing": true,
-            "serverSide": true,
-            "order": [
-                [1, 'desc']
-            ],
-            "ajax": {
-                url: 'concurso_controller.php?action=response',
-                type: "post",
-            },
+        $(document).ready(function() {
+            $('#tabla-concurso').DataTable({
+                "bProcessing": true,
+                "serverSide": true,
+                "order": [
+                    [1, 'desc']
+                ],
+                "ajax": {
+                    url: 'concurso_controller.php?action=response',
+                    type: "post",
+                },
+            });
         });
-    });
 
-    function crearNuevoConcurso() {
-        $.ajax({
-            url: 'concurso_controller.php?action=crear_concurso',
-            dataType: 'html',
-            type: 'GET',
-        }).done(function(html) {
-            $('#contenedor-concursos').html(html);
-        });
-    }
+        function crearNuevoConcurso() {
+            $.ajax({
+                url: 'concurso_controller.php?action=crear_concurso',
+                dataType: 'html',
+                type: 'GET',
+            }).done(function(html) {
+                $('#contenedor-concursos').html(html);
+            });
+        }
 
-    function registrarConcurso() {
-        $.ajax({
-            url: 'concurso_controller.php?action=save',
-            dataType: 'json',
-            type: 'POST',
-            data: $('#form_concurso').serialize()
-        }).done(function(response) {
-            if(response.status == 'success') {
-                location.reload();
-            } else {
-                console.log('error');
-            }
-        });
-    }
-</script>
+        function registrarConcurso() {
+            $.ajax({
+                url: 'concurso_controller.php?action=save',
+                dataType: 'json',
+                type: 'POST',
+                data: $('#form_concurso').serialize()
+            }).done(function(response) {
+                if (response.status == 'success') {
+                    location.reload();
+                } else {
+                    console.log('error');
+                }
+            });
+        }
+    </script>
 </body>
+
 </html>

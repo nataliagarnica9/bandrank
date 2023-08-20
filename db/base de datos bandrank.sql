@@ -32,7 +32,3 @@ ALTER TABLE `jurado` ADD `clave` VARCHAR(255) NOT NULL AFTER `correo`;
 
 ALTER TABLE `jurado` ADD `activo` INT NOT NULL DEFAULT '1' COMMENT '1 para activo 0 para inactivo' AFTER `firma`;
 
-CREATE TABLE planilla (
-    id_planilla INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_planilla VARCHAR(255) NOT NULL
-);

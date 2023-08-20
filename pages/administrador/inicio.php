@@ -76,6 +76,23 @@
                 </div>
             </a>
         </div>
+        <div class="col-md-12 col-lg-4">
+            <a href="<?= base_url ?>pages/administrador/registroconcurso/registros.php" class="tarjeta-opcion">
+                <div class="card border-light shadow-sm">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-2">
+                                <img src="<?= base_url?>dist/images/personitas.png" width="50">
+                            </div>
+                            <div class="col-10">
+                                <h5 class="card-title">Registro de Concurso</h5>
+                                <p class="card-text">Crea los concursos que se van a calificar.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
         <div class="col">
             <a href="#" class="tarjeta-opcion">
                 <div class="card border-light shadow-sm">

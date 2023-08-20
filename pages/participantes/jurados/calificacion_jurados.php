@@ -11,38 +11,53 @@
         <form action="procesar_calificacion.php" method="POST">
             <table>
                 <tr>
-                    <td><label for="nombre_banda">Nombre de la Banda:</label></td>
-                    <td><input type="" class="form-control" name="nombre_banda" required></td>
+                    <td><label for="nombre">Nombre de la Banda:</label></td>
+                    <td><select class="form-control form-control-lg" name="nombre" id="nombre">
+                    <option value="">Selecciona una opción</option>
+                    <?php 
+                    $query = $db->query("SELECT * FROM banda");
+                    $fetch_banda = $query->fetchAll(PDO::FETCH_OBJ);
+                    foreach($fetch_banda as $banda) { ?>
+                        <option value="<?= $banda->nombre ?>"><?= $banda->nombre?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+            </td>
                 </tr>
                 <tr>
-                    <td><label for="nombre_jurado">Lugar de Procendecia:</label></td>
-                    <td><input type="" class="form-control" name="nombre_jurado" required></td>
+                    <td><label for="nombre_ubicacion">Lugar de Procendecia:</label></td>
+                    <td><select class="form-control form-control-lg" name="ubicacion" id="ubicacion">
+                    <option value="">Selecciona una opción</option>
+                    <?php 
+                    $query = $db->query("SELECT * FROM banda");
+                    $fetch_banda = $query->fetchAll(PDO::FETCH_OBJ);
+                    foreach($fetch_banda as $banda) { ?>
+                        <option value="<?= $banda->ubicacion ?>"><?= $banda->ubicacion?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+            </td>
                 </tr>
                 <tr>
-                    <td><label for="nombre_jurado">Jurado:</label></td>
-                    <td><input type="" class="form-control" name="nombre_jurado" required></td>
+                    <td><label for="nombres">Jurado:</label></td>
+                    <td><select class="form-control form-control-lg" name="nombres" id="nombres">
+                    <option value="">Selecciona una opción</option>
+                    <?php 
+                    $query = $db->query("SELECT * FROM jurado");
+                    $fetch_jurado = $query->fetchAll(PDO::FETCH_OBJ);
+                    foreach($fetch_jurado as $jurado) { ?>
+                        <option value="<?= $jurado->nombres ?>"><?= $jurado->nombres?></option>
+                    <?php
+                    }
+                    ?>
+                </select></td>
                 </tr>
                 <!-- Aquí se inserta la tabla con los aspectos a evaluar -->
                 <tr>
                     <td colspan="2">
                         <table class="table table-striped-columns">
-
-
-                        <?php
-            // Datos de ejemplo de categorías
-            $calificacion_jurados = $db->prepare("select * from datosbanda where nombre_banda and lugar_procedencia");
-            $calificacion_jurados->execute();
-            $fetch_calificacion_jurados = $calificacion_jurados->fetchAll(PDO::FETCH_OBJ);
-
-
-            // Generar filas de la tabla con los datos de las categorías
-            foreach ($fetch_calificacion_jurados as $categoria) {?>
-
-            <?php
-            }
-            ?>
-
-
                             <tr>
                                 <th>Aspectos a Evaluar</th>
                                 <th>Rango</th>

@@ -1,11 +1,20 @@
-<?php require("../../../head.php"); ?>
+<!doctype html>
+<html lang="es">
+<head>
+    <?php require("../../../head.php"); ?>
 </head>
 <body>
     <?php require("../../../navbar.php");?>
 
     <div class="container mt-navbar">
-        <?php if (empty($criterios)): ?>
-            <p>Se ha realizado el cambio correctamente.</p>
+        <?php
+        // Modificar la consulta para obtener solo los criterios no eliminados
+        $stmt = $db->prepare("SELECT * FROM criterios_evaluacion WHERE eliminado = 0");
+        $stmt->execute();
+        $criterios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        if (empty($criterios)): ?>
+            <p>No se han encontrado criterios de evaluación.</p>
         <?php else: ?>
             <h3>Criterios de evaluación registrados</h3>
             <table class="table">
@@ -50,9 +59,6 @@
         
         // Función para eliminar criterio
         function eliminarCriterio(id) {
-            // Aquí puedes realizar una solicitud AJAX al servidor para eliminar el criterio
-            // y luego actualizar la tabla sin necesidad de recargar la página
-            // Por ejemplo, usando jQuery y una solicitud POST:
             $.post("eliminar_criterio.php", { id: id })
                 .done(function(data) {
                     // Si la eliminación fue exitosa, puedes recargar la tabla para actualizarla

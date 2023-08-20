@@ -25,3 +25,14 @@ ALTER TABLE `concurso` ADD `finalizado` INT NOT NULL DEFAULT '0' COMMENT '0 para
 CREATE TABLE `bandrank`.`categorias_concurso` (`id_categoria` INT NOT NULL AUTO_INCREMENT , `nombre_categoria` VARCHAR(255) NOT NULL , `eliminado` INT NOT NULL DEFAULT '0' COMMENT '0 para activo, 1 para eliminado' , PRIMARY KEY (`id_categoria`)) ENGINE = InnoDB;
 
 ALTER TABLE `concurso` ADD `id_categoria` INT NOT NULL AFTER `director`, ADD `fecha_evento` DATE NOT NULL AFTER `id_categoria`;
+
+ALTER TABLE `jurado` ADD `firma` VARCHAR(255) NULL COMMENT 'Nombre del archivo imagen de la firma' AFTER `id_concurso`;
+
+ALTER TABLE `jurado` ADD `clave` VARCHAR(255) NOT NULL AFTER `correo`;
+
+ALTER TABLE `jurado` ADD `activo` INT NOT NULL DEFAULT '1' COMMENT '1 para activo 0 para inactivo' AFTER `firma`;
+
+CREATE TABLE planilla (
+    id_planilla INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_planilla VARCHAR(255) NOT NULL
+);

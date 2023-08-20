@@ -43,6 +43,7 @@
             <tr>
                 <td><?=$concurso->nombre_concurso?></td>
                 <td><a href="../jurados/Categorias.php"<?=$concurso->id_concurso?> class="btn-bandrank">Seleccionar</a></td>
+                
             </tr>
             <?php
             }

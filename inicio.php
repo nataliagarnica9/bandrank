@@ -4,7 +4,7 @@
 
 <body>
     <div class="bloque-inicial">
-        <img src="<?=base_url?>dist/images/bandrank_isotipo_blanco.png"
+        <img src="<?=base_url?>dist/images/bandrank_isotipo.png"
             class="img-inicio animate__animated animate__backInDown">
         <h1 class="animate__animated animate__backInDown">Bienvenido</h1>
         <p class="animate__animated animate__backInUp">
@@ -13,6 +13,9 @@
         <a class="btn-bandrank animate__animated animate__backInUp" data-bs-toggle="modal" data-bs-target="#modal_autenticacion">Administrador</a>
         <a href="<?= base_url ?>pages/participantes/inicio.php"
             class="btn-bandrank animate__animated animate__backInUp">Participante</a>
+            <br><br>
+        <a href="<?= base_url ?>pages/puntuaciones.php"
+            class="btn-bandrank animate__animated animate__backInUp">Ver puntuación en tiempo real</a>
     </div>
     <!--href="<?= base_url ?>pages/administrador/inicio.php"-->
 

@@ -68,6 +68,7 @@ body {
 
 .img-logo {
     width: 100px;
+    margin-top: 10px;
 }
 
 .nav-br {
@@ -130,6 +131,7 @@ body {
     padding: 10px;
     background: #FFF;
     z-index: 100;
+    box-shadow: 0 .125rem .10rem rgba(0,0,0,.075)!important;
 }
 	
 /* Display Dropdowns on Hover */
@@ -151,6 +153,10 @@ body {
 	position: relative;
 	top:-60px; 
 	left:170px;
+}
+
+.nav-br ul ul li a{ 
+    color: #000 !important;
 }
 
 /* Change this in order to change the Dropdown symbol */
@@ -267,10 +273,8 @@ li > a:only-child:after { content: ''; }
 .bloque-inicial {
     width: 100vw;
     height: 100vh;
-    background-color: #FF751F;
     text-align: center;
     padding: 9em;
-    color: #FFFFFF;
 }
 
 .bloque-inicial h1{
@@ -284,6 +288,22 @@ li > a:only-child:after { content: ''; }
 
 .mt-navbar {
     margin-top: 6rem !important;
+}
+
+.modal-header {
+    background-color: #FF751F !important;
+}
+
+.modal-content {
+    border: 0px;
+}
+
+.modal-header .btn-close { 
+    color: #FFF !important;
+}
+
+.modal-title {
+    color: #FFF;    
 }
 
 @media screen and (min-width: 1024px){

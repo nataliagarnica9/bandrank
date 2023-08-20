@@ -2,28 +2,103 @@
 include "Jurado.php";
 
 // Valido si la peticion tiene la accion
-if(isset($_REQUEST["action"])) {
+if (isset($_REQUEST["action"])) {
     switch ($_REQUEST["action"]) {
+        case 'crear_jurado':
+            crear_jurado();
+            break;
+        case 'response':
+            response();
+            break;
         case 'guardar':
             guardar();
             break;
+        case 'datos_jurado':
+            datos_jurado();
+            break;
         default:
-            echo 'No existe una petición válida <a href="jurados.php">Regresar</a>';
+            header("location:jurados.php");
             break;
     }
 }
 
+function crear_jurado()
+{
+    include '../../../config.php';
+
+    include 'creacionJurado.php';
+}
+
 // Creo las funciones que me conectan al modelo
-function guardar() {
+function guardar()
+{
     include "../../../config.php";
 
     // Inicio el objeto del modelo
     $jurado_model = new Jurado($db);
     // Utilizo la función guardar del modelo y almaceno su valor
-    $result = $jurado_model->guardar($_POST);
-    if($result) {
+    $result = $jurado_model->guardar($_POST, $_FILES);
+    if ($result) {
         header("location:jurados.php?status=success");
     } else {
         header("location:jurados.php?message_error");
     }
+}
+
+function response()
+{
+    include '../../../config.php';
+
+    $modelo = new Jurado($db);
+    $params = $_REQUEST;
+    $response = $modelo->response($params);
+    $data = array();
+
+    foreach ($response['data'] as $i => $row) {
+        array_push($data, [
+            $row->id,
+            $row->nombre_completo,
+            $row->correo,
+            $row->nombre_concurso
+        ]);
+    }
+
+    foreach ($data as $i => $jurado) {
+
+        $data[$i][4] .= '
+                    <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="verDatosJurado(\'' . $jurado[0] . '\')">
+                    <span data-toggle="tooltip" title="Ver" class="far fa-eye"></span>
+                    </a>
+                    &nbsp;
+
+                    <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="editarDatosJurado(\'' . $jurado[0] . '\')">
+                    <span data-toggle="tooltip" title="Editar" class="fas fa-pencil-alt"></span>
+                    </a>
+                    &nbsp;
+                    
+                    <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="inactivarJurado(\'' . $jurado[0] . '\')">
+                    <span data-toggle="tooltip" title="Eliminar" class="fas fa-trash"></span>
+                    </a>
+                    &nbsp;';
+    }
+
+    $jsonData = array(
+        "draw" => intval($params['draw']),
+        "recordsTotal" => intval($response['totalTableRows']),
+        "recordsFiltered" => intval($response['totalTableRows']),
+        "data" => $data
+    );
+    echo json_encode($jsonData);
+}
+
+function datos_jurado(){
+    include "../../../config.php";
+
+    $id = $_REQUEST["id"];
+
+    // Inicio el objeto del modelo
+    $jurado_model = new Jurado($db);
+    $datos_jurado = $jurado_model->getJuradoById($id);
+
+    echo json_encode(["status"=>"success", "data"=>$datos_jurado]);
 }

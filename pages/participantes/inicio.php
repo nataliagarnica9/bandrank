@@ -67,11 +67,11 @@
                     <div class="card-body">
                     <div class="row">
                             <div class="col-2">
-                                <img src="<?= base_url?>dist/images/jurado.png" width="40">
+                                <img src="<?= base_url?>dist/images/copa.png" width="40">
                             </div>
                             <div class="col-10">
-                                <h5 class="card-title">concurso</h5>
-                                <p class="card-text">Elige el concurso</p>
+                                <h5 class="card-title">Concurso</h5>
+                                <p class="card-text">Elige el concurso al que deseas ingresar.</p>
                             </div>
                         </div>
                     </div>

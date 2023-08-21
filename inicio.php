@@ -47,7 +47,7 @@
     function comprobarAdministrador() {
         let vlr_autenticacion = $('#clave_admin').val();
         $.ajax({
-            url: 'autenticacion.php',
+            url: 'autenticacion.php?type=admin',
             type: 'POST',
             dataType: 'JSON',
             data: {

@@ -12,12 +12,12 @@ class Banda
 
     public function guardar($data) {
         try {
-            $query = $this->db->prepare("INSERT INTO banda (nombre, ubicacion, nombre_instructor, correo_instructor,categoria,id_concurso) VALUES (?, ?, ?, ?, ?, ?);");
+            $query = $this->db->prepare("INSERT INTO banda (nombre, ubicacion, nombre_instructor, correo_instructor,id_categoria,id_concurso) VALUES (?, ?, ?, ?, ?, ?);");
             $query->bindValue(1, $data["nombre"]);
             $query->bindValue(2, $data["ubicacion"]);
             $query->bindValue(3, $data["nombre_instructor"]);
             $query->bindValue(4, $data["correo_instructor"]);
-            $query->bindValue(5, $data["categoria"]);
+            $query->bindValue(5, $data["id_categoria"]);
             $query->bindValue(6, $data["id_concurso"]);
             $query->execute();
 

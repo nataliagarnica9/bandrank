@@ -85,7 +85,7 @@
                                 <img src="<?= base_url?>dist/images/personitas.png" width="50">
                             </div>
                             <div class="col-10">
-                                <h5 class="card-title">Registro de Concurso</h5>
+                                <h5 class="card-title">Registro de Categoria</h5>
                                 <p class="card-text">Crea los concursos que se van a calificar.</p>
                             </div>
                         </div>

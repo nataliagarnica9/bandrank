@@ -26,8 +26,12 @@
                 case 'eliminarPlanillaDefinitivamente':
                     eliminarPlanillaDefinitivamente();
                     break;
-                    case 'actualizar_planilla':
-                        actualizar_planilla();
+                case 'actualizar_planilla':
+                    actualizar_planilla();
+                    break;
+                case 'actualizar':
+                    actualizar();
+                    break;    
                 /*case 'editarPlanilla':
                     editarPlanilla(); 
                 break;*/
@@ -221,7 +225,6 @@ function actualizar() {
 }
 function actualizar_planilla() {    
     include '../../../config.php';
-    error_reporting(E_ALL);
 
     $planilla_model = new Planillas($db);
     $id = $_REQUEST["id"];

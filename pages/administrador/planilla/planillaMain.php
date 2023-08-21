@@ -207,20 +207,21 @@
         } */
 
         function editarPlanilla(id_planilla) {
-    $.ajax({
-        url: 'planilla_controller.php?action=actualizar_planilla',
-        dataType: 'html',
-        type: 'GET',
-        data: {
-            id: id_planilla
-        },
-        success: function(response) {
-            $('#contenedor-planillas').html(response); // Actualiza el contenido con el HTML de edición
-        },
-        error: function() {
-            console.log('Error al cargar la planilla para editar.');
-        }
-    });
+            $.ajax({
+                url: 'planilla_controller.php?action=actualizar_planilla',
+                dataType: 'html',
+                type: 'GET',
+                data: {
+                    id: id_planilla
+                },
+                success: function(response) {
+                    console.log(response);
+                    $('#contenedor-planillas').html(response); // Actualiza el contenido con el HTML de edición
+                },
+                error: function() {
+                    console.log('Error al cargar la planilla para editar.');
+                }
+            });
 }
 
         </script>

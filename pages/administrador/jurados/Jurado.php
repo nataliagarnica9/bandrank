@@ -34,10 +34,19 @@ class Jurado
             $query->bindValue(9, $nombre_imagen);
             $query->execute();
 
+            $ultimo_id = $this->db->lastInsertId();
+
+            $query_login = $this->db->prepare("INSERT INTO login (correo, clave, tipo_usuario, id_registro) VALUES (?, ?, ?, ?);");
+            $query_login->bindValue(1, $data["correo"]);
+            $query_login->bindValue(2, $data["clave"]);
+            $query_login->bindValue(3, 'jurado');
+            $query_login->bindValue(4, $ultimo_id);
+            $query_login->execute();
+
             $status = $query->errorInfo();
 
             // Valido que el código de mensaje sea válido para identificar que si se guardó el registro
-            if($status[0] == 00000) {
+            if($status[0] == '00000') {
                 return true;
             } else {
                 return false;
@@ -92,10 +101,78 @@ class Jurado
     }
 
     public function getJuradoById($id) {
-        $query = $this->db->prepare("SELECT * FROM jurado WHERE id = ?;");
+        $query = $this->db->prepare("SELECT j.*, c.nombre_concurso
+                                     FROM jurado j
+                                              INNER JOIN concurso c on j.id_concurso = c.id_concurso
+                                     WHERE j.id = ?;");
         $query->bindValue(1, $id);
         $query->execute();
 
-        return $query->fetchAll(PDO::FETCH_OBJ);
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function actualizar($data, $files) {
+        try {
+
+            if ($files['firma'] && $files['firma']['name'] != ''){
+                $nombre_imagen = $files['firma']['name'];
+                $archivo = '../../../dist/images/firmas/'.$nombre_imagen;
+                move_uploaded_file( $files['firma']['tmp_name'], $archivo);
+
+                $query_clave = $this->db->prepare("UPDATE jurado SET firma = ? WHERE id = ?");
+                $query_clave->bindValue(1, $nombre_imagen);
+                $query_clave->bindValue(2, $data["id_jurado"]);
+                $query_clave->execute();
+            }
+
+            $query = $this->db->prepare("UPDATE jurado SET documento_identificacion = ?, nombres = ?, apellidos = ?, celular = ?, correo = ?,
+                                         id_concurso = ? WHERE id = ?");
+            $query->bindValue(1, $data["documento_identificacion"]);
+            $query->bindValue(2, $data["nombres"]);
+            $query->bindValue(3, $data["apellidos"]);
+            $query->bindValue(4, $data["celular"]);
+            $query->bindValue(5, $data["correo"]);
+            $query->bindValue(6, $data["concurso"]);
+            $query->bindValue(7, $data["id_jurado"]);
+            $query->execute();
+
+            if($data["clave"] != '') {
+                $query_clave = $this->db->prepare("UPDATE jurado SET clave = ? WHERE id = ?");
+                $query_clave->bindValue(1, $data["clave"]);
+                $query_clave->bindValue(2, $data["id_jurado"]);
+                $query_clave->execute();
+            }
+
+            $status = $query->errorInfo();
+
+            // Valido que el código de mensaje sea válido para identificar que si se guardó el registro
+            if($status[0] == '00000') {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception $ex) {
+            return $ex;
+        }
+    }
+
+    public function inactivar($id) {
+        try {
+            $query = $this->db->prepare("UPDATE jurado SET activo = 0 WHERE id = ?");
+            $query->bindValue(1, $id);
+            $query->execute();
+            $status = $query->errorInfo();
+
+            // Valido que el código de mensaje sea válido para identificar que si se guardó el registro
+            if($status[0] == '00000') {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception $ex) {
+            return $ex;
+        }
     }
 }

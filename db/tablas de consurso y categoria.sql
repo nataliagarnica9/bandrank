@@ -1,1 +1,0 @@
-ALTER TABLE `banda` ADD `categoria` VARCHAR(50) NOT NULL AFTER `correo_instructor`, ADD `id_concurso` INT NOT NULL AFTER `categoria`;

@@ -11,7 +11,7 @@
             ¿A dónde deseas ingresar?
         </p>
         <a class="btn-bandrank animate__animated animate__backInUp" data-bs-toggle="modal" data-bs-target="#modal_autenticacion" onclick="detectarEnter()">Administrador</a>
-        <a href="<?= base_url ?>pages/participantes/inicio.php"
+        <a href="<?= base_url ?>pages/participantes/inicio_sesion.php"
             class="btn-bandrank animate__animated animate__backInUp">Participante</a>
             <br><br>
         <a href="<?= base_url ?>pages/puntuaciones.php"

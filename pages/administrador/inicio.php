@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es">
 <?php 
-print_r($_SESSION);
+
 require("../../head.php"); ?>
 <body>
 <?php require("../../navbar.php");?>
@@ -84,11 +84,11 @@ require("../../head.php"); ?>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-2">
-                                <img src="<?= base_url?>dist/images/personitas.png" width="50">
+                                <img src="<?= base_url?>dist/images/categorias.png" width="50">
                             </div>
                             <div class="col-10">
-                                <h5 class="card-title">Registro de Concurso</h5>
-                                <p class="card-text">Crea los concursos que se van a calificar.</p>
+                                <h5 class="card-title">Registro de categorías de concurso</h5>
+                                <p class="card-text">Crea las categorias de los concursos.</p>
                             </div>
                         </div>
                     </div>

@@ -1,1 +1,0 @@
-ALTER TABLE `banda` ADD `id_categoria` INT(10) NOT NULL AFTER `categoria`;

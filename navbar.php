@@ -2,8 +2,10 @@
 include_once('config.php');
 if(isset($_SESSION["ROL"]) && $_SESSION["ROL"] == 'admin'){
     $url_inicio = base_url. "pages/administrador/inicio.php";
+    $boton_home = '<a href="'. base_url.'inicio.php">Inicio</a>';
 } else {
     $url_inicio = base_url. "inicio.php";
+    $boton_home = '<a href="#">...</a>';
 }
 ?>
 <nav class="nav-br fixed-top mb-5">
@@ -35,6 +37,6 @@ if(isset($_SESSION["ROL"]) && $_SESSION["ROL"] == 'admin'){
         </li>
         </li>
         <li><a href="<?= base_url?>pages/puntuaciones.php">Ver en tiempo real</a></li>
-        <li><a href="#">...</a></li>
+        <li><?=$boton_home?></li>
     </ul>
 </nav>

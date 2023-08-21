@@ -20,7 +20,7 @@ class Registro
             $status = $query->errorInfo();
 
             // Valido que el código de mensaje sea válido para identificar que si se guardó el registro
-            if($status[0] == 00000) {
+            if($status[0] == '00000') {
                 return true;
             } else {
                 return false;

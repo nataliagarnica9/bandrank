@@ -17,9 +17,6 @@
                 case 'guardar':
                     guardar();
                     break;
-                case 'datos_planilla':
-                    datos_planilla();
-                    break;
                 case 'verPlanillasEliminadas':
                     verPlanillasEliminadas();
                     break;
@@ -29,9 +26,11 @@
                 case 'eliminarPlanillaDefinitivamente':
                     eliminarPlanillaDefinitivamente();
                     break;
-                case 'actualizarPlanilla':
-                    actualizarPlanilla();
-                break;
+                    case 'actualizar_planilla':
+                        actualizar_planilla();
+                /*case 'editarPlanilla':
+                    editarPlanilla(); 
+                break;*/
                 default:
                     header("location:planillaMain.php");
                     break;
@@ -98,25 +97,7 @@
             echo json_encode($jsonData);
         }
 
-        function datos_planilla()
-    {
-        include '../../../config.php';
 
-        if (isset($_GET['id'])) {
-            $id_planilla = $_GET['id'];
-
-            // Inicializa el objeto del modelo
-            $planillas_model = new Planillas($db);
-            
-            //  én los datos de la planilla utilizando la función getDatosPlanilla
-            $datos_planilla = $planillas_model->getDatosPlanilla($id_planilla);
-
-            // Devuelve los datos en formato JSON
-            echo json_encode(["status" => "success", "data" => $datos_planilla]);
-        } else {
-            echo json_encode(["status" => "error", "message" => "ID de la planilla no proporcionado"]);
-        }
-    }
         function eliminarPlanilla()
         {
             include '../../../config.php';
@@ -211,29 +192,43 @@
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-function actualizarPlanilla() {
+/* function editarPlanilla() {
     include "../../../config.php";
-    
-    if (isset($_POST['id']) && isset($_POST['nombre_planilla']) && isset($_POST['id_concurso'])) {
-        $id = $_POST['id'];
-        $nombre_planilla = $_POST['nombre_planilla'];
-        $id_concurso = $_POST['id_concurso'];
 
-        // Inicio el objeto del modelo
-        $planillas_model = new Planillas($db);
-
-        // Utilizo la función actualizarPlanilla del modelo y almaceno su valor
-        $result = $planillas_model->actualizarPlanilla($id, $nombre_planilla, $id_concurso);
-
-        if ($result) {
-            echo json_encode(['status' => 'success']);
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Error al actualizar la planilla']);
-        }
+    // Inicio el objeto del modelo
+    $planilla_model = new Planillas($db);
+    // Utilizo la función guardar del modelo y almaceno su valor
+    $result = $planilla_model->editarPlanilla($_POST, $_FILES);
+    if ($result) {
+        header("location:planillaMain.php?status=success");
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Parámetros inválidos.']);
+        header("location:planillaMain.php?message_error");
+    }
+} */
+
+function actualizar() {
+    include "../../../config.php";
+    error_reporting(E_ALL);
+
+    // Inicio el objeto del modelo
+    $planilla_model = new Planillas($db);
+    // Utilizo la función guardar del modelo y almaceno su valor
+    $result = $planilla_model->actualizar($_POST);
+    exit();
+    if ($result) {
+        header("location:planillaMain.php?status=success");
+    } else {
+        header("location:planillaMain.php?message_error");
     }
 }
+function actualizar_planilla() {    
+    include '../../../config.php';
+    error_reporting(E_ALL);
 
+    $planilla_model = new Planillas($db);
+    $id = $_REQUEST["id"];
+    $datos = $planilla_model->getPlanillaById($id);
 
-
+    include 'modificarPlanilla.php';
+    exit();
+}

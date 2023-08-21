@@ -59,22 +59,6 @@ class Planillas
         $response['countRenderRows'] = count($planillas);
         return $response;
     }
-
-    public function getDatosPlanilla($id_planilla)
-    {
-        $query = $this->db->prepare("SELECT * FROM planilla WHERE id_planilla = ?;");
-        $query->bindValue(1, $id_planilla);
-    
-        if (!$query->execute()) {
-            $errorInfo = $query->errorInfo();
-            print_r($errorInfo);
-            return false;
-        }
-    
-        return $query->fetchAll(PDO::FETCH_OBJ);
-    }
-    
-
     public function eliminarPlanilla($id_planilla)
     {
         try {
@@ -156,14 +140,39 @@ class Planillas
 }
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-public function actualizarPlanilla($id, $nombre_planilla, $id_concurso) {
+public function actualizar($data) {
     try {
-        $stmt = $this->db->prepare("UPDATE planilla SET nombre_planilla = ?, id_concurso = ? WHERE id_planilla = ?");
-        $stmt->execute([$nombre_planilla, $id_concurso, $id]);
+        $query = $this->db->prepare("UPDATE planilla SET nombre_planilla = ?, id_concurso = ? WHERE id_planilla = ?");
+        $query->bindValue(1, $data["nombre_planilla"]);
+        $query->bindValue(2, $data["id_concurso"]);
+        $query->bindValue(3, $data["id_planilla"]);
+        $query->execute();
 
-        return true;
-    } catch (PDOException $e) {
-        return false;
+        $status = $query->errorInfo();
+
+        // Valido que el código de mensaje sea válido para identificar que si se guardó el registro
+        if($status[0] == '00000') {
+            return true;
+        } else {
+            return false;
+        }
+
+    } catch (Exception $ex) {
+        return $ex;
     }
-}
+} 
+
+
+public function getPlanillaById($id) {
+    $query = $this->db->prepare("SELECT p.*, p.nombre_planilla
+                                 FROM planilla p
+                                INNER JOIN concurso c on p.id_concurso = c.id_concurso
+                                 WHERE p.id_planilla = ?;");
+    $query->bindValue(1, $id);
+    $query->execute();
+
+    return $query->fetch(PDO::FETCH_OBJ);
+    }
+
+
 }

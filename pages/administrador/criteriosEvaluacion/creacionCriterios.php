@@ -34,9 +34,8 @@
                     <select class="form-control form-control-lg" name="id_planilla" id="id_planilla" required>
                         <option value="">Selecciona una opción</option>
                         <?php
-                        $query = $db->query("SELECT id_planilla, nombre_planilla FROM planilla");
+                        $query = $db->query("SELECT id_planilla, nombre_planilla FROM planilla WHERE eliminado = 0");
                         $planillas = $query->fetchAll(PDO::FETCH_ASSOC);
-
                         foreach ($planillas as $planilla) {
                             echo '<option value="' . $planilla['id_planilla'] . '">' . $planilla['nombre_planilla'] . '</option>';
                         }

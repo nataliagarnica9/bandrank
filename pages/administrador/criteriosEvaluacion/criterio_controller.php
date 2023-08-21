@@ -8,9 +8,6 @@ if (isset($_REQUEST["action"])) {
         case 'eliminarCriterio':
             eliminarCriterio();
             break;
-        case 'crear_criterio':
-            crear_criterio();
-            break;
         case 'response':
             response();
             break;
@@ -28,15 +25,6 @@ if (isset($_REQUEST["action"])) {
             break;
         case 'eliminarCriterioDefinitivamente':
             eliminarCriterioDefinitivamente();
-            break;
-        case 'response':
-            response();
-            break;
-        case 'guardar':
-            guardar();
-            break;
-        case 'datos_criterio':
-            datos_criterio();
             break;
         default:
             header("location:criteriosMain.php");

@@ -83,6 +83,23 @@
                 },
             });
         });
+
+        function eliminarCriterio(id_criterio) {
+                    if (confirm('¿Estás seguro de que deseas eliminar esta planilla?')) {
+                        $.ajax({
+                            url: 'criterio_controller.php?action=eliminarCriterio',
+                            dataType: 'json',
+                            type: 'POST',
+                            data: { id: id_criterio }
+                        }).done(function(response) {
+                            if (response.status == 'success') {
+                                $('#tabla-criterios').DataTable().ajax.reload();
+                            } else {
+                                console.log('error');
+                            }
+                        });
+                    }
+                }
         function verCriteriosEliminados() {
             $('#btn-ver-eliminados').hide();
             $('#btn-ver-existentes').show();

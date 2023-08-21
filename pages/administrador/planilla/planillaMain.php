@@ -79,12 +79,21 @@
                             <label for="edit-nombre-planilla" class="form-label">Nombre de la planilla:</label>
                             <input type="text" class="form-control" id="edit-nombre-planilla" name="nombre_planilla">
                         </div>
-                        <div class="mb-3">
-                            <label for="edit-id-concurso" class="form-label">Concurso:</label>
-                            <select class="form-control" id="edit-id-concurso" name="id_concurso">
-                                <!-- Opciones de la lista desplegable serán llenadas dinámicamente con JavaScript -->
-                            </select>
-                        </div>
+                        <div class="row">
+                <div class="col-12 mb-3">
+                    <label for="id_concurso" class="form-label">Concurso <i class="required">*</i></label>
+                    <select class="form-control form-control-lg" name="id_concurso" id="id_concurso" required>
+                        <option value="">Selecciona una opción</option>
+                        <?php
+                        $query = $db->query("SELECT id_concurso, nombre_concurso FROM concurso WHERE eliminado = 0");
+                        $concursos = $query->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($concursos as $concurso) {
+                            echo '<option value="' . $concurso['id_concurso'] . '">' . $concurso['nombre_concurso'] . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -130,11 +139,11 @@
                     $('#modalEditarPlanilla').modal('hide');
                     $('#tabla-planillas').DataTable().ajax.reload();
                 } else {
-                    console.log('Error al guardar los cambios');
+                    console.log('Error al guardar los cambios (función guardarCambios (planillaMain.php))');
                 }
             },
             error: function() {
-                console.log('Error de conexión');
+                console.log('Error de conexión función guardarCambios (planillaMain.php)');
             }
         });
     }
@@ -251,40 +260,6 @@
         });
     }   
         </script>
-<script>
-    $(document).ready(function() {
-        cargarListaConcursos(); // Llamada para cargar la lista de concursos al cargar la página
-    });
-
-    function cargarListaConcursos() {
-        $.ajax({
-            url: 'planilla_controller.php?action=obtenerListaConcursos',
-            type: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                if (response.status === 'success') {
-                    var listaConcursos = response.data;
-                    var selectConcurso = $('#edit-id-concurso');
-
-                    selectConcurso.empty(); // Limpia las opciones actuales
-
-                    // Agrega las opciones a la lista desplegable
-                    $.each(listaConcursos, function(index, concurso) {
-                        selectConcurso.append($('<option>', {
-                            value: concurso.id_concurso,
-                            text: concurso.nombre_concurso
-                        }));
-                    });
-                } else {
-                    console.log('Error al obtener la lista de concursos');
-                }
-            },
-            error: function() {
-                console.log('Error de conexión');
-            }
-        });
-    }
-</script>
 
 
         </body>

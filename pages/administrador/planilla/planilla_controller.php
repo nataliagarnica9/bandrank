@@ -208,13 +208,11 @@
 
 function actualizar() {
     include "../../../config.php";
-    error_reporting(E_ALL);
 
     // Inicio el objeto del modelo
     $planilla_model = new Planillas($db);
     // Utilizo la función guardar del modelo y almaceno su valor
     $result = $planilla_model->actualizar($_POST);
-    exit();
     if ($result) {
         header("location:planillaMain.php?status=success");
     } else {
@@ -230,5 +228,4 @@ function actualizar_planilla() {
     $datos = $planilla_model->getPlanillaById($id);
 
     include 'modificarPlanilla.php';
-    exit();
 }

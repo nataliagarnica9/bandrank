@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-12 mb-3">
                 <label for="correo" class="form-label">Concurso <i class="required">*</i></label>
-                <select class="form-control form-control-lg" name="concurso" id="concurso">
+                <select class="form-control form-control-lg" name="id_concurso" id="id_concurso">
                     <option value="">Selecciona una opción</option>
                     <?php
                     $query = $db->query("SELECT * FROM concurso");

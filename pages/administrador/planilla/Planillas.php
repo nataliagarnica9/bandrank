@@ -155,6 +155,15 @@ class Planillas
     }
 }
 
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+public function actualizarPlanilla($id, $nombre_planilla, $id_concurso) {
+    try {
+        $stmt = $this->db->prepare("UPDATE planilla SET nombre_planilla = ?, id_concurso = ? WHERE id_planilla = ?");
+        $stmt->execute([$nombre_planilla, $id_concurso, $id]);
 
-
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
+}
 }

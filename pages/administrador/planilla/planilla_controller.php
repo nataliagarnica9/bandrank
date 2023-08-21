@@ -5,9 +5,6 @@
         // Valido si la petición tiene la acción
         if (isset($_REQUEST["action"])) {
             switch ($_REQUEST["action"]) {
-                case 'obtenerListaConcursos':
-                    obtenerListaConcursos();
-                    break;
                 case 'eliminarPlanilla':
                     eliminarPlanilla();
                     break;
@@ -32,6 +29,9 @@
                 case 'eliminarPlanillaDefinitivamente':
                     eliminarPlanillaDefinitivamente();
                     break;
+                case 'actualizarPlanilla':
+                    actualizarPlanilla();
+                break;
                 default:
                     header("location:planillaMain.php");
                     break;
@@ -209,20 +209,31 @@
             }
         }
 
-        function obtenerListaConcursos()
-    {
-        include '../../../config.php';
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-        try {
-            $sql = "SELECT id_concurso, nombre_concurso FROM concursos";
-            $stmt = $db->query($sql);
-            $concursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            echo json_encode(["status" => "success", "data" => $concursos]);
-        } catch (PDOException $e) {
-            echo json_encode(["status" => "error", "message" => "Error al obtener la lista de concursos"]);
+function actualizarPlanilla() {
+    include "../../../config.php";
+    
+    if (isset($_POST['id']) && isset($_POST['nombre_planilla']) && isset($_POST['id_concurso'])) {
+        $id = $_POST['id'];
+        $nombre_planilla = $_POST['nombre_planilla'];
+        $id_concurso = $_POST['id_concurso'];
+
+        // Inicio el objeto del modelo
+        $planillas_model = new Planillas($db);
+
+        // Utilizo la función actualizarPlanilla del modelo y almaceno su valor
+        $result = $planillas_model->actualizarPlanilla($id, $nombre_planilla, $id_concurso);
+
+        if ($result) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Error al actualizar la planilla']);
         }
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Parámetros inválidos.']);
     }
+}
 
-        
 
 

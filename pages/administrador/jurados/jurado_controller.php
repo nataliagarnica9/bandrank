@@ -56,30 +56,26 @@ function response()
 
     foreach ($response['data'] as $i => $row) {
         array_push($data, [
-            $row->id,
             $row->nombre_completo,
+            $row->documento_identificacion,
             $row->correo,
-            $row->nombre_concurso
+            $row->nombre_concurso,
+            '
+                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="verDatosJurado(\'' . $row->id . '\')">
+                <span data-toggle="tooltip" title="Ver" class="far fa-eye"></span>
+                </a>
+                &nbsp;
+
+                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="editarDatosJurado(\'' . $row->id . '\')">
+                <span data-toggle="tooltip" title="Editar" class="fas fa-pencil-alt"></span>
+                </a>
+                &nbsp;
+                
+                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="inactivarJurado(\'' . $row->id . '\')">
+                <span data-toggle="tooltip" title="Eliminar" class="fas fa-trash"></span>
+                </a>
+                &nbsp;'
         ]);
-    }
-
-    foreach ($data as $i => $jurado) {
-
-        $data[$i][4] .= '
-                    <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="verDatosJurado(\'' . $jurado[0] . '\')">
-                    <span data-toggle="tooltip" title="Ver" class="far fa-eye"></span>
-                    </a>
-                    &nbsp;
-
-                    <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="editarDatosJurado(\'' . $jurado[0] . '\')">
-                    <span data-toggle="tooltip" title="Editar" class="fas fa-pencil-alt"></span>
-                    </a>
-                    &nbsp;
-                    
-                    <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="inactivarJurado(\'' . $jurado[0] . '\')">
-                    <span data-toggle="tooltip" title="Eliminar" class="fas fa-trash"></span>
-                    </a>
-                    &nbsp;';
     }
 
     $jsonData = array(

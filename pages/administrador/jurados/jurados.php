@@ -15,7 +15,7 @@
 
             <div class="row mt-5">
                 <div class="col-12">
-                    <table class="table table-bordered table-hover mt-5" id="tabla-concurso">
+                    <table class="table table-bordered table-hover table-striped mt-5" id="tabla-concurso">
                         <thead>
                             <tr>
                                 <td><b>Nombres</b></td>
@@ -83,6 +83,23 @@
     <script>
         $(document).ready(function() {
             $('#tabla-concurso').DataTable({
+                language: {
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 de 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "lengthMenu": " Mostrar:_MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                      "first": "Primero",
+                      "last": "Ultimo",
+                      "next": "Siguiente",
+                      "previous": "Anterior"
+                    }
+                },
                 "bProcessing": true,
                 "serverSide": true,
                 "order": [

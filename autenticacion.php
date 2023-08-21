@@ -9,6 +9,7 @@ $query = $db->query("SELECT clave_administrador FROM autenticacion");
 $fetch = $query->fetch(PDO::FETCH_OBJ);
 
 if($clave == $fetch->clave_administrador) {
+    $_SESSION["ROL"] = "admin";
     echo json_encode(['status'=>'success']);
 } else {
     echo json_encode(['status'=>'error']);

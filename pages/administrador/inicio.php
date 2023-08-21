@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="es">
-<?php require("../../head.php"); ?>
+<?php 
+print_r($_SESSION);
+require("../../head.php"); ?>
 <body>
 <?php require("../../navbar.php");?>
 

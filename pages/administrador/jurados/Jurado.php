@@ -53,13 +53,15 @@ class Jurado
         $columns = array(
             0 => 'id',
             1 => 'nombre_completo',
-            2 => 'correo',
-            3 => 'concurso',
+            2 => 'documento_identificacion',
+            3 => 'correo',
+            4 => 'concurso',
         );
 
         $sql = 'SELECT
                     j.id,
                     CONCAT(j.nombres, " ", j.apellidos) AS nombre_completo,
+                    j.documento_identificacion,
                     j.correo,
                     c.nombre_concurso
                 FROM

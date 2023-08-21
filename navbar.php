@@ -1,8 +1,16 @@
+<?php
+include_once('config.php');
+if(isset($_SESSION["ROL"]) && $_SESSION["ROL"] == 'admin'){
+    $url_inicio = base_url. "pages/administrador/inicio.php";
+} else {
+    $url_inicio = base_url. "inicio.php";
+}
+?>
 <nav class="nav-br fixed-top mb-5">
     <input type="checkbox" id="nav-check">
     <div class="nav-header">
         <div class="nav-title">
-            <a href="<?=base_url?>inicio.php"><img src="<?= base_url ?>dist/images/bandrank_isologo.png"
+            <a href="<?=$url_inicio?>"><img src="<?= base_url ?>dist/images/bandrank_isologo.png"
                     alt="Logo principal" class="img-logo"></a>
         </div>
     </div>

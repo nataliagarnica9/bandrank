@@ -35,12 +35,17 @@
         </div>
         <div class="row">
             <div class="col-6 mb-3">
-                <label for="categoria" class="form-label">Categoría</label>
-                <select class="form-control form-control-lg" name="categoria" id="categoria">
+                <label for="id_categoria" class="form-label">Categoría</label>
+                <select class="form-control form-control-lg" name="id_categoria" id="id_categoria">
                     <option value="">Selecciona una opción</option>
-                    <option value="Infantil">Infantil</option>
-                    <option value="Joven">Joven</option>
-                    <option value="Profesional">Profesional</option>
+                    <?php 
+                    $query = $db->query("SELECT * FROM categorias_concurso");
+                    $fetch_categorias_concurso = $query->fetchAll(PDO::FETCH_OBJ);
+                    foreach($fetch_categorias_concurso as $categorias_concurso) { ?>
+                        <option value="<?= $categorias_concurso->id_categoria ?>"><?= $categorias_concurso->nombre_categoria?></option>
+                    <?php
+                    }
+                    ?>
                 </select>
             </div>
         </div>

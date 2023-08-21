@@ -29,7 +29,8 @@ if(isset($_SESSION["ROL"]) && $_SESSION["ROL"] == 'admin'){
                 <li><a href="<?= base_url ?>pages/administrador/jurados/jurados.php">Jurado</a></li>
                 <li><a href="<?= base_url ?>pages/administrador/bandas/bandas.php">Banda</a></li>
                 <li><a href="<?= base_url ?>pages/administrador/concurso/concursos.php">Concurso</a></li>
-                <li><a href="<?= base_url ?>pages/administrador/criteriosEvaluacion/evaluacion.php">Criterio</a></li>
+                <li><a href="<?= base_url ?>pages/administrador/criteriosEvaluacion/criteriosMain.php">Criterio</a></li>
+                <li><a href="<?= base_url ?>pages/administrador/planilla/planillaMain.php">Planilla</a></li>
             </ul>
         </li>
         </li>

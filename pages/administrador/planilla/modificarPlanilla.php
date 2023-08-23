@@ -38,5 +38,6 @@
             </div>
         </div>
         <button type="submit" class="btn-bandrank">Registrar</button>
+        <a href="planillaMain.php" class="btn">Volver</a>
     </form>
 </div>

@@ -31,11 +31,10 @@
             </div>
             <div class="row">
                 <div class="col-6 mb-3">
-                    <label for="puntaje_penalizacion" class="form-label">Puntaje de penalización <i class="required">*</i></label>
+                    <label for="puntaje_penalizacion" class="form-label">Puntaje de penalización (ingresar el valor positivo) <i class="required">*</i></label>
                     <input type="number" class="form-control form-control-lg" id="puntaje_penalizacion" name="puntaje_penalizacion" required>
                 </div>
                 <div class="col-6 mb-3">
-                    <!-- Agrega aquí los campos adicionales relacionados con las penalizaciones, si los hay -->
                 </div>
             </div>
             <button type="submit" class="btn-bandrank">Registrar</button>

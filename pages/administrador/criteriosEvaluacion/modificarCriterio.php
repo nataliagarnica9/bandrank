@@ -51,5 +51,6 @@
 </div>
 
         <button type="submit" class="btn-bandrank">Guardar Cambios</button>
+        <a href="criteriosMain.php" class="btn">Volver</a>
     </form>
 </div>

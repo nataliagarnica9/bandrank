@@ -32,11 +32,12 @@
         </div>
         <div class="row">
             <div class="col-6 mb-3">
-                <label for="puntaje_penalizacion" class="form-label">Puntaje de la penalización <i class="required">*</i></label>
+                <label for="puntaje_penalizacion" class="form-label">Puntaje de penalización (ingresar el valor positivo) <i class="required">*</i></label>
                 <input type="number" class="form-control form-control-lg" id="puntaje_penalizacion" name="puntaje_penalizacion" required value="<?= $datos->puntaje_penalizacion ?>" <?= $datos->tipo_penalizacion === 'Descalificación' ? 'readonly' : '' ?>>
             </div>
         </div>
         <button type="submit" class="btn-bandrank">Guardar Cambios</button>
+        <a href="penalizacionMain.php" class="btn">Volver</a>
     </form>
 </div>
 

@@ -19,6 +19,7 @@
                             <a id="btn-ver-existentes" class="btn-bandrank" style="display: none; padding: 6px 9px; font-size: 14px;" onclick="verPlanillasExistentes()">
                             <i class="fas fa-eye"></i> Ver existentes
                             </a>
+                            <a href="../../../pages/administrador/inicio.php" class="btn btn-secondary"  style="padding: 6px 9px; font-size: 14px;">Volver</a>
 
                             </a>
                         </h2>

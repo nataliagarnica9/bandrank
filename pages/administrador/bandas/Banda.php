@@ -23,8 +23,17 @@ class Banda
 
             $status = $query->errorInfo();
 
+            $ultimo_id = $this->db->lastInsertId();
+
+            $query_login = $this->db->prepare("INSERT INTO login (correo, clave, tipo_usuario, id_registro) VALUES (?, ?, ?, ?);");
+            $query_login->bindValue(1, $data["correo"]);
+            $query_login->bindValue(2, '1234');
+            $query_login->bindValue(3, 'instructor');
+            $query_login->bindValue(4, $ultimo_id);
+            $query_login->execute();
+
             // Valido que el código de mensaje sea válido para identificar que si se guardó el registro
-            if($status[0] == 00000) {
+            if($status[0] == '00000') {
                 return true;
             } else {
                 return false;

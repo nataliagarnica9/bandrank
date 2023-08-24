@@ -8,14 +8,26 @@
     <div class="container mt-navbar">
 
         <div id="contenedor-jurado">
+        <?php if (isset($_REQUEST["status"]) && $_REQUEST["status"] == 'success') : ?>
+            <div class="alert-band">
+                <i class="fas fa-check" style="color: #00FF00"></i> El registro se guardó y/o actualizó exitosamente.
+                <a href="jurados.php" class="btn">Aceptar</a>
+            </div>
+        <?php elseif (isset($_REQUEST["message_error"])) : ?>
+            <div class="alert-band">
+                <i class="fas fa-times" style="color:red;"></i> Ocurrió un error al realizar el registro <br>
+                <?php echo $_REQUEST["message_error"]; ?>
+                <a href="jurados.php" class="btn">Aceptar</a>
+            </div>
+        <?php endif; ?>
+
             <div class="row">
                 <h2 class="mb-5"><strong>Jurados</strong> <a onclick="crearNuevoJurado()" class="btn-bandrank" style="padding: 6px 9px;font-size: 14px;"><i class="fas fa-plus"></i> Agregar nuevo</a></h2>
-
             </div>
 
             <div class="row mt-5">
                 <div class="col-12">
-                    <table class="table table-bordered table-hover mt-5" id="tabla-concurso">
+                    <table class="table table-bordered table-hover table-striped mt-5" id="tabla-jurado">
                         <thead>
                             <tr>
                                 <td><b>Nombres</b></td>
@@ -33,7 +45,7 @@
     </div>
 
     <div class="modal" id="modalVerJurado" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Jurado</h5>
@@ -41,28 +53,20 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-4">
-                            <label class="form-label"><b>Nombres:</b> </label>
-                            <p id="nombres"></p>
+                        <div class="col-12 mb-2">
+                            <b>Nombres: </b> <span id="nombres"></span>
                         </div>
-                        <div class="col-4">
-                            <label class="form-label"><b>Documento:</b> </label>
-                            <p id="documento"></p>
+                        <div class="col-12 mb-2">
+                            <b>Documento: </b><span id="documento"></span>
                         </div>
-                        <div class="col-4">
-                            <label class="form-label"><b>Concurso: </b></label>
-                            <p id="concurso"></p>
+                        <div class="col-12 mb-2">
+                            <b>Concurso: </b><span id="concurso"></span>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-4">
-                            <label class="form-label"><b>Celular: </b></label>
-                            <p id="celular"></p>
+                        <div class="col-12 mb-2">
+                            <b>Celular: </b><span id="celular"></span>
                         </div>
-                        <div class="col-4">
-                            <label class="form-label"><b>Correo: </b></label>
-                            <p id="correo"></p>
+                        <div class="col-12 mb-2">
+                            <b>Correo: </b><span id="correo"></span>
                         </div>
                     </div>
 
@@ -82,11 +86,28 @@
     <?php require("../../../footer.php"); ?>
     <script>
         $(document).ready(function() {
-            $('#tabla-concurso').DataTable({
+            $('#tabla-jurado').DataTable({
+                language: {
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 de 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "lengthMenu": " Mostrar:_MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                      "first": "Primero",
+                      "last": "Ultimo",
+                      "next": "Siguiente",
+                      "previous": "Anterior"
+                    }
+                },
                 "bProcessing": true,
                 "serverSide": true,
                 "order": [
-                    [1, 'desc']
+                    [0, 'asc']
                 ],
                 "ajax": {
                     url: 'jurado_controller.php?action=response',
@@ -131,12 +152,43 @@
             }).done(function(response) {
                 if (response.status == 'success') {
                     $('#modalVerJurado').modal('show');
-                    $('#nombres').html(response.data[0].nombres + " " + response.data[0].apellidos);
-                    $('#documento').html(response.data[0].documento_identificacion);
-                    $('#concurso').html(response.data[0].id_concurso);
-                    $('#celular').html(response.data[0].celular);
-                    $('#correo').html(response.data[0].correo);
-                    $('#firma').attr("src","../../../dist/images/firmas/" + response.data[0].firma);
+                    $('#nombres').html(response.data.nombres + " " + response.data.apellidos);
+                    $('#documento').html(response.data.documento_identificacion);
+                    $('#concurso').html(response.data.nombre_concurso);
+                    $('#celular').html(response.data.celular);
+                    $('#correo').html(response.data.correo);
+                    $('#firma').attr("src","../../../dist/images/firmas/" + response.data.firma);
+                } else {
+                    console.log('error');
+                }
+            });
+        }
+
+        function editarDatosJurado(id_jurado) {
+            $.ajax({
+                url: 'jurado_controller.php?action=actualizar_jurado',
+                dataType: 'html',
+                type: 'GET',
+                data: {
+                    id: id_jurado
+                }
+            }).done(function(html) {
+                $('#contenedor-jurado').html(html);
+            });
+        }
+
+        function inactivarJurado(id_jurado) {
+            $.ajax({
+                url: 'jurado_controller.php?action=inactivar',
+                dataType: 'json',
+                type: 'POST',
+                data: {
+                    id: id_jurado
+                }
+            }).done(function(response) {
+                if (response.status == 'success') {
+                    console.log(response);
+                    $('#tabla-jurado').DataTable().ajax.reload();
                 } else {
                     console.log('error');
                 }

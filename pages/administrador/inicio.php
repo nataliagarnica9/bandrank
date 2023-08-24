@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="es">
-<?php require("../../head.php"); ?>
+<?php 
+
+require("../../head.php"); ?>
 <body>
 <?php require("../../navbar.php");?>
 
@@ -60,7 +62,7 @@
             </a>
         </div>
         <div class="col-md-12 col-lg-4">
-            <a href="<?= base_url ?>pages/administrador/criteriosEvaluacion/evaluacion.php" class="tarjeta-opcion">
+            <a href="<?= base_url ?>pages/administrador/criteriosEvaluacion/criteriosMain.php" class="tarjeta-opcion">
                 <div class="card border-light shadow-sm">
                     <div class="card-body">
                         <div class="row">
@@ -82,11 +84,16 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-2">
-                                <img src="<?= base_url?>dist/images/personitas.png" width="50">
+                                <img src="<?= base_url?>dist/images/categorias.png" width="50">
                             </div>
                             <div class="col-10">
+<<<<<<< HEAD
                                 <h5 class="card-title">Registro de Categoria</h5>
                                 <p class="card-text">Crea los concursos que se van a calificar.</p>
+=======
+                                <h5 class="card-title">Registro de categorías de concurso</h5>
+                                <p class="card-text">Crea las categorias de los concursos.</p>
+>>>>>>> f6f1caebbac1461533336208b398a08264998f4f
                             </div>
                         </div>
                     </div>

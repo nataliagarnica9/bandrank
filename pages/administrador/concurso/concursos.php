@@ -20,7 +20,8 @@ $bandas = count($fetch_bandas);
 
         <div id="contenedor-concursos">
             <div class="row">
-                <h2 class="mb-5"><strong>Concursos registrados</strong> <a onclick="crearNuevoConcurso()" class="btn-bandrank" style="padding: 6px 9px;font-size: 14px;"><i class="fas fa-plus"></i> Agregar nuevo</a></h2>
+                <h2 class="mb-5"><strong>Concursos registrados</strong> <a onclick="crearNuevoConcurso()" class="btn-bandrank" style="padding: 6px 9px;font-size: 14px;"><i class="fas fa-plus"></i> Agregar nuevo</a>
+                <a href="../../../pages/administrador/inicio.php" class="btn btn-secondary"  style="padding: 6px 9px; font-size: 14px;">Volver</a></h2>
                 <div class="col-4">
                     <div class="card">
                         <div class="card-body">

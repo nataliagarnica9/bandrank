@@ -5,9 +5,6 @@
         // Valido si la petición tiene la acción
         if (isset($_REQUEST["action"])) {
             switch ($_REQUEST["action"]) {
-                case 'obtenerListaConcursos':
-                    obtenerListaConcursos();
-                    break;
                 case 'eliminarPlanilla':
                     eliminarPlanilla();
                     break;
@@ -20,9 +17,6 @@
                 case 'guardar':
                     guardar();
                     break;
-                case 'datos_planilla':
-                    datos_planilla();
-                    break;
                 case 'verPlanillasEliminadas':
                     verPlanillasEliminadas();
                     break;
@@ -32,6 +26,15 @@
                 case 'eliminarPlanillaDefinitivamente':
                     eliminarPlanillaDefinitivamente();
                     break;
+                case 'actualizar_planilla':
+                    actualizar_planilla();
+                    break;
+                case 'actualizar':
+                    actualizar();
+                    break;    
+                /*case 'editarPlanilla':
+                    editarPlanilla(); 
+                break;*/
                 default:
                     header("location:planillaMain.php");
                     break;
@@ -98,25 +101,7 @@
             echo json_encode($jsonData);
         }
 
-        function datos_planilla()
-    {
-        include '../../../config.php';
 
-        if (isset($_GET['id'])) {
-            $id_planilla = $_GET['id'];
-
-            // Inicializa el objeto del modelo
-            $planillas_model = new Planillas($db);
-            
-            //  én los datos de la planilla utilizando la función getDatosPlanilla
-            $datos_planilla = $planillas_model->getDatosPlanilla($id_planilla);
-
-            // Devuelve los datos en formato JSON
-            echo json_encode(["status" => "success", "data" => $datos_planilla]);
-        } else {
-            echo json_encode(["status" => "error", "message" => "ID de la planilla no proporcionado"]);
-        }
-    }
         function eliminarPlanilla()
         {
             include '../../../config.php';
@@ -209,20 +194,41 @@
             }
         }
 
-        function obtenerListaConcursos()
-    {
-        include '../../../config.php';
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-        try {
-            $sql = "SELECT id_concurso, nombre_concurso FROM concursos";
-            $stmt = $db->query($sql);
-            $concursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            echo json_encode(["status" => "success", "data" => $concursos]);
-        } catch (PDOException $e) {
-            echo json_encode(["status" => "error", "message" => "Error al obtener la lista de concursos"]);
-        }
+/* function editarPlanilla() {
+    include "../../../config.php";
+
+    // Inicio el objeto del modelo
+    $planilla_model = new Planillas($db);
+    // Utilizo la función guardar del modelo y almaceno su valor
+    $result = $planilla_model->editarPlanilla($_POST, $_FILES);
+    if ($result) {
+        header("location:planillaMain.php?status=success");
+    } else {
+        header("location:planillaMain.php?message_error");
     }
+} */
 
-        
+function actualizar() {
+    include "../../../config.php";
 
+    // Inicio el objeto del modelo
+    $planilla_model = new Planillas($db);
+    // Utilizo la función guardar del modelo y almaceno su valor
+    $result = $planilla_model->actualizar($_POST);
+    if ($result) {
+        header("location:planillaMain.php?status=success");
+    } else {
+        header("location:planillaMain.php?message_error");
+    }
+}
+function actualizar_planilla() {    
+    include '../../../config.php';
 
+    $planilla_model = new Planillas($db);
+    $id = $_REQUEST["id"];
+    $datos = $planilla_model->getPlanillaById($id);
+
+    include 'modificarPlanilla.php';
+}

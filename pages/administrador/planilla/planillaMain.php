@@ -19,6 +19,7 @@
                             <a id="btn-ver-existentes" class="btn-bandrank" style="display: none; padding: 6px 9px; font-size: 14px;" onclick="verPlanillasExistentes()">
                             <i class="fas fa-eye"></i> Ver existentes
                             </a>
+                            <a href="../../../pages/administrador/inicio.php" class="btn btn-secondary"  style="padding: 6px 9px; font-size: 14px;">Volver</a>
 
                             </a>
                         </h2>
@@ -63,39 +64,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Modal de edición -->
-    <div class="modal" id="modalEditarPlanilla" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Editar Planilla</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="formEditarPlanilla">
-                        <input type="hidden" name="id_planilla" id="edit-id-planilla">
-                        <div class="mb-3">
-                            <label for="edit-nombre-planilla" class="form-label">Nombre de la planilla:</label>
-                            <input type="text" class="form-control" id="edit-nombre-planilla" name="nombre_planilla">
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit-id-concurso" class="form-label">Concurso:</label>
-                            <select class="form-control" id="edit-id-concurso" name="id_concurso">
-                                <!-- Opciones de la lista desplegable serán llenadas dinámicamente con JavaScript -->
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="guardarCambios()">Guardar Cambios</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
             <?php require("../../../footer.php"); ?>
             <script>
                 
@@ -117,7 +85,7 @@
                     }
                 }
 
-                function guardarCambios() {
+                /*function guardarCambios() {
         var formData = $('#formEditarPlanilla').serialize();
 
         $.ajax({
@@ -130,14 +98,14 @@
                     $('#modalEditarPlanilla').modal('hide');
                     $('#tabla-planillas').DataTable().ajax.reload();
                 } else {
-                    console.log('Error al guardar los cambios');
+                    console.log('Error al guardar los cambios (función guardarCambios (planillaMain.php))');
                 }
             },
             error: function() {
-                console.log('Error de conexión');
+                console.log('Error de conexión función guardarCambios (planillaMain.php)');
             }
         });
-    }
+    } */
 
             </script>
             <?php require("../../../footer.php"); ?>
@@ -225,66 +193,39 @@
                     });
                 }
             }
-
-            function editarPlanilla(id_planilla) {
-        // Realiza una llamada AJAX para obtener los datos de la planilla por su ID
-        $.ajax({
-            url: 'planilla_controller.php?action=datos_planilla&id=' + id_planilla,
-            type: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                if (response.status === 'success') {
-                    // Rellena los campos del formulario de edición con los datos obtenidos
-                    $('#edit-id-planilla').val(response.data.id_planilla);
-                    $('#edit-nombre-planilla').val(response.data.nombre_planilla);
-                    // Aquí puedes realizar acciones similares para otros campos del formulario
-
-                    // Abre el modal de edición
-                    $('#modalEditarPlanilla').modal('show');
-                } else {
-                    console.log('Error al obtener los datos de la planilla');
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            /*function editarPlanilla(id_planilla) {
+            $.ajax({
+                url: 'planilla_controller.php?action=actualizar_planilla',
+                dataType: 'html',
+                type: 'GET',
+                data: {
+                    id: id_planilla
                 }
-            },
-            error: function() {
-                console.log('Error de conexión');
-            }
-        });
-    }   
+            }).done(function(html) {
+                $('#contenedor-planillas').html(html);
+            });
+        } */
+
+        function editarPlanilla(id_planilla) {
+            $.ajax({
+                url: 'planilla_controller.php?action=actualizar_planilla',
+                dataType: 'html',
+                type: 'GET',
+                data: {
+                    id: id_planilla
+                },
+                success: function(response) {
+                    console.log(response);
+                    $('#contenedor-planillas').html(response); // Actualiza el contenido con el HTML de edición
+                },
+                error: function() {
+                    console.log('Error al cargar la planilla para editar.');
+                }
+            });
+}
+
         </script>
-<script>
-    $(document).ready(function() {
-        cargarListaConcursos(); // Llamada para cargar la lista de concursos al cargar la página
-    });
-
-    function cargarListaConcursos() {
-        $.ajax({
-            url: 'planilla_controller.php?action=obtenerListaConcursos',
-            type: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                if (response.status === 'success') {
-                    var listaConcursos = response.data;
-                    var selectConcurso = $('#edit-id-concurso');
-
-                    selectConcurso.empty(); // Limpia las opciones actuales
-
-                    // Agrega las opciones a la lista desplegable
-                    $.each(listaConcursos, function(index, concurso) {
-                        selectConcurso.append($('<option>', {
-                            value: concurso.id_concurso,
-                            text: concurso.nombre_concurso
-                        }));
-                    });
-                } else {
-                    console.log('Error al obtener la lista de concursos');
-                }
-            },
-            error: function() {
-                console.log('Error de conexión');
-            }
-        });
-    }
-</script>
 
 
         </body>

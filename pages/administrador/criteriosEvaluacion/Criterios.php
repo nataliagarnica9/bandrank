@@ -146,8 +146,44 @@ public function eliminarCriterioDefinitivamente($id_criterio)
     }
 }
 
-// Resto de las funciones existentes
+
+public function actualizar($data) {
+    try {
+        $query = $this->db->prepare("UPDATE criterio SET nombre_criterio = ?, rango_calificacion = ?, id_planilla = ? WHERE id_criterio = ?");
+        $query->bindValue(1, $data["nombre_criterio"]);
+        $query->bindValue(2, $data["rango_calificacion"]);
+        $query->bindValue(3, $data["id_planilla"]);
+        $query->bindValue(4, $data["id_criterio"]);
+        $query->execute();
+
+        $status = $query->errorInfo();
+
+        // Valido que el código de mensaje sea válido para identificar si se guardó el registro correctamente
+        if ($status[0] === '00000') {
+            return true;
+        } else {
+            return false;
+        }
+
+    } catch (Exception $ex) {
+        return $ex;
+    }
+} 
+
+
+public function getCriterioById($id) {
+    $query = $this->db->prepare("SELECT c.*, p.nombre_planilla
+                                 FROM criterio c
+                                 INNER JOIN planilla p ON c.id_planilla = p.id_planilla
+                                 WHERE c.id_criterio = ?");
+    $query->bindValue(1, $id);
+    $query->execute();
+
+    return $query->fetch(PDO::FETCH_OBJ);
+} 
 
 }
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 
 

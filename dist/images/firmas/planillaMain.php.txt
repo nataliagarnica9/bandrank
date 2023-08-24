@@ -1,0 +1,382 @@
+    <!doctype html>
+    <html lang="es">
+    <?php require("../../../head.php"); ?>
+
+    <body>
+        <?php require("../../../navbar.php"); ?>
+
+        <div class="container mt-navbar">
+
+            <div id="contenedor-planillas">
+                <div class="row">
+                    <h2 class="mb-5">
+                        <strong>Planillas</strong>
+                        <a href="creacionPlanilla.php" class="btn-bandrank" style="padding: 6px 9px; font-size: 14px;">
+                            <i class="fas fa-plus"></i> Agregar nueva
+                        </a>
+                        <a id="btn-ver-eliminadas" href="javascript:void(0)" class="btn-bandrank" onclick="verPlanillasEliminadas()" style="padding: 6px 9px; font-size: 14px;">
+                         <i class="fas fa-trash"></i> Ver eliminadas
+                         <a id="btn-ver-existentes" class="btn-bandrank" style="display: none; padding: 6px 9px; font-size: 14px;" onclick="verPlanillasExistentes()">
+                         <i class="fas fa-eye"></i> Ver existentes
+                        </a>
+
+                        </a>
+                    </h2>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <table class="table table-bordered table-hover mt-5" id="tabla-planillas">
+                            <thead>
+                                <tr>
+                                    <td><b>Nombre de la planilla</b></td>
+                                    <td><b>Concurso</b></td>
+                                    <td><b>Acciones</b></td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal" id="modalVerPlanilla" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Planilla</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="form-label"><b>Nombre de la planilla:</b> </label>
+                                <p id="nombre-planilla"></p>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label"><b>Concurso:</b> </label>
+                                <p id="nombre-concurso"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <?php require("../../../footer.php"); ?>
+        <script>
+            
+            //Eliminar planilla
+            function eliminarPlanilla(id_planilla) {
+                if (confirm('¿Estás seguro de que deseas eliminar esta planilla?')) {
+                    $.ajax({
+                        url: 'planilla_controller.php?action=eliminarPlanilla',
+                        dataType: 'json',
+                        type: 'POST',
+                        data: { id: id_planilla }
+                    }).done(function(response) {
+                        if (response.status == 'success') {
+                            $('#tabla-planillas').DataTable().ajax.reload();
+                        } else {
+                            console.log('error');
+                        }
+                    });
+                }
+            }
+            //Editar planilla
+            function editarPlanilla(id_planilla, id_concurso) {
+        $.ajax({
+            url: 'planilla_controller.php?action=datos_planilla&id=' + id_planilla,
+            dataType: 'json',
+            type: 'GET'
+        }).done(function(response) {
+            if (response.status === 'success') {
+                var datos = response.data[0]; // Solo toma el primer objeto del array
+
+                // Llenar los campos del formulario de edición
+                $('#id-planilla').val(datos.id_planilla);
+                $('#nombre-planilla-edit').val(datos.nombre_planilla);
+                $('#nombre-concurso-edit').val(datos.nombre_concurso);
+                $('#id-concurso').val(id_concurso); // Llenar el ID del concurso
+                // Mostrar el formulario modal de edición
+                $('#modalEditarPlanilla').modal('show');
+            } else {
+                console.log('error');
+            }
+        });
+    }
+     // Función para actualizar la planilla
+     function actualizarPlanilla() {
+        var id_planilla = $('#editar_id_planilla').val();
+        var nombre_planilla = $('#editar_nombre_planilla').val();
+        var nombre_concurso = $('#editar_nombre_concurso').val();
+
+        // Realiza la llamada AJAX para actualizar los datos de la planilla
+        $.ajax({
+            url: 'planilla_controller.php?action=actualizarPlanilla',
+            dataType: 'json',
+            type: 'POST',
+            data: {
+                id: id_planilla,
+                nombre_planilla: nombre_planilla,
+                nombre_concurso: nombre_concurso
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    // Recarga la tabla de planillas
+                    $('#tabla-planillas').DataTable().ajax.reload();
+                    // Cierra el modal de edición
+                    $('#modalEditarPlanilla').modal('hide');
+                } else {
+                    console.log('error');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log('error');
+            }
+        });
+    }
+
+        </script>
+         <?php require("../../../footer.php"); ?>
+    <script>
+        $(document).ready(function() {
+            $('#tabla-planillas').DataTable({
+                "bProcessing": true,
+                "serverSide": true,
+                "order": [
+                    [0, 'asc']
+                ],
+                "ajax": {
+                    url: 'planilla_controller.php?action=response',
+                    type: "post",
+                },
+            });
+        });
+
+        function verPlanillasEliminadas() {
+    $('#tabla-planillas').DataTable().destroy();
+    $('#tabla-planillas').DataTable({
+        "bProcessing": true,
+        "serverSide": true,
+        "order": [
+            [0, 'asc']
+        ],
+        "ajax": {
+            url: 'planilla_controller.php?action=verPlanillasEliminadas',
+            type: "post",
+        },
+    });
+
+    $('#btn-ver-eliminadas').hide();
+    $('#btn-ver-existentes').show();
+}
+function verPlanillasExistentes() {
+    $('#tabla-planillas').DataTable().destroy();
+    $('#tabla-planillas').DataTable({
+        "bProcessing": true,
+        "serverSide": true,
+        "order": [
+            [0, 'asc']
+        ],
+        "ajax": {
+            url: 'planilla_controller.php?action=response',
+            type: "post",
+        },
+    });
+
+    $('#btn-ver-existentes').hide();
+    $('#btn-ver-eliminadas').show();
+}
+
+
+        function restaurarPlanilla(id_planilla) {
+            if (confirm('¿Estás seguro de que deseas restaurar esta planilla?')) {
+                $.ajax({
+                    url: 'planilla_controller.php?action=restaurarPlanilla',
+                    dataType: 'json',
+                    type: 'POST',
+                    data: { id: id_planilla }
+                }).done(function(response) {
+                    if (response.status == 'success') {
+                        $('#tabla-planillas').DataTable().ajax.reload();
+                    } else {
+                        console.log('error');
+                    }
+                });
+            }
+        }
+
+        function eliminarPlanillaDefinitivamente(id_planilla) {
+            if (confirm('¿Estás seguro de que deseas eliminar definitivamente esta planilla?')) {
+                $.ajax({
+                    url: 'planilla_controller.php?action=eliminarPlanillaDefinitivamente',
+                    dataType: 'json',
+                    type: 'POST',
+                    data: { id: id_planilla }
+                }).done(function(response) {
+                    if (response.status == 'success') {
+                        $('#tabla-planillas').DataTable().ajax.reload();
+                    } else {
+                        console.log('error');
+                    }
+                });
+            }
+        }
+    </script>
+<!-- Modal para editar planilla -->
+<div class="modal" id="modalEditarPlanilla" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Planilla</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario de edición -->
+                <form id="formulario-editar-planilla">
+                    <input type="hidden" id="id-planilla-edit" name="id_planilla">
+                    <div class="mb-3">
+                        <label for="nombre-planilla-edit" class="form-label">Nombre de la planilla:</label>
+                        <input type="text" class="form-control" id="nombre-planilla-edit" name="nombre_planilla">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre-concurso-edit" class="form-label">Concurso:</label>
+                        <select class="form-select" id="nombre-concurso-edit" name="nombre_concurso"></select>
+                    </div>
+                    <!-- Otros campos de edición según tus necesidades -->
+                    <button type="button" class="btn btn-primary" onclick="guardarCambiosPlanilla()">Guardar cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function editarPlanilla(id_planilla) {
+    // Realiza la llamada AJAX para obtener los datos de la planilla a editar
+    $.ajax({
+        url: 'planilla_controller.php?action=datos_planilla&id=' + id_planilla,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success') {
+                // Llena los campos del formulario con los datos recibidos
+                var data = response.data[0];
+                $('#id_planilla').val(data.id_planilla);
+                $('#nombre_planilla').val(data.nombre_planilla);
+                $('#nombre_concurso').val(data.nombre_concurso);
+
+                // Abre el modal de edición
+                $('#modalEditarPlanilla').modal('show');
+            } else {
+                // Manejo del error si es necesario
+            }
+        },
+        error: function(xhr, status, error) {
+            // Manejo del error si es necesario
+        }
+    });
+}
+
+    
+</script>
+<!-- Modal para editar planilla -->
+<div class="modal" id="modalEditarPlanilla" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Planilla</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario de edición -->
+                <form id="formulario-editar-planilla">
+                    <input type="hidden" id="id-planilla-edit" name="id_planilla">
+                    <div class="mb-3">
+                        <label for="nombre-planilla-edit" class="form-label">Nombre de la planilla:</label>
+                        <input type="text" class="form-control" id="nombre-planilla-edit" name="nombre_planilla">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre-concurso-edit" class="form-label">Concurso:</label>
+                        <select class="form-select" id="nombre-concurso-edit" name="nombre_concurso"></select>
+                    </div>
+                    <!-- Otros campos de edición según tus necesidades -->
+                    <button type="button" class="btn btn-primary" onclick="guardarCambiosPlanilla()">Guardar cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function guardarCambiosPlanilla() {
+        var id_planilla = $('#id-planilla-edit').val(); // Agrega un campo oculto para guardar el ID de la planilla
+        var nombre_planilla = $('#nombre-planilla-edit').val();
+        var nombre_concurso = $('#nombre-concurso-edit').val();
+
+        // Aquí puedes realizar validaciones de los campos si es necesario
+
+        var data = {
+            id: id_planilla,
+            nombre_planilla: nombre_planilla,
+            nombre_concurso: nombre_concurso
+            // Agrega otros campos según tus necesidades
+        };
+
+        $.ajax({
+            url: 'planilla_controller.php?action=   ',
+            dataType: 'json',
+            type: 'POST',
+            data: data
+        }).done(function(response) {
+            if (response.status === 'success') {
+                // Recarga la tabla de planillas
+                $('#tabla-planillas').DataTable().ajax.reload();
+                // Cierra el modal de edición
+                $('#modalEditarPlanilla').modal('hide');
+            } else {
+                console.log('error');
+            }
+        });
+    }
+
+
+    // Función para cargar la lista de concursos en el <select> de edición
+function cargarListaConcursosEditar() {
+    $.ajax({
+        url: 'planilla_controller.php?action=obtenerConcursos', // Asegúrate de tener esta acción en tu controlador
+        dataType: 'json',
+        type: 'GET',
+        success: function(response) {
+            if (response.status === 'success') {
+                var opcionesConcursos = response.data;
+                var selectConcursos = $('#nombre-concurso-edit');
+                
+                // Llena el <select> con las opciones de concursos
+                selectConcursos.empty();
+                $.each(opcionesConcursos, function(index, concurso) {
+                    selectConcursos.append($('<option>').text(concurso.nombre_concurso).val(concurso.id_concurso));
+                });
+            } else {
+                console.log('error');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log('error');
+        }
+    });
+}
+
+// Llama a la función de carga de concursos al abrir el modal de edición
+$('#modalEditarPlanilla').on('show.bs.modal', function(event) {
+    cargarListaConcursosEditar();
+});
+
+</script>
+
+    </body>
+    </html>

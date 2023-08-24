@@ -79,6 +79,7 @@
         </div>
 
         <button type="submit" class="btn-bandrank">Registrar</button>
+        <a href="../../../pages/administrador/inicio.php" class="btn btn-secondary" >Volver</a>
     </form>
 
 </div>

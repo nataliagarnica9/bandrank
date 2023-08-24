@@ -87,13 +87,8 @@ require("../../head.php"); ?>
                                 <img src="<?= base_url?>dist/images/categorias.png" width="50">
                             </div>
                             <div class="col-10">
-<<<<<<< HEAD
-                                <h5 class="card-title">Registro de Categoria</h5>
-                                <p class="card-text">Crea los concursos que se van a calificar.</p>
-=======
                                 <h5 class="card-title">Registro de categorías de concurso</h5>
                                 <p class="card-text">Crea las categorias de los concursos.</p>
->>>>>>> f6f1caebbac1461533336208b398a08264998f4f
                             </div>
                         </div>
                     </div>

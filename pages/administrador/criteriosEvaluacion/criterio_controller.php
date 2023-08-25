@@ -26,6 +26,12 @@ if (isset($_REQUEST["action"])) {
         case 'eliminarCriterioDefinitivamente':
             eliminarCriterioDefinitivamente();
             break;
+            case 'actualizar':
+                actualizar();
+                break;
+                case 'actualizar_criterio':
+                    actualizar_criterio();
+                    break;
         default:
             header("location:criteriosMain.php");
             break;
@@ -66,7 +72,7 @@ function response()
             $row->rango_calificacion,
             $row->nombre_planilla,
             '
-                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="editarDatosCriterio(\'' . $row->id_criterio . '\')">
+                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="editarCriterio(\'' . $row->id_criterio . '\')">
                     <span data-toggle="tooltip" title="Editar" class="fas fa-pencil-alt"></span>
                 </a>
                 &nbsp;
@@ -190,4 +196,27 @@ function datos_criterio()
 
     echo json_encode(["status" => "success", "data" => $datos_criterio]);
 }
+
+function actualizar() {
+    include "../../../config.php";
+
+    // Inicio el objeto del modelo
+    $criterio_model = new Criterios($db);
+    // Utilizo la función guardar del modelo y almaceno su valor
+    $result = $criterio_model->actualizar($_POST);
+    if ($result) {
+        header("location:criteriosMain.php?status=success");
+    } else {
+        header("location:criteriosMain.php?message_error");
+    }
+}
+function actualizar_criterio() {    
+    include '../../../config.php';
+
+    $criterio_model = new Criterios($db);
+    $id = $_REQUEST["id"];
+    $datos = $criterio_model->getCriterioById($id);
+
+    include 'modificarCriterio.php';
+} 
 ?>

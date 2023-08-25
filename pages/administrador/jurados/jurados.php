@@ -22,7 +22,8 @@
         <?php endif; ?>
 
             <div class="row">
-                <h2 class="mb-5"><strong>Jurados</strong> <a onclick="crearNuevoJurado()" class="btn-bandrank" style="padding: 6px 9px;font-size: 14px;"><i class="fas fa-plus"></i> Agregar nuevo</a></h2>
+                <h2 class="mb-5"><strong>Jurados</strong> <a onclick="crearNuevoJurado()" class="btn-bandrank" style="padding: 6px 9px;font-size: 14px;"><i class="fas fa-plus"></i> Agregar nuevo</a>
+                <a href="../../../pages/administrador/inicio.php" class="btn btn-secondary"  style="padding: 6px 9px; font-size: 14px;">Volver</a></h2>
             </div>
 
             <div class="row mt-5">

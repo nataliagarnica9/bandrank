@@ -3,6 +3,7 @@
 <?php require("../../../head.php"); ?>
 
 <body>
+    
     <?php require("../../../navbar.php"); ?>
 
     <div class="container mt-navbar">
@@ -20,6 +21,7 @@
                     <a id="btn-ver-existentes" class="btn-bandrank" style="display: none; padding: 6px 9px; font-size: 14px;" onclick="verCriteriosExistentes()">
                         <i class="fas fa-eye"></i> Ver existentes
                     </a>
+                    <a href="../../../pages/administrador/inicio.php" class="btn btn-secondary"  style="padding: 6px 9px; font-size: 14px;">Volver</a>
                 </h2>
             </div>
 
@@ -168,9 +170,28 @@
                 });
             }
         }
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
+function editarCriterio(id_criterio) {
+            $.ajax({
+                url: 'criterio_controller.php?action=actualizar_criterio',
+                dataType: 'html',
+                type: 'GET',
+                data: {
+                    id: id_criterio
+                },
+                success: function(response) {
+                    console.log(response);
+                    $('#contenedor-criterios').html(response); // Actualiza el contenido con el HTML de edición
+                },
+                error: function() {
+                    console.log('Error al cargar el criterio para editar.');
+                }
+            });
+}
     </script>
+
+
 
 </body>
 </html>

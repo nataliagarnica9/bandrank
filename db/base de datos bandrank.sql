@@ -79,7 +79,7 @@ CREATE TABLE criterio (
     FOREIGN KEY (id_planilla) REFERENCES planilla(id_planilla)
 );
 
-/*---------------------------------- Tabla criterios de evaluación -------------------------------------------------------------- */
+/*---------------------------------- Tabla login-------------------------------------------------------------- */
 
 create table login
 (
@@ -90,4 +90,13 @@ create table login
     id_registro  int          not null comment 'Almacena el id en la tabla de jurado o de banda',
     constraint login_pk
         primary key (id_login)
+);
+/*---------------------------------- Tabla penalizacion -------------------------------------------------------------- */
+
+CREATE TABLE penalizacion (
+    id_penalizacion INT PRIMARY KEY AUTO_INCREMENT,
+    descripcion_penalizacion VARCHAR(255) NOT NULL,
+    tipo_penalizacion ENUM('Resta', 'Descalificación') NOT NULL,
+    puntaje_penalizacion INT DEFAULT 0,
+    eliminado TINYINT NOT NULL DEFAULT 0
 );

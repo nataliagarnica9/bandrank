@@ -162,6 +162,11 @@ body {
 /* Change this in order to change the Dropdown symbol */
 li > a:only-child:after { content: ''; }
 
+.saludo-usuario {
+    text-align: center;
+    font-size: 23px;
+}
+
 @media (max-width: 480px) {
     .nav-br {
         padding: 1rem;

@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php require("head.php"); ?>
+<?php 
+require("head.php");
+// realizo la destrucción de la sesión para evitar cruces de información
+session_destroy();
+ ?>
 
 <body>
     <div class="bloque-inicial">

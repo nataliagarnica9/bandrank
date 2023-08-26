@@ -46,7 +46,7 @@ class PlanillaExporte {
     }
 
     protected function getJurado() {
-        $sel_jurado = $this->db->prepare("SELECT * FROM jurado WHERE id = ?");
+        $sel_jurado = $this->db->prepare("SELECT * FROM jurado WHERE id_jurado = ?");
         $sel_jurado->bindValue(1, $this->id_jurado);
         $sel_jurado->execute();
         $fetch_jurado = $sel_jurado->fetch(PDO::FETCH_OBJ);

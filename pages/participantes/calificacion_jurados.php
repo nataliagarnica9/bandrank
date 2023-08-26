@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-<?php require("../../../head.php"); ?>
+<?php require("../../head.php"); ?>
 
 <body>
-    <?php require("../../../navbar.php"); ?>
+    <?php require("../../navbar.php"); ?>
 
     <div class="container mt-navbar">
         <h3>Cuadro de Calificación de Bandas Marciales</h3>

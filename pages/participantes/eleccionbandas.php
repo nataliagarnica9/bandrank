@@ -17,8 +17,9 @@
         <tbody>
             <?php
             // Datos de ejemplo de categorías
-            $banda = $db->prepare("select * from banda where clave = ?");
-            $banda->bindValue(1,$_REQUEST["banda"]);
+            $banda = $db->prepare("select * from banda where id_concurso = ? and id_categoria = ?");
+            $banda->bindValue(1,$_REQUEST["concurso"]);
+            $banda->bindValue(2,$_REQUEST["categoria"]);
             $banda->execute();
             $fetch_banda = $banda->fetchAll(PDO::FETCH_OBJ);
 
@@ -27,7 +28,7 @@
             foreach ($fetch_banda as $banda) {?>
             <tr>
                 <td><?=$banda->nombre?></td>
-                <td><a href="../eleccionbandas.php?banda=<?=$_REQUEST['banda']?>&banda=<?=$banda->nombre?>" class="btn-bandrank">Seleccionar</a></td>
+                <td><a href="eleccionplanilla.php?concurso=<?=$_REQUEST['concurso']?>&categoria=<?=$_REQUEST["categoria"]?>&banda=<?=$banda->id_banda?>" class="btn-bandrank">Seleccionar</a></td>
                 
             </tr>
 

@@ -12,7 +12,7 @@
             <?php
                 switch($_SESSION["ROL"]) {
                     case 'jurado':
-                        $query = $db->prepare("SELECT CONCAT(nombres, ' ', apellidos) as nombre FROM jurado WHERE id = ?");
+                        $query = $db->prepare("SELECT CONCAT(nombres, ' ', apellidos) as nombre FROM jurado WHERE id_jurado = ?");
                         break;
                     case 'instructor':
                         $query = $db->prepare("SELECT nombre_instructor as nombre FROM banda WHERE id_banda = ?");

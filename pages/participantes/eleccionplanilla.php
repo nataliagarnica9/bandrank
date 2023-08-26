@@ -27,7 +27,7 @@
             foreach ($fetch_planilla as $planilla) {?>
             <tr>
                 <td><?=$planilla->nombre_planilla?></td>
-                <td><a href="calificacion_jurados.php?concurso=<?=$_REQUEST['concurso']?>&categoria=<?=$_REQUEST["categoria"]?>&banda=<?=$_REQUEST["banda"]?>" class="btn-bandrank">Seleccionar</a></td>
+                <td><a href="calificacion_jurados.php?concurso=<?=$_REQUEST['concurso']?>&categoria=<?=$_REQUEST["categoria"]?>&banda=<?=$_REQUEST["banda"]?>&planilla=<?=$_REQUEST["id_planilla"]?>" class="btn-bandrank">Seleccionar</a></td>
                 
             </tr>
 

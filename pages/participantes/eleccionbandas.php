@@ -17,17 +17,17 @@
         <tbody>
             <?php
             // Datos de ejemplo de categorías
-            $categorias = $db->prepare("select * from banda where id_categoria = ?");
-            $categorias->bindValue(1,$_REQUEST["categoria"]);
-            $categorias->execute();
-            $fetch_categorias = $categorias->fetchAll(PDO::FETCH_OBJ);
+            $banda = $db->prepare("select * from banda where clave = ?");
+            $banda->bindValue(1,$_REQUEST["banda"]);
+            $banda->execute();
+            $fetch_banda = $banda->fetchAll(PDO::FETCH_OBJ);
 
 
             // Generar filas de la tabla con los datos de las categorías
-            foreach ($fetch_categorias as $categoria) {?>
+            foreach ($fetch_banda as $banda) {?>
             <tr>
-                <td><?=$categoria->nombre?></td>
-                <td><a href="../participantes/jurados/calificacion_jurados.php"<?=$concurso->id_concurso?> class="btn-bandrank">Seleccionar</a></td>
+                <td><?=$banda->nombre?></td>
+                <td><a href="../eleccionbandas.php?banda=<?=$_REQUEST['banda']?>&banda=<?=$banda->nombre?>" class="btn-bandrank">Seleccionar</a></td>
                 
             </tr>
 

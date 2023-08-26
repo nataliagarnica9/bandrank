@@ -63,6 +63,12 @@
         </div>
         <div class="row">
             <div class="col-6 mb-3">
+                <label for="clave" class="form-label">Clave<i class="required">*</i></label>
+                <input type="password" class="form-control form-control-lg" name="clave" id="clave" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 mb-3">
                 <label for="correo" class="form-label">Concurso <i class="required">*</i></label>
                 <select class="form-control form-control-lg" name="id_concurso" id="id_concurso">
                     <option value="">Selecciona una opción</option>

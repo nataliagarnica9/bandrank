@@ -25,7 +25,7 @@ ALTER TABLE `jurado` ADD `activo` INT NOT NULL DEFAULT '1' COMMENT '1 para activ
 
 /*---------------------------------- Tabla concurso ------------------------------------------------------ */
 
-CREATE TABLE `bandrank`.`concurso` (`id_concurso` INT(11) NOT NULL AUTO_INCREMENT , `nombre_concurso` VARCHAR(255) NOT NULL , `ubicacion` VARCHAR(255) NOT NULL , `director` VARCHAR(255) NOT NULL , PRIMARY KEY (`id_concurso`)) ENGINE = InnoDB;
+CREATE TABLE `concurso` (`id_concurso` INT(11) NOT NULL AUTO_INCREMENT , `nombre_concurso` VARCHAR(255) NOT NULL , `ubicacion` VARCHAR(255) NOT NULL , `director` VARCHAR(255) NOT NULL , PRIMARY KEY (`id_concurso`)) ENGINE = InnoDB;
 
 ALTER TABLE `concurso` ADD `eliminado` INT(1) NOT NULL AFTER `director`;
 
@@ -35,15 +35,15 @@ ALTER TABLE `concurso` ADD `id_categoria` INT NOT NULL AFTER `director`, ADD `fe
 
 /*---------------------------------- Tabla categorias concurso ------------------------------------------------------ */
 
-CREATE TABLE `bandrank`.`categorias_concurso` (`id_categoria` INT NOT NULL AUTO_INCREMENT , `nombre_categoria` VARCHAR(255) NOT NULL , `eliminado` INT NOT NULL DEFAULT '0' COMMENT '0 para activo, 1 para eliminado' , PRIMARY KEY (`id_categoria`)) ENGINE = InnoDB;
+CREATE TABLE `categorias_concurso` (`id_categoria` INT NOT NULL AUTO_INCREMENT , `nombre_categoria` VARCHAR(255) NOT NULL , `eliminado` INT NOT NULL DEFAULT '0' COMMENT '0 para activo, 1 para eliminado' , PRIMARY KEY (`id_categoria`)) ENGINE = InnoDB;
 
 /*---------------------------------- Tabla de autenticación ------------------------------------------------------ */
 
-CREATE TABLE `bandrank`.`autenticacion` (`clave_administrador` VARCHAR(50) NULL ) ENGINE = InnoDB;
+CREATE TABLE `autenticacion` (`clave_administrador` VARCHAR(50) NULL ) ENGINE = InnoDB;
 
 /*---------------------------------- Tabla banda ----------------------------------------------------------------- */
 
-CREATE TABLE `bandrank`.`banda` (
+CREATE TABLE `banda` (
     `id_banda` INT(11) NOT NULL AUTO_INCREMENT ,
     `nombre` VARCHAR(50) NOT NULL ,
     `ubicacion` VARCHAR(50) NOT NULL ,
@@ -55,21 +55,6 @@ CREATE TABLE `bandrank`.`banda` (
 ALTER TABLE `banda` ADD `id_categoria` INT(10) NOT NULL;
 
 ALTER TABLE `banda` ADD `id_concurso` INT NOT NULL AFTER `id_categoria`;
-
-/*---------------------------------- Tabla categoria concurso ----------------------------------------------------------------- */
-
-CREATE TABLE `categorias_concurso` (
-  `id_categoria` int(11) NOT NULL,
-  `nombre_categoria` varchar(255) NOT NULL,
-  `eliminado` int(11) NOT NULL DEFAULT 0 COMMENT '0 para activo, 1 para eliminado'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-ALTER TABLE `categorias_concurso`
-  ADD PRIMARY KEY (`id_categoria`);
-
-ALTER TABLE `categorias_concurso`
-MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-COMMIT;
 
 /*---------------------------------- Tabla planilla -------------------------------------------------------------- */
 

@@ -36,7 +36,7 @@ class Banda
             $ultimo_id = $this->db->lastInsertId();
 
             $query_login = $this->db->prepare("INSERT INTO login (correo, clave, tipo_usuario, id_registro) VALUES (?, ?, ?, ?);");
-            $query_login->bindValue(1, $data["correo"]);
+            $query_login->bindValue(1, $data["correo_instructor"]);
             $query_login->bindValue(2, $data["clave"]);
             $query_login->bindValue(3, 'instructor');
             $query_login->bindValue(4, $ultimo_id);

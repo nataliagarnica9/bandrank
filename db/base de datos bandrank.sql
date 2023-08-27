@@ -56,6 +56,25 @@ ALTER TABLE `banda` ADD `id_categoria` INT(10) NOT NULL;
 
 ALTER TABLE `banda` ADD `id_concurso` INT NOT NULL AFTER `id_categoria`;
 
+alter table banda
+    modify nombre varchar(255) not null;
+
+alter table banda
+    modify ubicacion varchar(255) not null;
+
+alter table banda
+    modify nombre_instructor varchar(255) not null;
+
+alter table banda
+    modify correo_instructor varchar(255) not null;
+
+alter table banda
+    add clave varchar(255) null after correo_instructor;
+
+ALTER TABLE `banda` ADD `firma` VARCHAR(255) NOT NULL AFTER `clave`;
+
+ALTER TABLE `banda` DROP `categoria`;
+
 /*---------------------------------- Tabla planilla -------------------------------------------------------------- */
 
 CREATE TABLE planilla (
@@ -101,21 +120,28 @@ CREATE TABLE penalizacion (
     eliminado TINYINT NOT NULL DEFAULT 0
 );
 
+/*---------------------------------- Tabla encabezado_calificacion -------------------------------------------------------------- */
 
-/*---------------------------------- Tabla observaciones -------------------------------------------------------------- */
+CREATE TABLE `encabezado_calificacion` (
+  `id_calificacion` int(10) NOT NULL,
+  `id_jurado` int(10) NOT NULL,
+  `id_concurso` int(10) NOT NULL,
+  `id_planilla` int(10) NOT NULL,
+  `total_calificacion` int(10) NOT NULL,
+  `observaciones` varchar(255) DEFAULT NULL,
+  `id_banda` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+/*---------------------------------- Tabla detalle_calificacion-------------------------------------------------------------- */
+CREATE TABLE `detalle_calificacion` (
+  `id_detallecalificacion` int(10) NOT NULL,
+  `id_calificacion` int(10) NOT NULL,
+  `id_criterioevaluacion` int(10) NOT NULL,
+  `puntaje` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 ALTER TABLE `encabezado_calificacion` ADD `observaciones` VARCHAR(255) NULL AFTER `total_calificacion`;
 
-
-/*---------------------------------- Tabla observaciones -------------------------------------------------------------- */
-
-
 ALTER TABLE `encabezado_calificacion` ADD `id_banda` INT NOT NULL AFTER `observaciones`;
-
-
-/*---------------------------------- adicion tabla firma en banda -------------------------------------------------------------- */
-
-
-
-ALTER TABLE `banda` ADD `firma` VARCHAR(255) NOT NULL AFTER `clave`;

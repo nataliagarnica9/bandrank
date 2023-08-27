@@ -1,1 +1,0 @@
-ALTER TABLE `banda` DROP `categoria`;

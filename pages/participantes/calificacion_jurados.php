@@ -46,7 +46,7 @@
                     $consulta3->bindValue(1,$_SESSION["ID_USUARIO"]);
                     $consulta3->execute();
                     $fetch_consulta3 = $consulta3->fetch(PDO::FETCH_OBJ);
-                    echo $fetch_consulta3->nombres;
+                    echo $fetch_consulta3->nombres." ".$fetch_consulta3->apellidos;
                     ?>
                     </td>
                 </tr>
@@ -61,11 +61,15 @@
                                        $consulta1_1->bindValue(1,$_REQUEST["planilla"]);
                                        $consulta1_1->execute();
                                        $fetch_consulta1_1 = $consulta1_1->fetchAll(PDO::FETCH_OBJ);
-                                      foreach ($fetch_consulta1_1 as $planilla) {?>
+                                       ?>
+                                       <input type="hidden" name="numerodecriterios" value="<?=count($fetch_consulta1_1)?>">
+                                       <?php
+                                      foreach ($fetch_consulta1_1 as $i=>$planilla) {?>
                 <tr>
                     <td><?=$planilla->nombre_criterio?></td>
                     <td>0-<?=$planilla->rango_calificacion?></td>
-                    <td><input type="number" min="0" max="<?=$planilla->rango_calificacion?>" step="0.1" name="id_calificacion"><input type="hidden" name="id_criterioevaluacion" value="<?=$planilla->id_criterio?>"></td>
+                    <td><input type="number" min="0" max="<?=$planilla->rango_calificacion?>" step="0.1" name="puntaje-<?=$i?>">
+                    <input type="hidden" name="id_criterioevaluacion-<?=$i?>" value="<?=$planilla->id_criterio?>"></td>
                 </tr>
                 <?php
                                         }

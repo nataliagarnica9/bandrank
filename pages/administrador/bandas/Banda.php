@@ -10,9 +10,17 @@ class Banda
         $this->db = $db;
     }
 
-    public function guardar($data) {
+    public function guardar($data, $files) {
         try {
-            $query = $this->db->prepare("INSERT INTO banda (nombre, ubicacion, nombre_instructor, correo_instructor,id_categoria,id_concurso,clave) VALUES (?, ?, ?, ?, ?, ?,?);");
+            $nombre_imagen = "";
+
+            if ($files['firma'] && $files['firma']['name'] != ''){
+                $nombre_imagen = $files['firma']['name'];
+                $archivo = '../../../dist/images/firmas/'.$nombre_imagen;
+                move_uploaded_file( $files['firma']['tmp_name'], $archivo);
+            }
+
+            $query = $this->db->prepare("INSERT INTO banda (nombre, ubicacion, nombre_instructor, correo_instructor,id_categoria,id_concurso,clave, firma) VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
             $query->bindValue(1, $data["nombre"]);
             $query->bindValue(2, $data["ubicacion"]);
             $query->bindValue(3, $data["nombre_instructor"]);
@@ -20,6 +28,7 @@ class Banda
             $query->bindValue(5, $data["id_categoria"]);
             $query->bindValue(6, $data["id_concurso"]);
             $query->bindValue(7, $data["clave"]);
+            $query->bindValue(8, $nombre_imagen);
             $query->execute();
 
             $status = $query->errorInfo();

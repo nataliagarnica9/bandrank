@@ -83,6 +83,14 @@
                 </select>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12 mb-3">
+                <div class="mb-3">
+                <label for="firma" class="form-label">Firma </label>
+                    <input class="form-control" type="file" id="firma" name="firma">
+                </div>
+            </div>
+        </div>
 
         <button type="submit" class="btn-bandrank">Registrar</button>
         <a href="../../../pages/administrador/inicio.php" class="btn btn-secondary" >Volver</a>

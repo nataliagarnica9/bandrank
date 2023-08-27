@@ -106,3 +106,16 @@ CREATE TABLE penalizacion (
 
 
 ALTER TABLE `encabezado_calificacion` ADD `observaciones` VARCHAR(255) NULL AFTER `total_calificacion`;
+
+
+/*---------------------------------- Tabla observaciones -------------------------------------------------------------- */
+
+
+ALTER TABLE `encabezado_calificacion` ADD `id_banda` INT NOT NULL AFTER `observaciones`;
+
+
+/*---------------------------------- adicion tabla firma en banda -------------------------------------------------------------- */
+
+
+
+ALTER TABLE `banda` ADD `firma` VARCHAR(255) NOT NULL AFTER `clave`;

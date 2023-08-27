@@ -20,7 +20,7 @@ function guardar() {
     // Inicio el objeto del modelos
     $banda_model = new Banda($db);
     // Utilizo la función guardar del modelo y almaceno su valor
-    $result = $banda_model->guardar($_POST);
+    $result = $banda_model->guardar($_POST, $_FILES);
     if($result) {
         header("location:bandas.php?status=success");
     } else {

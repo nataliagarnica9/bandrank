@@ -100,3 +100,9 @@ CREATE TABLE penalizacion (
     puntaje_penalizacion INT DEFAULT 0,
     eliminado TINYINT NOT NULL DEFAULT 0
 );
+
+
+/*---------------------------------- Tabla observaciones -------------------------------------------------------------- */
+
+
+ALTER TABLE `encabezado_calificacion` ADD `observaciones` VARCHAR(255) NULL AFTER `total_calificacion`;

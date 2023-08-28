@@ -12,9 +12,8 @@ class Registro
 
     public function guardar($data) {
         try {
-            $query = $this->db->prepare("INSERT INTO categorias_concurso (nombre_categoria ,id_concurso) VALUES (?, ?);");
+            $query = $this->db->prepare("INSERT INTO categorias_concurso (nombre_categoria) VALUES (?);");
             $query->bindValue(1, $data["nombre_categoria"]);
-            $query->bindValue(2, $data["id_concurso"]);
             $query->execute();
 
             $status = $query->errorInfo();

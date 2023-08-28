@@ -12,37 +12,45 @@
             <?php
                 switch($_SESSION["ROL"]) {
                     case 'jurado':
-                        $query = $db->prepare("SELECT CONCAT(nombres, ' ', apellidos) as nombre FROM jurado WHERE id_jurado = ?");
+                        $query = $db->prepare("SELECT CONCAT(j.nombres, ' ', j.apellidos) AS nombre, c.nombre_concurso AS nombre_concurso
+                                               FROM jurado j
+                                                        INNER JOIN concurso c ON j.id_concurso = c.id_concurso
+                                               WHERE j.id_jurado = ?");
                         break;
                     case 'instructor':
-                        $query = $db->prepare("SELECT nombre_instructor as nombre FROM banda WHERE id_banda = ?");
+                        $query = $db->prepare("SELECT b.nombre_instructor AS nombre, c.nombre_concurso
+                                               FROM banda b
+                                                        INNER JOIN concurso c ON b.id_concurso = c.id_concurso
+                                               WHERE b.id_banda = ?");
                         break;    
                 }
                 $query->bindValue(1,$_SESSION["ID_USUARIO"]);
                 $query->execute();
                 $fetch_usuario = $query->fetch(PDO::FETCH_OBJ);
 
-                echo '<span style="color:#FF914D">'.$fetch_usuario->nombre. '</span><br> Ingresaste como ' . $_SESSION["ROL"];
+                echo '<span style="color:#FF914D">'.$fetch_usuario->nombre. '</span><br> Ingresaste como ' . $_SESSION["ROL"] . ' al concurso '. $fetch_usuario->nombre_concurso;
             ?>
         </p>
         <div class="row row-cols-1 row-cols-md-3 g-4 m-5">
-            <div class="col">
-                <a href="<?= base_url ?>pages/participantes/jurados/Categorias.php?concurso=<?=$_SESSION["ID_CONCURSO"]?>" class="tarjeta-opcion">
-                    <div class="card border-light shadow-sm">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-2">
-                                    <img src="<?= base_url ?>dist/images/copa.png" width="40">
-                                </div>
-                                <div class="col-10">
-                                    <h5 class="card-title">Concurso</h5>
-                                    <p class="card-text">Elige el concurso al que deseas ingresar.</p>
+            <?php if($_SESSION["ROL"] == 'jurado'): ?>
+                <div class="col">
+                    <a href="<?= base_url ?>pages/participantes/Categorias.php?concurso=<?=$_SESSION["ID_CONCURSO"]?>" class="tarjeta-opcion">
+                        <div class="card border-light shadow-sm">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="<?= base_url ?>dist/images/copa.png" width="40">
+                                    </div>
+                                    <div class="col-10">
+                                        <h5 class="card-title">Concurso</h5>
+                                        <p class="card-text">Elige el concurso al que deseas ingresar.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            <?php endif; ?>
             <div class="col">
                 <a href="javascript:void(0)" onclick="parametrosExporte()" class="tarjeta-opcion">
                     <div class="card border-light shadow-sm">
@@ -83,8 +91,14 @@
                                     <option value="">Seleccionar</option>
                                     <?php
                                         // Obtengo las bandas del concurso
-                                        $sel_bandas = $db->prepare("SELECT id_banda, nombre FROM banda WHERE id_concurso = ?");
-                                        $sel_bandas->bindValue(1, $_SESSION["ID_CONCURSO"]);
+                                        if($_SESSION["ROL"] == 'instructor') {
+                                            $sel_bandas = $db->prepare("SELECT id_banda, nombre FROM banda WHERE id_concurso = ? AND id_banda = ?");
+                                            $sel_bandas->bindValue(1, $_SESSION["ID_CONCURSO"]);
+                                            $sel_bandas->bindValue(2, $_SESSION["ID_USUARIO"]);
+                                        } else {
+                                            $sel_bandas = $db->prepare("SELECT id_banda, nombre FROM banda WHERE id_concurso = ?");
+                                            $sel_bandas->bindValue(1, $_SESSION["ID_CONCURSO"]);
+                                        }
                                         $sel_bandas->execute();
 
                                         $fetch_banda = $sel_bandas->fetchAll(PDO::FETCH_OBJ);

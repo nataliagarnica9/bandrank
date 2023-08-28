@@ -10,6 +10,7 @@ require("../../head.php"); ?>
     <h1 class="titulo-bienv">Bienvenido al administrador de BandRank</h1>
     <p class="subtitulo-bienv mb-5">Sistema de Evaluación de Eventos Marciales</p>
     <div class="row row-cols-1 row-cols-md-3 g-4 m-5">
+
     <div class="col-md-12 col-lg-4">
             <a href="<?= base_url ?>pages/administrador/jurados/jurados.php" class="tarjeta-opcion">
                 <div class="card border-light shadow-sm">
@@ -27,6 +28,7 @@ require("../../head.php"); ?>
                 </div>
             </a>
         </div>
+
         <div class="col-md-12 col-lg-4">
             <a href="<?= base_url ?>pages/administrador/concurso/concursos.php" class="tarjeta-opcion">
                 <div class="card border-light shadow-sm">
@@ -36,7 +38,7 @@ require("../../head.php"); ?>
                                 <img src="<?= base_url?>dist/images/concurso.png" width="40">
                             </div>
                             <div class="col-10">
-                                <h5 class="card-title">Registro de competencias</h5>
+                                <h5 class="card-title">Registro de concursos</h5>
                                 <p class="card-text">Crea la competencia y permite la calificación del evento.</p>
                             </div>
                         </div>
@@ -44,6 +46,7 @@ require("../../head.php"); ?>
                 </div>
             </a>
         </div>
+
         <div class="col-md-12 col-lg-4">
             <a href="<?= base_url ?>pages/administrador/bandas/bandas.php" class="tarjeta-opcion">
                 <div class="card border-light shadow-sm">
@@ -61,6 +64,7 @@ require("../../head.php"); ?>
                 </div>
             </a>
         </div>
+
         <div class="col-md-12 col-lg-4">
             <a href="<?= base_url ?>pages/administrador/criteriosEvaluacion/criteriosMain.php" class="tarjeta-opcion">
                 <div class="card border-light shadow-sm">
@@ -78,8 +82,9 @@ require("../../head.php"); ?>
                 </div>
             </a>
         </div>
+
         <div class="col-md-12 col-lg-4">
-            <a href="<?= base_url ?>pages/administrador/registroconcurso/registros.php" class="tarjeta-opcion">
+            <a href="<?= base_url ?>pages/administrador/categoria/registros.php" class="tarjeta-opcion">
                 <div class="card border-light shadow-sm">
                     <div class="card-body">
                         <div class="row">
@@ -95,8 +100,9 @@ require("../../head.php"); ?>
                 </div>
             </a>
         </div>
-        <div class="col">
-            <a href="#" class="tarjeta-opcion">
+
+        <div class="col-md-12 col-lg-4">
+            <a href="<?= base_url ?>pages/administrador/penalizacion/penalizacionMain.php" class="tarjeta-opcion">
                 <div class="card border-light shadow-sm">
                     <div class="card-body">
                     <div class="row">
@@ -105,7 +111,25 @@ require("../../head.php"); ?>
                             </div>
                             <div class="col-10">
                                 <h5 class="card-title">Penalizacion</h5>
-                                <p class="card-text">...</p>
+                                <p class="card-text">Crea las penalizaciones para la calificación.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-12 col-lg-4">
+            <a href="<?= base_url ?>pages/administrador/penalizacion/penalizacionMain.php" class="tarjeta-opcion">
+                <div class="card border-light shadow-sm">
+                    <div class="card-body">
+                    <div class="row">
+                            <div class="col-2">
+                                <img src="<?= base_url?>dist/images/planilla.png" width="40">
+                            </div>
+                            <div class="col-10">
+                                <h5 class="card-title">Planillas</h5>
+                                <p class="card-text">Crea las planillas para segmentar la calificación.</p>
                             </div>
                         </div>
                     </div>
@@ -114,13 +138,9 @@ require("../../head.php"); ?>
         </div>
         
     </div>
-    <!--<img src="dist/images/bandrank_isotipo.png" class="imagen-inicial" alt="Ilustración gráfica del sistema">-->
 </div>
 <div class="bloque-vector">
     <img src="<?= base_url?>dist/images/curva.png">
-</div>
-<div class="bloque-tarjetas">
-    
 </div>
 
 <?php require("../../footer.php");?>

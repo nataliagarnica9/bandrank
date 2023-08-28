@@ -1,6 +1,10 @@
 <?php
 include_once('../../../config.php');
 
+if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == 'jurado') {
+    header("Location: ".base_url."inicio.php");
+}
+
 $query = $db->query("SELECT * FROM concurso WHERE finalizado = 1");
 $fetch_concursos = $query->fetchAll(PDO::FETCH_OBJ);
 $concursos_finalizados = count($fetch_concursos);

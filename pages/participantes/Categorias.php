@@ -1,8 +1,15 @@
+<?php
+include_once('../../config.php');
+if($_SESSION["ROL"] == 'instructor') {
+    header("Location: inicio.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
-    <?php require("../../../head.php"); ?>
+    <?php require("../../head.php"); ?>
 <body>
-<?php require("../../../navbar.php");?>
+<?php require("../../navbar.php");?>
 
 <div class="container mt-navbar">
     <h3> Elija la categoria </h3>
@@ -27,7 +34,7 @@
             foreach ($fetch_categorias as $categoria) {?>
             <tr>
                 <td><?=$categoria->nombre_categoria?></td>
-                <td><a href="../eleccionbandas.php?concurso=<?=$_REQUEST['concurso']?>&categoria=<?=$categoria->id_categoria?>" class="btn-bandrank">Seleccionar</a></td>
+                <td><a href="eleccionbandas.php?concurso=<?=$_REQUEST['concurso']?>&categoria=<?=$categoria->id_categoria?>" class="btn-bandrank">Seleccionar</a></td>
                 
             </tr>
 

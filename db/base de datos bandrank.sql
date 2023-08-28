@@ -132,6 +132,16 @@ CREATE TABLE `encabezado_calificacion` (
   `id_banda` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+alter table encabezado_calificacion
+    add constraint encabezado_calificacion_pk
+        primary key (id_calificacion);
+
+alter table encabezado_calificacion
+    modify id_calificacion int(10) auto_increment;
+
+alter table encabezado_calificacion
+    auto_increment = 1;
+
 
 /*---------------------------------- Tabla detalle_calificacion-------------------------------------------------------------- */
 CREATE TABLE `detalle_calificacion` (
@@ -141,7 +151,17 @@ CREATE TABLE `detalle_calificacion` (
   `puntaje` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+alter table detalle_calificacion
+    add constraint detalle_calificacion_pk
+        primary key (id_detallecalificacion);
 
-ALTER TABLE `encabezado_calificacion` ADD `observaciones` VARCHAR(255) NULL AFTER `total_calificacion`;
+alter table detalle_calificacion
+    modify id_detallecalificacion int(10) auto_increment;
 
-ALTER TABLE `encabezado_calificacion` ADD `id_banda` INT NOT NULL AFTER `observaciones`;
+alter table detalle_calificacion
+    auto_increment = 1;
+
+/*----------------------------*/
+
+alter table jurado
+    change id id_jurado int auto_increment;

@@ -1,3 +1,10 @@
+<?php
+include_once('../../config.php');
+if($_SESSION["ROL"] == 'instructor') {
+    header("Location: inicio.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <?php require("../../head.php"); ?>

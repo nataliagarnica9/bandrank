@@ -22,7 +22,7 @@ switch($_REQUEST["type"]) {
                     $sel_concurso = $db->prepare("SELECT id_concurso FROM jurado WHERE id_jurado = ?");
                     break;
                 case 'instructor':
-                    $sel_concurso = $db->prepare("SELECT id_concurso as nombre FROM banda WHERE id_banda = ?");
+                    $sel_concurso = $db->prepare("SELECT id_concurso FROM banda WHERE id_banda = ?");
                     break;    
             }
             $sel_concurso->bindValue(1, $fetch_usuario->id_registro);

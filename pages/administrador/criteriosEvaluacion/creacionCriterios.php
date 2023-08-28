@@ -23,8 +23,10 @@
                 <div class="col-6 mb-3">
                     <label for="rango_calificacion" class="form-label">Rango de calificación <i class="required">*</i></label>
                     <select class="form-control form-control-lg" name="rango_calificacion" id="rango_calificacion" required>
-                        <option value="0-10">0 a 10</option>
-                        <option value="0-15">0 a 15</option>
+                        <option value="5">0 a 5</option>
+                        <option value="10">0 a 10</option>
+                        <option value="15">0 a 15</option>
+                        <option value="20">0 a 20</option>
                     </select>
                 </div>
             </div>

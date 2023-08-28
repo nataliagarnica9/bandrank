@@ -1,3 +1,10 @@
+<?php
+include_once('../../../config.php');
+if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == 'jurado') {
+    header("Location: ".base_url."inicio.php");
+}
+?>
+
 <!doctype html>
 <html lang="es">
 <?php require("../../../head.php"); ?>

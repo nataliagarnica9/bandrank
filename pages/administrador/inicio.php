@@ -6,7 +6,7 @@ require("../../head.php"); ?>
 <body>
 <?php require("../../navbar.php");?>
 
-<div class="bloque-presentacion">
+<div class="bloque-presentacion mt-navbar">
     <h1 class="titulo-bienv">Bienvenido al administrador de BandRank</h1>
     <p class="subtitulo-bienv mb-5">Sistema de Evaluación de Eventos Marciales</p>
     <div class="row row-cols-1 row-cols-md-3 g-4 m-5">
@@ -120,7 +120,7 @@ require("../../head.php"); ?>
         </div>
 
         <div class="col-md-12 col-lg-4">
-            <a href="<?= base_url ?>pages/administrador/penalizacion/penalizacionMain.php" class="tarjeta-opcion">
+            <a href="<?= base_url ?>pages/administrador/planilla/planillaMain.php" class="tarjeta-opcion">
                 <div class="card border-light shadow-sm">
                     <div class="card-body">
                     <div class="row">

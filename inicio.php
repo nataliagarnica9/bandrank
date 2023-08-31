@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php 
+<?php
 require("head.php");
 // realizo la destrucción de la sesión para evitar cruces de información
 session_destroy();
- ?>
+?>
 
 <body>
     <div class="bloque-inicial">
-        <img src="<?=base_url?>dist/images/bandrank_isotipo.png"
-            class="img-inicio animate__animated animate__backInDown">
+        <img src="<?= base_url ?>dist/images/bandrank_isotipo.png" class="img-inicio animate__animated animate__backInDown">
         <h1 class="animate__animated animate__backInDown">Bienvenido</h1>
         <p class="animate__animated animate__backInUp">
-            ¿A dónde deseas ingresar?
+            Ingresar como:
         </p>
-        <a class="btn-bandrank animate__animated animate__backInUp" data-bs-toggle="modal" data-bs-target="#modal_autenticacion" onclick="detectarEnter()">Administrador</a>
-        <a href="<?= base_url ?>pages/participantes/inicio_sesion.php"
-            class="btn-bandrank animate__animated animate__backInUp">Participante</a>
-            <br><br>
-        <a href="<?= base_url ?>pages/puntuaciones.php"
-            class="btn-bandrank animate__animated animate__backInUp">Ver puntuación en tiempo real</a>
+        <form action="post" id="form-login">
+            <div class="row justify-content-md-center">
+                <div class="col-4">&nbsp;</div>
+                <div class="col-3">
+                    <select name="tipo_usuario" id="tipo_usuario" class="form-select animate__animated animate__backInUp">
+                        <option value="">Selecciona una opción</option>
+                        <option value="administrador">Administrador</option>
+                        <option value="instructor">Instructor</option>
+                        <option value="jurado">Jurado</option>
+                    </select>
+                </div>
+                <div class="col-1">
+                    <a class="btn-bandrank animate__animated animate__backInUp" data-bs-toggle="modal" data-bs-target="#modal_autenticacion" onclick="detectarEnter();iniciar_sesion()">Ingresar</a>
+                </div>
+                <div class="col-4">&nbsp;</div>
+            </div>
+
+
+        </form>
     </div>
 
     <!-- Modal -->
@@ -37,7 +49,7 @@ session_destroy();
                     <div class="mb-3">
                         <label for="clave_admin" class="form-label">Ingresa clave de administrador</label>
                         <input type="password" class="form-control" id="clave_admin">
-                      </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn-bandrank" onclick="comprobarAdministrador()">Comprobar</button>
@@ -48,6 +60,17 @@ session_destroy();
 </body>
 <?php require("footer.php"); ?>
 <script>
+
+    function iniciar_sesion() {
+        let tipo_usuario = $('#tipo_usuario').val();
+
+        if(tipo_usuario == 'administrador') {
+            $('#modal_autenticacion').modal('show');
+        } else {
+            location.href = 'pages/participantes/inicio_sesion.php';
+        }
+    }
+
     function comprobarAdministrador() {
         let vlr_autenticacion = $('#clave_admin').val();
         $.ajax({
@@ -57,15 +80,15 @@ session_destroy();
             data: {
                 'vlr_autenticacion': vlr_autenticacion
             }
-        }).done(function(result){
-            if(result.status == 'success') {
+        }).done(function(result) {
+            if (result.status == 'success') {
                 location.href = 'pages/administrador/inicio.php';
-            } else if(result.status == 'error') {
-                $('#alert-band').css('width','100%');
-                $('#alert-band').css('display','block');
-                $('#alert-band').css('color','red');
+            } else if (result.status == 'error') {
+                $('#alert-band').css('width', '100%');
+                $('#alert-band').css('display', 'block');
+                $('#alert-band').css('color', 'red');
             } else {
-                $('#alert-band').css('display','block');
+                $('#alert-band').css('display', 'block');
             }
         })
     }
@@ -73,10 +96,10 @@ session_destroy();
     function detectarEnter() {
         $(document).keyup(function(event) {
             if (event.which === 13) {
-                comprobarAdministrador();
+                iniciar_sesion();
             }
         });
     }
-    
 </script>
+
 </html>

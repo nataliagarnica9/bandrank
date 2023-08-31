@@ -69,7 +69,7 @@ function response()
     foreach ($response['data'] as $i => $row) {
         array_push($data, [
             $row->nombre_criterio,
-            $row->rango_calificacion,
+            '0-'.$row->rango_calificacion,
             $row->nombre_planilla,
             '
                 <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="editarCriterio(\'' . $row->id_criterio . '\')">

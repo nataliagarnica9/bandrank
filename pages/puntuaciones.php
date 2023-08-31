@@ -33,8 +33,10 @@ $fetch_concurso = $query_concurso->fetch(PDO::FETCH_OBJ);
 <?php require("../footer.php"); ?>
 <script>
     $(document).ready(function () { 
-        setInterval(recargarTablaPuntuaciones, 60000);
+        recargarTablaPuntuaciones()
      })
+
+    setInterval(recargarTablaPuntuaciones, 30000);
 
     function recargarTablaPuntuaciones() {
         console.log('carga');

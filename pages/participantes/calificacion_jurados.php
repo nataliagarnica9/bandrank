@@ -20,9 +20,9 @@ if($_SESSION["ROL"] == 'instructor') {
         <input type="hidden" name="id_categoria" value="<?=$_REQUEST["categoria"]?>">
         <input type="hidden" name="id_banda" value="<?=$_REQUEST["banda"]?>">
         <input type="hidden" name="id_planilla" value="<?=$_REQUEST["planilla"]?>">
-            <table>
+            <table class="table">
                 <tr>
-                    <td><label for="nombre">Nombre de la Banda:</label></td>
+                    <td style="width: 14vw;border-bottom: 0px;"><label for="nombre">Nombre de la Banda:</label></td>
                     <td>
                         <?php
                     $consulta1 = $db->prepare("SELECT * FROM banda where id_banda = ?");
@@ -34,7 +34,7 @@ if($_SESSION["ROL"] == 'instructor') {
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="nombre_ubicacion">Lugar de Procendecia:</label></td>
+                    <td style="width: 14vw;border-bottom: 0px;"><label for="nombre_ubicacion">Lugar de Procendecia:</label></td>
                     <td>
                         <?php
                     $consulta2 = $db->prepare("SELECT * FROM banda where id_banda = ?");
@@ -46,7 +46,7 @@ if($_SESSION["ROL"] == 'instructor') {
                     </td>
                 </tr>
                 <tr>
-                    <td><label for="nombres">Jurado:</label></td>
+                    <td style="width: 14vw;border-bottom: 0px;"><label for="nombres">Jurado:</label></td>
                     <td>
                         <?php
                     $consulta3 = $db->prepare("SELECT * FROM jurado where id_jurado = ?");
@@ -94,7 +94,7 @@ if($_SESSION["ROL"] == 'instructor') {
                 <td><textarea class="form-control" name="observaciones" rows="4" cols="15"></textarea></td>
             </tr>
             <tr>
-                <td colspan="2"><button type="submit" class="btn-bandrank">Guardar Calificación</button></td>
+                <td colspan="2"><button type="submit" class="btn-bandrank my-5">Guardar Calificación</button></td>
             </tr>
         </form>
     </div>

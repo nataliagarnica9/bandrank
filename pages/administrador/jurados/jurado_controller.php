@@ -80,17 +80,17 @@ function response()
             $row->correo,
             $row->nombre_concurso,
             '
-                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="verDatosJurado(\'' . $row->id . '\')">
+                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="verDatosJurado(\'' . $row->id_jurado . '\')">
                 <span data-toggle="tooltip" title="Ver" class="far fa-eye"></span>
                 </a>
                 &nbsp;
 
-                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="editarDatosJurado(\'' . $row->id . '\')">
+                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="editarDatosJurado(\'' . $row->id_jurado . '\')">
                 <span data-toggle="tooltip" title="Editar" class="fas fa-pencil-alt"></span>
                 </a>
                 &nbsp;
                 
-                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="inactivarJurado(\'' . $row->id . '\')">
+                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="inactivarJurado(\'' . $row->id_jurado . '\')">
                 <span data-toggle="tooltip" title="Inactivar" class="fas fa-ban"></span>
                 </a>
                 &nbsp;'

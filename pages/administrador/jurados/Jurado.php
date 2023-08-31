@@ -60,7 +60,7 @@ class Jurado
     public function response($params){
 
         $columns = array(
-            0 => 'id',
+            0 => 'id_jurado',
             1 => 'nombre_completo',
             2 => 'documento_identificacion',
             3 => 'correo',
@@ -68,7 +68,7 @@ class Jurado
         );
 
         $sql = 'SELECT
-                    j.id,
+                    j.id_jurado,
                     CONCAT(j.nombres, " ", j.apellidos) AS nombre_completo,
                     j.documento_identificacion,
                     j.correo,
@@ -126,7 +126,7 @@ class Jurado
             }
 
             $query = $this->db->prepare("UPDATE jurado SET documento_identificacion = ?, nombres = ?, apellidos = ?, celular = ?, correo = ?,
-                                         id_concurso = ? WHERE id = ?");
+                                         id_concurso = ? WHERE id_jurado = ?");
             $query->bindValue(1, $data["documento_identificacion"]);
             $query->bindValue(2, $data["nombres"]);
             $query->bindValue(3, $data["apellidos"]);
@@ -137,7 +137,7 @@ class Jurado
             $query->execute();
 
             if($data["clave"] != '') {
-                $query_clave = $this->db->prepare("UPDATE jurado SET clave = ? WHERE id = ?");
+                $query_clave = $this->db->prepare("UPDATE jurado SET clave = ? WHERE id_jurado = ?");
                 $query_clave->bindValue(1, $data["clave"]);
                 $query_clave->bindValue(2, $data["id_jurado"]);
                 $query_clave->execute();
@@ -159,7 +159,7 @@ class Jurado
 
     public function inactivar($id) {
         try {
-            $query = $this->db->prepare("UPDATE jurado SET activo = 0 WHERE id = ?");
+            $query = $this->db->prepare("UPDATE jurado SET activo = 0 WHERE id_jurado = ?");
             $query->bindValue(1, $id);
             $query->execute();
             $status = $query->errorInfo();

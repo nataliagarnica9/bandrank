@@ -6,7 +6,9 @@ require('vendor/autoload.php');
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 // Inicio la session
-session_start();
+if(!session_id()){
+    session_start();
+}
 
 //Defino variables constantes y de uso general
 if(!defined('base_url')) define('base_url',$_ENV['BASE_URL']);

@@ -10,6 +10,15 @@ if(isset($_REQUEST["action"])) {
          case 'response':
                 response();
                 break;
+         case 'eliminarBanda':
+               eliminarBanda();
+                break;
+         case 'actualizar':
+               actualizar();
+                break;
+        case 'editarBandas':
+                editarBandas();
+                 break;
         default:
             echo 'No existe una petición válida <a href="bandas.php">Regresar</a>';
             break;
@@ -101,4 +110,15 @@ function actualizar()
     } else {
         header("location:bandas.php?message_error");
     }
+}
+
+function editarBandas()
+{
+    include '../../../config.php';
+
+    $banda_model = new Banda($db);
+    $id = $_REQUEST["id"];
+    $datos = $banda_model->getBandaById($id);
+
+    include 'bandas.php';
 }

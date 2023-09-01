@@ -14,14 +14,14 @@ if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == 'jurado') {
 
     <div class="container mt-navbar">
 
-        <div id="contenedor-penalizaciones">
+        <div id="contenedor-bandas">
             <div class="row">
                 <h2 class="mb-5">
                     <strong>Bandas</strong>
                     <a href="creacionbandas.php" class="btn-bandrank" style="padding: 6px 9px; font-size: 14px;">
                         <i class="fas fa-plus"></i> Agregar nueva
                     </a>
-                    <a id="btn-ver-existentes" class="btn-bandrank" style="display: none; padding: 6px 9px; font-size: 14px;" onclick="verPenalizacionesExistentes()">
+                    <a id="btn-ver-existentes" class="btn-bandrank" style="display: none; padding: 6px 9px; font-size: 14px;" onclick="verBandasExistentes()">
                         <i class="fas fa-eye"></i> Ver existentes
                     </a>
                     <a href="../../../pages/administrador/inicio.php" class="btn btn-secondary"  style="padding: 6px 9px; font-size: 14px;">Volver</a>
@@ -111,16 +111,15 @@ if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == 'jurado') {
 
     // Otras funciones para restaurar y eliminar definitivamente penalizaciones según necesites...
 
-    function actualizar(id_banda) {
+    function editarBandas(id_banda) {
         $.ajax({
-            url: 'bandas_controller.php?action=actualizar', // Ajusta la ruta al controlador de penalizaciones
+            url: 'bandas_controller.php?action=editarBandas', // Ajusta la ruta al controlador de penalizaciones
             dataType: 'html',
             type: 'GET',
             data: {
                 id: id_banda
             },
             success: function(response) {
-                console.log(response);
                 $('#contenedor-bandas').html(response); // Actualiza el contenido con el HTML de edición
             },
             error: function() {

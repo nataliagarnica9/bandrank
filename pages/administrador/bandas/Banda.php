@@ -98,8 +98,9 @@ class Banda
     public function eliminarBanda($id_banda)
     {
         try {
-            $stmt = $this->db->prepare("UPDATE banda SET eliminado = 1 WHERE id_banda = ?");
-            $stmt->execute([$id_banda]);
+            $stmt = $this->db->prepare("DELETE FROM banda WHERE id_banda = ?");
+            $stmt->bindValue(1, $id_banda);
+            $stmt->execute();
 
             return true;
         } catch (PDOException $e) {
@@ -130,5 +131,13 @@ public function actualizar($data) {
         } catch (Exception $ex) {
             return $ex;
         }
+    }
+
+    public function getBandaById($id) {
+        $query = $this->db->prepare("SELECT * FROM banda WHERE id_banda = ?;");
+        $query->bindValue(1, $id);
+        $query->execute();
+    
+        return $query->fetch(PDO::FETCH_OBJ);
     }
 }

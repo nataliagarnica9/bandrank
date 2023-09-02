@@ -1,12 +1,12 @@
 <?php
-include_once('../../../config.php');
-require_once('../../../vendor/autoload.php');
+include_once(__DIR__.'/../../../config.php');
+require_once(__DIR__.'/../../../vendor/autoload.php');
 require_once('Planilla.php');
 
 use Dompdf\Dompdf;
 
-$id_planilla = $_POST["planilla"];
-$id_banda = $_POST["banda"];
+$id_planilla = $_REQUEST["planilla"];
+$id_banda = $_REQUEST["banda"];
 
 $dompdf = new Dompdf();
 $planilla = new PlanillaExporte($db, $_SESSION["ID_CONCURSO"], $id_banda, $id_planilla, $_SESSION["ID_USUARIO"]);
@@ -20,4 +20,8 @@ $canvas = $dompdf->getCanvas();
 $pdf = $dompdf->output();
 $filename = "planilla.pdf";
 file_put_contents($filename, $pdf);
-$dompdf->stream($filename, array("Attachment" => 0));
+
+if( !isset( $_REQUEST["enviar_planilla"] ) && $_REQUEST["enviar_planilla"] != 'si') {
+    $filename = "planilla_correo.pdf";
+    $dompdf->stream($filename, array("Attachment" => 0));
+}

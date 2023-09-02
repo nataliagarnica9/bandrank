@@ -88,6 +88,11 @@
                     <?php endif; ?>
                 </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <a href="enviarCorreo.php" class="btn-bandrank">enviar correo</a>
+            </div>
+        </div>
 
         <?php if ($_SESSION["ROL"] == 'jurado') : ?>
             <div class="bloque-vector">
@@ -169,11 +174,13 @@
                 $('#modalExportePlanilla').modal('show');
             }
 
-            $(document).ready(function() {
-                recargarTablaPuntuaciones()
-            })
-
-            setInterval(recargarTablaPuntuaciones, 30000);
+            <?php if ($_SESSION["ROL"] == 'instructor') : ?>
+                $(document).ready(function() {
+                    recargarTablaPuntuaciones()
+                })
+            
+                setInterval(recargarTablaPuntuaciones, 30000);
+            <?php endif; ?>
 
             function recargarTablaPuntuaciones() {
                 console.log('carga');

@@ -1,6 +1,6 @@
 <?php
 ob_start();
-error_reporting(0);
+error_reporting(E_ALL);
 require('vendor/autoload.php');
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);

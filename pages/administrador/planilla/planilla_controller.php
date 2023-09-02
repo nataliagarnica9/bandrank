@@ -31,10 +31,7 @@
                     break;
                 case 'actualizar':
                     actualizar();
-                    break;    
-                /*case 'editarPlanilla':
-                    editarPlanilla(); 
-                break;*/
+                    break;
                 default:
                     header("location:planillaMain.php");
                     break;

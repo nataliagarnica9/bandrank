@@ -73,4 +73,45 @@ class Concurso {
             return $ex;
         }
     }
+
+
+    ///////////
+
+    public function actualizar($data)
+{
+    try {
+        $query = $this->db->prepare("UPDATE concurso SET nombre_concurso = ?, ubicacion = ?, director = ?, id_categoria = ?, fecha_evento = ? WHERE id_concurso = ?");
+        $query->bindValue(1, $data["nombre_concurso"]);
+        $query->bindValue(2, $data["ubicacion"]);
+        $query->bindValue(3, $data["director"]);
+        $query->bindValue(4, $data["id_categoria"]);
+        $query->bindValue(5, $data["fecha_evento"]);
+        $query->execute();
+
+        $status = $query->errorInfo();
+
+        // Valido que el código de mensaje sea válido para identificar si se guardó el registro correctamente
+        if ($status[0] === '00000') {
+            return true;
+        } else {
+            return false;
+        }
+
+    } catch (Exception $ex) {
+        return $ex;
+    }
+}
+
+public function getConcursoById($id) {
+    $query = $this->db->prepare("SELECT c.*, cc.nombre_categoria AS nombre_categoria_concurso
+                                 FROM concurso c
+                                 INNER JOIN categorias_concurso cc ON c.id_categoria = cc.id_categoria
+                                 WHERE c.id_concurso = ?");
+    $query->bindValue(1, $id);
+    $query->execute();
+
+    return $query->fetch(PDO::FETCH_OBJ);
+}
+
+    
 }

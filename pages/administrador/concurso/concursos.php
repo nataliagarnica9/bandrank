@@ -133,6 +133,28 @@ $bandas = count($fetch_bandas);
                 }
             });
         }
+
+        /////////////////////////////////////////
+
+        function editarConcurso(id_concurso) {
+    $.ajax({
+        url: 'concurso_controller.php?action=actualizar_concurso', // Ajusta la ruta al controlador de concursos
+        dataType: 'html',
+        type: 'GET',
+        data: {
+            id: id_concurso
+        },
+        success: function(response) {
+            console.log(response);
+            $('#contenedor-concursos').html(response); // Actualiza el contenido con el HTML de edición de concursos
+        },
+        error: function() {
+            console.log('Error al cargar el concurso para editar.');
+        }
+    });
+}
+
+
     </script>
 </body>
 

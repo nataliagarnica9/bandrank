@@ -53,4 +53,91 @@ class Banda
             return $ex;
         }
     }
+
+        // Función para obtener las penalizaciones y responder a las solicitudes AJAX
+    public function response($params)
+    {
+        // Defino las columnas para el ordenamiento y la búsqueda
+        $columns = array(
+            0 => "id_banda",
+            1 => "nombre",
+            2 => 'ubicacion',
+            3 => 'nombre_instructor',
+        );
+
+        // Preparo la consulta SQL para obtener las penalizaciones
+        $sql = 'SELECT id_banda, nombre, ubicacion, nombre_instructor
+                FROM banda';
+
+        // Agrego condiciones de búsqueda si se proporciona un valor de búsqueda
+        if (isset($params['search']['value']) && $params['search']['value'] != '') {
+            $whereSearch = " WHERE (nombre LIKE '%" . $params['search']['value'] . "%'
+             OR ubicacion LIKE '%" . $params['search']['value'] . "%'
+             OR nombre_instructor LIKE '%" . $params['search']['value'] . "%' )";
+        }
+        if (isset($whereSearch)) {
+            $sql .= $whereSearch;
+        }
+
+        // Agrego el ordenamiento y la paginación a la consulta
+        $sql .= ' ORDER BY ' . $columns[$params['order'][0]['column']] . ' ' . $params['order'][0]['dir'] . ' LIMIT ' . $params["start"] . '  , ' . $params['length'] . '';
+
+        // Ejecuto la consulta y obtengo las penalizaciones
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        $banda = $query->fetchAll(PDO::FETCH_OBJ);
+
+        // Preparo los datos para enviar como respuesta JSON
+        $response['data'] = $banda;
+        $response['totalTableRows'] = count($banda);
+        $response['countRenderRows'] = count($banda);
+        return $response;
+    }
+
+    
+    public function eliminarBanda($id_banda)
+    {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM banda WHERE id_banda = ?");
+            $stmt->bindValue(1, $id_banda);
+            $stmt->execute();
+
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+
+
+public function actualizar($data) {
+        try {
+            $query = $this->db->prepare("UPDATE banda SET nombre = ?, ubicacion = ?, nombre_instructor = ? WHERE id_banda = ?");
+            $query->bindValue(1, $data["nombre"]);
+            $query->bindValue(2, $data["ubicacion"]);
+            $query->bindValue(3, $data["nombre_instructor"]);
+            $query->bindValue(4, $data["id_banda"]);
+            $query->execute();
+    
+            $status = $query->errorInfo();
+    
+            // Valido que el código de mensaje sea válido para identificar que si se guardó el registro
+            if($status[0] == '00000') {
+                return true;
+            } else {
+                return false;
+            }
+    
+        } catch (Exception $ex) {
+            return $ex;
+        }
+    }
+
+    public function getBandaById($id) {
+        $query = $this->db->prepare("SELECT * FROM banda WHERE id_banda = ?;");
+        $query->bindValue(1, $id);
+        $query->execute();
+    
+        return $query->fetch(PDO::FETCH_OBJ);
+    }
 }

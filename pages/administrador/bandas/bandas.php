@@ -7,116 +7,127 @@ if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == 'jurado') {
 
 <!doctype html>
 <html lang="es">
-    <?php require("../../../head.php"); ?>
+<?php require("../../../head.php"); ?>
+
 <body>
-<?php require("../../../navbar.php");?>
+    <?php require("../../../navbar.php"); ?>
 
-<div class="container">
-    <?php if(isset($_REQUEST["status"]) && $_REQUEST["status"] == 'success'): ?>
-            <div class="alert-band">
-                <i class="fas fa-check" style="color: #00FF00"></i> El registro se guardó exitosamente.
-                <a href="bandas.php" class="btn">Aceptar</a>
-            </div>
-    <?php elseif(isset($_REQUEST["message_error"])): ?>
-            <div class="alert-band">
-                <i class="fas fa-times" style="color:red;"></i> Ocurrió un error al realizar el registro <br>
-                <?php echo $_REQUEST["message_error"]; ?>
-                <a href="bandas.php" class="btn">Aceptar</a>
-            </div>
-    <?php endif; ?>
+    <div class="container mt-navbar">
 
-    <h3><strong>Registro de banda</strong></h3>
+        <div id="contenedor-bandas">
+            <div class="row">
+                <h2 class="mb-5">
+                    <strong>Bandas</strong>
+                    <a href="creacionbandas.php" class="btn-bandrank" style="padding: 6px 9px; font-size: 14px;">
+                        <i class="fas fa-plus"></i> Agregar nueva
+                    </a>
+                    <a id="btn-ver-existentes" class="btn-bandrank" style="display: none; padding: 6px 9px; font-size: 14px;" onclick="verBandasExistentes()">
+                        <i class="fas fa-eye"></i> Ver existentes
+                    </a>
+                    <a href="../../../pages/administrador/inicio.php" class="btn btn-secondary"  style="padding: 6px 9px; font-size: 14px;">Volver</a>
+                    
+                </h2>
+            </div>
 
-    <form action="bandas_controller.php?action=guardar" method="POST" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col-6 mb-3">
-                <label for="nombre_banda" class="form-label">Nombre<i class="required">*</i></label>
-                <input type="text" class="form-control form-control-lg" id="nombre" name="nombre" required autocomplete="off">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 mb-3">
-                <label for="ubicacion" class="form-label">Ubicación<i class="required">*</i></label>
-                <input type="text" class="form-control form-control-lg" id="ubicacion" name="ubicacion" required autocomplete="off">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 mb-3">
-                <label for="id_categoria" class="form-label">Categoría</label>
-                <select class="form-control form-control-lg" name="id_categoria" id="id_categoria">
-                    <option value="">Selecciona una opción</option>
-                    <?php 
-                    $query = $db->query("SELECT * FROM categorias_concurso");
-                    $fetch_categorias_concurso = $query->fetchAll(PDO::FETCH_OBJ);
-                    foreach($fetch_categorias_concurso as $categorias_concurso) { ?>
-                        <option value="<?= $categorias_concurso->id_categoria ?>"><?= $categorias_concurso->nombre_categoria?></option>
-                    <?php
-                    }
-                    ?>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 mb-3">
-                <label for="correo" class="form-label">Nombre de Instructor<i class="required">*</i></label>
-                <input type="text" class="form-control form-control-lg" name="nombre_instructor" id="nombre_instructor" required>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 mb-3">
-                <label for="correo_instructor" class="form-label">Correo de Instructor<i class="required">*</i></label>
-                <input type="email" class="form-control form-control-lg" name="correo_instructor" id="correo_instructor" required>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 mb-3">
-                <label for="clave" class="form-label">Clave<i class="required">*</i></label>
-                <input type="password" class="form-control form-control-lg" name="clave" id="clave" required>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 mb-3">
-                <label for="correo" class="form-label">Concurso <i class="required">*</i></label>
-                <select class="form-control form-control-lg" name="id_concurso" id="id_concurso">
-                    <option value="">Selecciona una opción</option>
-                    <?php 
-                    $query = $db->query("SELECT * FROM concurso");
-                    $fetch_concurso = $query->fetchAll(PDO::FETCH_OBJ);
-                    foreach($fetch_concurso as $concurso) { ?>
-                        <option value="<?= $concurso->id_concurso ?>"><?= $concurso->nombre_concurso?></option>
-                    <?php
-                    }
-                    ?>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 mb-3">
-                <div class="mb-3">
-                <label for="firma" class="form-label">Firma </label>
-                    <input class="form-control" type="file" id="firma" name="firma">
+            <div class="row mt-5">
+                <div class="col-12">
+                    <table class="table table-bordered table-hover mt-5" id="tabla-banda">
+                        <thead>
+                            <tr>
+                                <td><b>Nombre de la banda</b></td>
+                                <td><b>Ubicacion de la banda</b></td>
+                                <td><b>Nombre del instructor</b></td>
+                                <td><b>Acciones</b></td>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
 
-        <button type="submit" class="btn-bandrank">Registrar</button>
-        <a href="../../../pages/administrador/inicio.php" class="btn btn-secondary" >Volver</a>
-    </form>
+    </div>
 
-</div>
+    <div class="modal" id="modalVerPenalizacion" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Registro de banda</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <label class="form-label"><b>Nombre</b> </label>
+                            <p id="descripcion-banda"></p>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label"><b>Ubicación</b> </label>
+                            <p id="tipo-banda"></p>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label"><b>Nombre Instructor</b></label>
+                            <p id="puntaje-banda"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-</body>
-    <!--<script type="text/javascript">
-        $('#creacion_jurado').on('submit', function() {
+    <?php require("../../../footer.php"); ?>
+    <script>
+    $(document).ready(function() {
+        $('#tabla-banda').DataTable({
+            "bProcessing": true,
+            "serverSide": true,
+            "order": [
+                [0, 'asc']
+            ],
+            "ajax": {
+                url: 'bandas_controller.php?action=response', // Ajusta la ruta al controlador de penalizaciones
+                type: "post",
+            },
+        });
+    });
+
+    
+
+    function eliminarBanda(id_banda) {
+        if (confirm('¿Estás seguro de que deseas eliminar esta banda?')) {
             $.ajax({
-                url: 'jurado_controller.php?action=guardar',
+                url: 'bandas_controller.php?action=eliminarBanda', // Ajusta la ruta al controlador de penalizaciones
+                dataType: 'json',
                 type: 'POST',
-                dataType: 'JSON',
-                data: $('#creacion_jurado').serialize(),
-                success: function (data) {
-                    if(data.status){}
+                data: { id: id_banda }
+            }).done(function(response) {
+                if (response.status == 'success') {
+                    $('#tabla-banda').DataTable().ajax.reload();
+                } else {
+                    console.log('error');
                 }
             });
         }
-    </script>-->
+    }
+
+    // Otras funciones para restaurar y eliminar definitivamente penalizaciones según necesites...
+
+    function editarBandas(id_banda) {
+        $.ajax({
+            url: 'bandas_controller.php?action=editarBandas', // Ajusta la ruta al controlador de penalizaciones
+            dataType: 'html',
+            type: 'GET',
+            data: {
+                id: id_banda
+            },
+            success: function(response) {
+                $('#contenedor-bandas').html(response); // Actualiza el contenido con el HTML de edición
+            },
+            error: function() {
+                console.log('Error al cargar la banda para editar.');
+            }
+        });
+    }
+</script>
+
+</body>
 </html>

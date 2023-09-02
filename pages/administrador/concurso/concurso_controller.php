@@ -13,6 +13,12 @@ if(isset($_REQUEST["action"])) {
         case 'response':
             response();
             break;
+        case 'actualizar_concurso';
+            actualizar_concurso();
+             break;
+        case 'actualizar';
+            actualizar();
+             break;
         default:
             header("location:concursos.php");
         break;
@@ -69,7 +75,7 @@ function response() {
                     </a>
                     &nbsp;
 
-                    <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="editarDatosConcurso(\'' . $concurso[0] . '\')">
+                    <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="editarConcurso(\'' . $concurso[0] . '\')">
                     <span data-toggle="tooltip" title="Editar" class="fas fa-pencil-alt"></span>
                     </a>
                     &nbsp;
@@ -101,4 +107,35 @@ function response() {
         "data" => $data
     );
     echo json_encode($jsonData);
+    /////////////////////////////////
+
+    function actualizar_concurso() {
+        error_reporting(E_ALL);
+        // include '../../../config.php';
+        echo 'loquequieras';
+        exit();
+        $concurso_model = new Concurso($db); 
+        $id = $_REQUEST["id"];
+        $datos = $concurso_model->getConcursoById($id); 
+    
+        include 'modificarConcurso.php'; 
+    } 
+
+    function actualizar()
+{
+    include "../../../config.php";
+
+    // Inicio el objeto del modelo
+    $concurso_model = new Concurso($db);
+    // Utilizo la función guardar del modelo y almaceno su valor
+    $result = $concurso_model->actualizar($_POST);
+    
+    if ($result) {
+        header("location:concursos.php?status=success");
+    } else {
+        header("location:concursos.php?message_error");
+    }
+}
+
+    
 }

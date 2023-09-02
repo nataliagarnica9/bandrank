@@ -19,6 +19,22 @@ if(isset($_REQUEST["action"])) {
         case 'actualizar';
             actualizar();
              break;
+         case 'datos_concurso';
+            datos_concurso();
+             break;
+         case 'verConcursosEliminados';
+             verConcursosEliminados();
+             break;
+         case 'eliminarConcurso';
+             eliminarConcurso();
+             break;
+         case 'restaurarConcurso';
+             restaurarConcurso();
+             break;
+         case 'eliminarConcursoDefinitivamente':
+             eliminarConcursoDefinitivamente();
+             break;
+
         default:
             header("location:concursos.php");
         break;
@@ -107,13 +123,12 @@ function response() {
         "data" => $data
     );
     echo json_encode($jsonData);
+}
     /////////////////////////////////
 
     function actualizar_concurso() {
         error_reporting(E_ALL);
-        // include '../../../config.php';
-        echo 'loquequieras';
-        exit();
+        include '../../../config.php';
         $concurso_model = new Concurso($db); 
         $id = $_REQUEST["id"];
         $datos = $concurso_model->getConcursoById($id); 
@@ -137,5 +152,110 @@ function response() {
     }
 }
 
-    
+function datos_concurso() {
+    include "../../../config.php";
+
+    $id = $_REQUEST["id"];
+
+    // Inicio el objeto del modelo para los concursos
+    $concurso_model = new Concurso($db);
+    $datos_concurso = $concurso_model->getConcursoById($id);
+
+    echo json_encode(["status" => "success", "data" => $datos_concurso]);
+}
+
+// Funciones de eliminacion
+
+function eliminarConcurso()
+{
+    include '../../../config.php';
+
+    if (isset($_POST['id'])) {
+        $id_concurso = $_POST['id'];
+
+        // Inicializa el objeto del modelo
+        $concurso_model = new Concurso($db);
+
+        if ($concurso_model->eliminarConcurso($id_concurso)) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Error al eliminar el concurso']);
+        }
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'ID del concurso no proporcionado']);
+    }
+}
+
+function verConcursosEliminados()
+{
+    include '../../../config.php';
+
+    $modelo = new Concurso($db);
+    $params = $_REQUEST;
+    $response = $modelo->verConcursosEliminados($params);
+    $data = array();
+
+    foreach ($response['data'] as $i => $row) {
+        array_push($data, [
+            $row->id_concurso,
+            $row->nombre_concurso,
+            $row->ubicacion,
+            $row->director,
+            '
+                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="restaurarConcurso(\'' . $row->id_concurso . '\')">
+                    <span data-toggle="tooltip" title="Restaurar" class="fas fa-undo"></span>
+                </a>
+                &nbsp;
+                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="eliminarConcursoDefinitivamente(\'' . $row->id_concurso . '\')">
+                    <span data-toggle="tooltip" title="Eliminar definitivamente" class="fas fa-trash-alt"></span>
+                </a>
+            '
+        ]);
+    }
+    $jsonData = array(
+        "draw" => intval($params['draw']),
+        "recordsTotal" => intval($response['totalTableRows']),
+        "recordsFiltered" => intval($response['totalTableRows']),
+        "data" => $data
+    );
+    echo json_encode($jsonData);
+}
+
+function restaurarConcurso()
+{
+    include '../../../config.php';
+
+    if (isset($_POST['id'])) {
+        $id_concurso = $_POST['id'];
+
+        // Inicializa el objeto del modelo
+        $concurso_model = new Concurso($db);
+        if ($concurso_model->restaurarConcurso($id_concurso)) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Error al restaurar el concurso']);
+        }
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'ID del concurso no proporcionado']);
+    }
+}
+
+function eliminarConcursoDefinitivamente()
+{
+    include '../../../config.php';
+
+    if (isset($_POST['id'])) {
+        $id_concurso = $_POST['id'];
+
+        // Inicializa el objeto del modelo
+        $concurso_model = new Concurso($db);
+
+        if ($concurso_model->eliminarConcursoDefinitivamente($id_concurso)) {
+            echo json_encode(['status' => 'success']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Error al eliminar definitivamente el concurso']);
+        }
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'ID del concurso no proporcionado']);
+    }
 }

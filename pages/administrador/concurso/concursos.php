@@ -211,7 +211,7 @@ function verDatosConcurso(id_concurso) {
             $('#directorConcurso').html(response.data.director);
             $('#categoriaConcurso').html(response.data.nombre_categoria_concurso);
             $('#fechaConcurso').html(response.data.fecha_evento);
-            $('#estadoConcurso').html(response.data.finalizado === '0' ? 'Activo' : 'Finalizado');
+            $('#estadoConcurso').html(response.data.finalizado == '0' ? 'Activo' : 'Finalizado');
         } else {
             console.log('error');
         }

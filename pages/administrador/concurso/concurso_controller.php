@@ -103,13 +103,13 @@ function response() {
 
         if($fetch_finalizado->finalizado == 0) {
             $data[$i][4] .= ' 
-                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="eliminarConcurso(\'' . $concurso[0] . '\')">
+                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="finalizarConcurso(\'' . $concurso[0] . '\')">
                 <span data-toggle="tooltip" title="Finalizar" class="far fa-flag"></span>
                 </a>
                 &nbsp;';
         } else {
             $data[$i][4] .= ' 
-                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="eliminarConcurso(\'' . $concurso[0] . '\')">
+                <a href="javascript:void(0)" style="color:#FF751F;text-decoration: none;" onclick="finalizarConcurso(\'' . $concurso[0] . '\')">
                 <span data-toggle="tooltip" title="Finalizado" class="fas fa-flag"></span>
                 </a>
                 &nbsp;';

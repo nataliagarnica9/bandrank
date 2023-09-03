@@ -98,15 +98,90 @@ if($_SESSION["ROL"] == 'instructor') {
                     <th>&nbsp;</th>
                     <th><input name="total_calificacion" type="text" id="total_aspectos" class="form-control" readonly></th>
                 </tr>
-            <!-- Fin de la inserción de la tabla -->
-            <!-- Fin de la inserción de la tabla -->
-            <tr>
-                <td><label for="observaciones">Observaciones:</label></td>
-                <td><textarea class="form-control" name="observaciones" rows="4" cols="15"></textarea></td>
-            </tr>
-            <tr>
-                <td colspan="2"><button type="submit" class="btn-bandrank my-5">Guardar Calificación</button></td>
-            </tr>
+<!----------------------------------Select de penalizaciones------------------------------>
+<!----------------------------------Select de penalizaciones------------------------------>
+                <td><label for="penalizacion">Penalizaciones:</label></td>
+<td>
+    <div id="penalizaciones-container">
+        <!-- Contenedor para las penalizaciones -->
+        <select name="penalizacion[]" class="form-control">
+            <option value="">Selecciona una penalización</option>
+            <?php
+            // Consulta para obtener las penalizaciones
+            $consulta_penalizaciones = $db->prepare("SELECT * FROM penalizacion WHERE eliminado = 0");
+            $consulta_penalizaciones->execute();
+            $penalizaciones = $consulta_penalizaciones->fetchAll(PDO::FETCH_OBJ);
+
+            foreach ($penalizaciones as $penalizacion) {
+                $nombre_penalizacion = $penalizacion->descripcion_penalizacion;
+
+                // Verifica si el tipo de penalización es "Descalificación"
+                if ($penalizacion->tipo_penalizacion === 'Descalificación') {
+                    $nombre_penalizacion = $penalizacion->descripcion_penalizacion . ' (Descalificación)';
+                }
+
+                // Muestra el nombre de la penalización y su valor en la opción
+                echo '<option value="' . $penalizacion->id_penalizacion . '">' . $nombre_penalizacion . ' (-' . $penalizacion->puntaje_penalizacion . ' puntos)</option>';
+            }
+            ?>
+        </select>
+        <button type="button" class=" btn-bandrank btn-add-penalizacion"style="padding: 6px 9px; font-size: 14px;">Agregar Penalización</button>
+    </div>
+</td>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const penalizacionesContainer = document.getElementById('penalizaciones-container');
+        const btnAddPenalizacion = document.querySelector('.btn-add-penalizacion');
+
+        // Función para agregar un campo de penalización
+        function agregarCampoPenalizacion() {
+            const nuevoCampoPenalizacion = document.createElement('div');
+            nuevoCampoPenalizacion.innerHTML = `
+                <select name="penalizacion[]" class="form-control">
+                    <option value="">Selecciona una penalización</option>
+                    <?php
+                    // Consulta para obtener las penalizaciones
+                    $consulta_penalizaciones = $db->prepare("SELECT * FROM penalizacion WHERE eliminado = 0");
+                    $consulta_penalizaciones->execute();
+                    $penalizaciones = $consulta_penalizaciones->fetchAll(PDO::FETCH_OBJ);
+
+                    foreach ($penalizaciones as $penalizacion) {
+                        $nombre_penalizacion = $penalizacion->descripcion_penalizacion;
+
+                        // Verifica si el tipo de penalización es "Descalificación"
+                        if ($penalizacion->tipo_penalizacion === 'Descalificación') {
+                            $nombre_penalizacion = $penalizacion->descripcion_penalizacion . ' (Descalificación)';
+                        }
+
+                        // Muestra el nombre de la penalización y su valor en la opción
+                        echo '<option value="' . $penalizacion->id_penalizacion . '">' . $nombre_penalizacion . ' (-' . $penalizacion->puntaje_penalizacion . ' puntos)</option>';
+                    }
+                    ?>
+                </select>
+                <button type="button" class="btn-bandrank btn-remove-penalizacion"style="padding: 6px 9px; font-size: 14px;">Eliminar</button>
+            `;
+            penalizacionesContainer.appendChild(nuevoCampoPenalizacion);
+        }
+
+        // Función para eliminar un campo de penalización
+        function eliminarCampoPenalizacion(event) {
+            const campoPenalizacion = event.target.parentElement;
+            if (penalizacionesContainer.children.length > 1) {
+                penalizacionesContainer.removeChild(campoPenalizacion);
+            }
+        }
+
+        btnAddPenalizacion.addEventListener('click', agregarCampoPenalizacion);
+
+        penalizacionesContainer.addEventListener('click', function (event) {
+            if (event.target.classList.contains('btn-remove-penalizacion')) {
+                eliminarCampoPenalizacion(event);
+            }
+        });
+    });
+</script>
+<!----------------------------------Select de penalizaciones------------------------------>
+<!----------------------------------Select de penalizaciones------------------------------>
             </table>
         </form>
     </div>

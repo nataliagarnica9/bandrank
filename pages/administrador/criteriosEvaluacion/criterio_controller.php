@@ -90,7 +90,7 @@ function response()
     );
     echo json_encode($jsonData);
 }
-
+//Funciones de eliminacion
 function eliminarCriterio()
 {
     include '../../../config.php';

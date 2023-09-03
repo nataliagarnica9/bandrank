@@ -104,7 +104,7 @@ class Jurado
         $query = $this->db->prepare("SELECT j.*, c.nombre_concurso
                                      FROM jurado j
                                               INNER JOIN concurso c on j.id_concurso = c.id_concurso
-                                     WHERE j.id = ?;");
+                                     WHERE j.id_jurado = ?;");
         $query->bindValue(1, $id);
         $query->execute();
 

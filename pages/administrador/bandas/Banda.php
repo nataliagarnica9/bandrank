@@ -112,14 +112,34 @@ class Banda
 
 public function actualizar($data) {
         try {
-            $query = $this->db->prepare("UPDATE banda SET nombre = ?, ubicacion = ?, nombre_instructor = ? WHERE id_banda = ?");
+            $query = $this->db->prepare("UPDATE banda SET nombre = ?, ubicacion = ?, nombre_instructor = ?, id_categoria = ?, correo_instructor = ?, id_concurso = ? WHERE id_banda = ?");
             $query->bindValue(1, $data["nombre"]);
             $query->bindValue(2, $data["ubicacion"]);
             $query->bindValue(3, $data["nombre_instructor"]);
-            $query->bindValue(4, $data["id_banda"]);
+            $query->bindValue(4, $data["id_categoria"]);
+            $query->bindValue(5, $data["correo_instructor"]);
+            $query->bindValue(6, $data["id_categoria"]);
+            $query->bindValue(7, $data["id_banda"]);
             $query->execute();
+
+            $query_login = $this->db->prepare("UPDATE login SET correo = ? WHERE id_registro = ?");
+                $query_login->bindValue(1, $data["correo"]);
+                $query_login->bindValue(2, $data["id_banda"]);
+                $query_login->execute();
     
             $status = $query->errorInfo();
+
+            if($data["clave"] != '') {
+                $query_clave = $this->db->prepare("UPDATE banda SET clave = ? WHERE id_banda = ?");
+                $query_clave->bindValue(1, $data["clave"]);
+                $query_clave->bindValue(2, $data["id_banda"]);
+                $query_clave->execute();
+
+                $query_login1 = $this->db->prepare("UPDATE login SET clave = ? WHERE id_registro = ?");
+                $query_login1->bindValue(1, $data["clave"]);
+                $query_login1->bindValue(2, $data["id_banda"]);
+                $query_login1->execute();
+            }
     
             // Valido que el código de mensaje sea válido para identificar que si se guardó el registro
             if($status[0] == '00000') {

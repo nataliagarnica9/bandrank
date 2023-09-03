@@ -82,12 +82,23 @@ if($_SESSION["ROL"] == 'instructor') {
                                         }
                                         ?>
                 </tr>
+
+
+
+
+                <!--Penalización-->
+
+                <!--Penalización-->
+
+
+
+
                 <tr>
                     <th>Total</th>
                     <th>&nbsp;</th>
                     <th><input name="total_calificacion" type="text" id="total_aspectos" class="form-control" readonly></th>
                 </tr>
-            </table>
+            <!-- Fin de la inserción de la tabla -->
             <!-- Fin de la inserción de la tabla -->
             <tr>
                 <td><label for="observaciones">Observaciones:</label></td>
@@ -96,6 +107,7 @@ if($_SESSION["ROL"] == 'instructor') {
             <tr>
                 <td colspan="2"><button type="submit" class="btn-bandrank my-5">Guardar Calificación</button></td>
             </tr>
+            </table>
         </form>
     </div>
     <script>

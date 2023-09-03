@@ -12,13 +12,13 @@
             </div>
     <?php endif; ?>
 
-    <h3><strong>Registro de banda</strong></h3>
+    <h3><strong>Editar banda</strong></h3>
 
-    <form action="bandas_controller.php?action=guardar" method="POST" enctype="multipart/form-data">
+    <form action="bandas_controller.php?action=actualizar" method="POST" enctype="multipart/form-data">
         <div class="row">
             <div class="col-6 mb-3">
                 <label for="nombre_banda" class="form-label">Nombre<i class="required">*</i></label>
-                <input type="hidden" name="id_banda" value="<?= $id_banda?>">
+                <input type="hidden" name="id_banda" value="<?= $id?>">
                 <input type="text" class="form-control form-control-lg" id="nombre" name="nombre" required autocomplete="off" value="<?= $datos->nombre?>">
             </div>
         </div>

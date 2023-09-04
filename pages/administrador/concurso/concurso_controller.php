@@ -14,7 +14,7 @@ if(isset($_REQUEST["action"])) {
             response();
             break;
         case 'actualizar_concurso';
-            actualizar_concurso();
+        actualizar_concurso();
              break;
         case 'actualizar';
             actualizar();
@@ -107,17 +107,16 @@ function response() {
         "data" => $data
     );
     echo json_encode($jsonData);
+}
     /////////////////////////////////
 
     function actualizar_concurso() {
-        error_reporting(E_ALL);
-        // include '../../../config.php';
-        echo 'loquequieras';
-        exit();
+        include '../../../config.php';
+
         $concurso_model = new Concurso($db); 
         $id = $_REQUEST["id"];
         $datos = $concurso_model->getConcursoById($id); 
-    
+
         include 'modificarConcurso.php'; 
     } 
 
@@ -135,7 +134,4 @@ function response() {
     } else {
         header("location:concursos.php?message_error");
     }
-}
-
-    
 }

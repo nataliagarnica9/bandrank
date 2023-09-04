@@ -8,7 +8,7 @@ use Dompdf\Dompdf;
 $id_planilla = $_REQUEST["planilla"];
 $id_banda = $_REQUEST["banda"];
 
-$dompdf = new Dompdf();
+$dompdf = new Dompdf(array('enable_remote' => true));
 $planilla = new PlanillaExporte($db, $_SESSION["ID_CONCURSO"], $id_banda, $id_planilla, $_SESSION["ID_USUARIO"]);
 
 ob_start();
@@ -21,7 +21,7 @@ $pdf = $dompdf->output();
 $filename = "planilla.pdf";
 file_put_contents($filename, $pdf);
 
-if( !isset( $_REQUEST["enviar_planilla"] ) && $_REQUEST["enviar_planilla"] != 'si') {
+if( isset( $_REQUEST["enviar_planilla"] ) && $_REQUEST["enviar_planilla"] !== 'si') {
     $filename = "planilla_correo.pdf";
     $dompdf->stream($filename, array("Attachment" => 0));
 }

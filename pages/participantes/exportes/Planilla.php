@@ -54,26 +54,39 @@ class PlanillaExporte {
         return $fetch_jurado;
     }
 
-    protected function generarPlanilla(){
+    protected function generarEncabezado(){
         $html = '
-        <table>
-            <tr>
-                <td>
-                    
-                </td>
-                <td>
-                    <img src="'.base_url.'dist/images/bandrank_logotipo.png" style="width:100px;">
-                </td>
-            </tr>
-        </table>
-        <h5>'. $this->getPlanilla()->nombre_planilla.'</h5>
-        <table>
+        <html lang="es">
+            <body>
+            <header>
+            <table class="informacion" style="padding: 0px" border="0">
+                <tr>
+                    <td>
+                        <img src="https://guardiadorada.com/bandrank/dist/images/logo_concurso_general_santander.png" style="width:200px;">
+                    </td>
+                    <td>
+                        <img src="https://guardiadorada.com/bandrank/dist/images/bandrank_logotipo.png" style="width:200px;margin-left:300px">
+                    </td>
+                </tr>
+                <tr style="padding: 0px">
+                    <td style="padding: 0px 5px"> </td>
+                    <td style="padding: 0px 5px 0px 450px"><h5 style="font-size: 23px">'. $this->getPlanilla()->nombre_planilla.'</h5></td>
+                </tr>
+            </table>
+            </header>';
+            return $html;
+    }
+
+    protected function generarCuerpo() {
+        
+        $html='
+            <table class="informacion" style="padding: 0px;margin-top: 60px;" border="0">
             <tr>
                 <td colspan="2">
                     <table>
                         <tr>
                             <td colspan="2"><label for="nombre_banda">Nombre de la Banda:</label></td>
-                            <td>'. $this->getBanda()->nombre.'</td>
+                            <td>'. $this->getBanda()->nombre.'  </td>
                         </tr>
                         <tr>
                             <td colspan="2"><label for="lugar">Lugar de Procedencia:</label></td>
@@ -123,109 +136,78 @@ class PlanillaExporte {
             </tr>
         </table>
 
-        <div class="observation-box">
-            <div class="observation-title">Observaciones:</div>
-            <textarea class="form-control" name="observaciones" rows="4"></textarea>
-        </div>
-        <div class="signature-box">
-            <div class="signature">
-                <div class="signature-title">Firma del Instructor:</div>
-                <input type="text-area" class="signature-input">
+        <!--<table>
+            <div class="observation-box">
+                <div class="observation-title">Observaciones:</div>
+                <textarea class="form-control" name="observaciones" rows="4"></textarea>
             </div>
-            <div class="signature">
-                <div class="signature-title">Firma del Jurado:</div>
-                <input type="text-area" class="signature-input">
+            <div class="signature-box">
+                <div class="signature">
+                    <div class="signature-title">Firma del Instructor:</div>
+                    <input type="text-area" class="signature-input">
+                </div>
+                <div class="signature">
+                    <div class="signature-title">Firma del Jurado:</div>
+                    <input type="text-area" class="signature-input">
+                </div>
             </div>
-        </div>';
+        </table>-->    
+        </body>
+        </html>';
         return $html;
     }
 
     protected function crearEstilos()
     {
         $estilos = "<style>
-                    @page {
-                        margin-top: 0.5em;
-                        margin-left: 1.6em;
-                        margin-right: 0;
-                        margin-bottom: 0.5em;
-                    }
-                    
-                    body {
-                        margin-top: 115px;
-                    }
-                    
-                    header {
-                        position: fixed;
-                        left: 0px;
-                        right: 0px; 
-                    }
-                    
-                   * {
-                       color: #273746;
-                       font-family: sans-serif;
-                   }
+            @page {
+                margin-top: 0.5em;
+                margin-left: 1.6em;
+                margin-right: 0;
+                margin-bottom: 0.5em;
+            }
 
-                   table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-bottom: 20px;
-                }
-                
-                th, td {
-                    padding: 10px;
-                    text-align: left;
-                    border-bottom: 1px solid #ddd;
-                    border-right: 1px solid #ddd;
-                }
-                
-                th {
-                    background-color: #ffffff;
-                    color: white;
-                }
-                
-                .red-text {
-                    color: rgb(0, 0, 0);
-                    background-color: #ffffff;
-                }
-                
-                .observation-box {
-                    padding: 20px;
-                    border: 1px solid #ddd;
-                    border-radius: 5px;
-                    background-color: #f9f9f9;
-                    margin-bottom: 20px;
-                }
-                
-                .observation-title {
-                    font-weight: bold;
-                    margin-bottom: 10px;
-                    color: #343a40;
-                }
-                
-                .signature-box {
-                    display: flex;
-                    justify-content: space-between;
-                    margin-top: 20px;
-                }
-                
-                .signature-title {
-                    font-weight: bold;
-                    margin-bottom: 10px;
-                    color: #343a40;
-                }
-                
-                .signature-input {
-                    width: 60%;
-                    padding: 8px;
-                    border: 1px solid #ddd;
-                    border-radius: 5px;
-                }
-                </style>";
+            body {
+                margin-top: 115px;
+            }
+
+            header {
+                position: fixed;
+                top: 0px;
+                left: 0px;
+                right: 0px; 
+            }
+
+            *{
+               color: #273746;
+               font-family: sans-serif;
+            }    
+       
+            .logo {
+               padding: 0px 90px 0 50px;
+            }    
+       
+
+       
+            .informacion {
+                width: 97%;
+                border-collapse: collapse;
+                border: 0px;
+            }
+        
+            .encabezado {
+                background: #EAEDED;
+                border-collapse: collapse;
+                border-radius: 6px;
+                overflow: hidden;
+            }
+        </style>";
         return $estilos;
     }
 
     public function render() {
-        echo $this->generarPlanilla();
+        echo $this->generarEncabezado();
         echo $this->crearEstilos();
+        echo $this->generarCuerpo();
     }
 }

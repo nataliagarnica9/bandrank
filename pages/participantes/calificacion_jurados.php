@@ -83,23 +83,6 @@ if($_SESSION["ROL"] == 'instructor') {
                                         ?>
                 </tr>
 
-
-
-
-                <!--Penalización-->
-
-                <!--Penalización-->
-
-
-
-
-                <tr>
-                    <th>Total</th>
-                    <th>&nbsp;</th>
-                    <th><input name="total_calificacion" type="text" id="total_aspectos" class="form-control" readonly></th>
-                </tr>
-<!----------------------------------Select de penalizaciones------------------------------>
-<!----------------------------------Select de penalizaciones------------------------------>
                 <td><label for="penalizacion">Penalizaciones:</label></td>
 <td>
     <div id="penalizaciones-container">
@@ -180,15 +163,25 @@ if($_SESSION["ROL"] == 'instructor') {
         });
     });
 </script>
-<!----------------------------------Select de penalizaciones------------------------------>
-<!----------------------------------Select de penalizaciones------------------------------>
+                <tr>
+                    <th>Total</th>
+                    <th>&nbsp;</th>
+                    <th><input name="total_calificacion" type="text" id="total_aspectos" class="form-control" readonly></th>
+                </tr>
+                <tr>
+                <td><label for="observaciones">Observaciones:</label></td>
+                <td><textarea class="form-control" name="observaciones" rows="4" cols="15"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit" class="btn-bandrank my-5">Guardar Calificación</button></td>
+            </tr>
+
             </table>
         </form>
     </div>
     <script>
                 const valoracionInputs = document.querySelectorAll('input[type="number"]');
                 const totalAspectosInput = document.getElementById('total_aspectos');
-
                 valoracionInputs.forEach(input => {
                     input.addEventListener('input', () => {
                         let totalAspectos = 0;

@@ -25,6 +25,12 @@ $bandas = count($fetch_bandas);
         <div id="contenedor-concursos">
             <div class="row">
                 <h2 class="mb-5"><strong>Concursos registrados</strong> <a onclick="crearNuevoConcurso()" class="btn-bandrank" style="padding: 6px 9px;font-size: 14px;"><i class="fas fa-plus"></i> Agregar nuevo</a>
+                <a id="btn-ver-eliminados" href="javascript:void(0)" class="btn-bandrank" onclick="verConcursosEliminados()" style="padding: 6px 9px; font-size: 14px;">
+             <i class="fas fa-trash"></i> Ver eliminados
+                </a>
+                <a id="btn-ver-existentes" class="btn-bandrank" style="display: none; padding: 6px 9px; font-size: 14px;" onclick="verConcursosExistentes()">
+            <i class="fas fa-eye"></i> Ver existentes
+            </a>
                 <a href="../../../pages/administrador/inicio.php" class="btn btn-secondary"  style="padding: 6px 9px; font-size: 14px;">Volver</a></h2>
                 <div class="col-4">
                     <div class="card">
@@ -71,9 +77,45 @@ $bandas = count($fetch_bandas);
                     </table>
                 </div>
             </div>
+
+            
+<div class="modal" id="modalVerConcurso" tabindex="-1">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Concurso</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 mb-2">
+                        <b>Nombre del Concurso: </b> <span id="nombreConcurso"></span>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <b>Ubicación: </b><span id="ubicacionConcurso"></span>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <b>Director: </b><span id="directorConcurso"></span>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <b>Categoría: </b><span id="categoriaConcurso"></span>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <b>Fecha del Evento: </b><span id="fechaConcurso"></span>
+                    </div>
+                    <div class="col-12 mb-2">
+                        <b>Estado: </b><span id="estadoConcurso"></span>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+</div>
+        </div>
+        
 
     </div>
+    
 
     </div>
     <?php require("../../../footer.php"); ?>
@@ -153,7 +195,118 @@ $bandas = count($fetch_bandas);
         }
     });
 }
+function verDatosConcurso(id_concurso) {
+    $.ajax({
+        url: 'concurso_controller.php?action=datos_concurso&id=' + id_concurso, // Ajusta la ruta al controlador de concursos
+        dataType: 'json',
+        type: 'GET',
+        data: {
+            id_concurso: id_concurso
+        }
+    }).done(function(response) {
+        if (response.status == 'success') {
+            $('#modalVerConcurso').modal('show'); // Muestra el modal
+            $('#nombreConcurso').html(response.data.nombre_concurso);
+            $('#ubicacionConcurso').html(response.data.ubicacion);
+            $('#directorConcurso').html(response.data.director);
+            $('#categoriaConcurso').html(response.data.nombre_categoria_concurso);
+            $('#fechaConcurso').html(response.data.fecha_evento);
+            $('#estadoConcurso').html(response.data.finalizado == '0' ? 'Activo' : 'Finalizado');
+        } else {
+            console.log('error');
+        }
+    });
+}
 
+
+//Eliminaciones
+
+function eliminarConcurso(id_concurso) {
+    if (confirm('¿Estás seguro de que deseas eliminar este concurso?')) {
+        $.ajax({
+            url: 'concurso_controller.php?action=eliminarConcurso',
+            dataType: 'json',
+            type: 'POST',
+            data: { id: id_concurso }
+        }).done(function(response) {
+            if (response.status == 'success') {
+                $('#tabla-concurso').DataTable().ajax.reload();
+            } else {
+                console.log('error');
+            }
+        });
+    }
+}
+
+function verConcursosEliminados() {
+    $('#btn-ver-eliminados').hide();
+    $('#btn-ver-existentes').show();
+    $('#tabla-concurso').DataTable().destroy();
+    $('#tabla-concurso').DataTable({
+        "bProcessing": true,
+        "serverSide": true,
+        "order": [
+            [0, 'asc']
+        ],
+        "ajax": {
+            url: 'concurso_controller.php?action=verConcursosEliminados',
+            type: "post",
+        },
+    });
+}
+
+function verConcursosExistentes() {
+    $('#btn-ver-eliminados').show();
+    $('#btn-ver-existentes').hide();
+    $('#tabla-concurso').DataTable().destroy();
+    $('#tabla-concurso').DataTable({
+        "bProcessing": true,
+        "serverSide": true,
+        "order": [
+            [0, 'asc']
+        ],
+        "ajax": {
+            url: 'concurso_controller.php?action=response',
+            type: "post",
+        },
+    });
+}
+
+function restaurarConcurso(id_concurso) {
+    if (confirm('¿Estás seguro de que deseas restaurar este concurso?')) {
+        $.ajax({
+            url: 'concurso_controller.php?action=restaurarConcurso',
+            dataType: 'json',
+            type: 'POST',
+            data: { id: id_concurso }
+        }).done(function(response) {
+            if (response.status == 'success') {
+                // Actualizar la tabla después de restaurar
+                $('#tabla-concurso').DataTable().ajax.reload();
+            } else {
+                console.log('error');
+            }
+        });
+    }
+}
+
+function eliminarConcursoDefinitivamente(id_concurso) {
+    if (confirm('¿Estás seguro de que deseas eliminar definitivamente este concurso?')) {
+        $.ajax({
+            url: 'concurso_controller.php?action=eliminarConcursoDefinitivamente',
+            dataType: 'json',
+            type: 'POST',
+            data: { id: id_concurso }
+        }).done(function(response) {
+            if (response.status == 'success') {
+                // Actualizar la tabla después de eliminar definitivamente
+                $('#tabla-concurso').DataTable().ajax.reload();
+            } else {
+                console.log('error');
+            }
+        });
+    }
+}
 
     </script>
 </body>

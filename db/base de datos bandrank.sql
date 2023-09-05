@@ -165,3 +165,9 @@ alter table detalle_calificacion
 
 alter table jurado
     change id id_jurado int auto_increment;
+
+
+/*---------------------------------- Tabla penalizacion-------------------------------------------------------------- */
+
+
+    CREATE TABLE `bandrank`.`penalizacionxcalificacion` (`id_penalizacionxcalificacion` INT(10) NOT NULL AUTO_INCREMENT , `id_penalizacion` INT(10) NOT NULL , `id_calificacion` INT(10) NOT NULL , PRIMARY KEY (`id_penalizacionxcalificacion`)) ENGINE = InnoDB;

@@ -120,5 +120,5 @@ function editarBandas()
     $id = $_REQUEST["id"];
     $datos = $banda_model->getBandaById($id);
 
-    include 'bandas.php';
+    include 'modificarbandas.php';
 }

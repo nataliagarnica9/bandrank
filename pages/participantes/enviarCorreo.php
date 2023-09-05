@@ -3,4 +3,4 @@ include '../../config.php';
 include '../../services/MailerService.php';
 
 $mailService = new MailerService();
-$mailService->construirCorreo('natagarge@gmail.com');
+$mailService->construirCorreo('stevenson0605@gmail.com');

@@ -29,6 +29,9 @@ if (isset($_REQUEST["action"])) {
         case 'actualizar_penalizacion':
             actualizar_penalizacion();
             break;
+         case 'obtener_puntaje_penalizacion':
+            obtenerPuntajeCalificacion();
+            break;
         default:
             header("location:penalizacionMain.php"); // Ajusta la redirección a la página principal de penalizaciones
             break;
@@ -231,9 +234,9 @@ function obtenerPuntajeCalificacion()
     include '../../../config.php';
 
     $penalizacion_model = new Penalizaciones($db);
-    $puntaje_penalizacion = $_REQUEST["puntaje_penalizacion"];
-    $datos = $penalizacion_model->getPenalizacionById($id);
+    $id = $_REQUEST["id"];
+    $datos = $penalizacion_model->getPuntajePenalizacionById($id);
 
-    include 'modificarPenalizacion.php';
+    echo json_encode(["id" => $datos]);
 }
 ?>

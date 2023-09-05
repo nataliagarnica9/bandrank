@@ -24,7 +24,7 @@ class MailerService
         $asunto = "Comprobante de calificación de concurso";
         $html = $this->templateHtml();
         $nombreArchivo = 'planilla_'.$banda;
-        include __DIR__.'/../pages/participantes/exportes/generarPlanilla.php?planilla=3&banda=3?enviar_planilla=si';
+        include __DIR__.'/../pages/participantes/exportes/generarPlanilla.php?planilla=1&banda=6?enviar_planilla=si';
         $adjunto = __DIR__.'/../pages/participantes/exportes/planilla_correo.pdf';
         $envio = $this->enviarCorreo($destinatario, $asunto, $html, $adjunto);
 

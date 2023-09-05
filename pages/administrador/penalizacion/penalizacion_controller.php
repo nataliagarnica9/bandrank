@@ -225,4 +225,15 @@ function actualizar_penalizacion()
 
     include 'modificarPenalizacion.php';
 }
+
+function obtenerPuntajeCalificacion()
+{
+    include '../../../config.php';
+
+    $penalizacion_model = new Penalizaciones($db);
+    $puntaje_penalizacion = $_REQUEST["puntaje_penalizacion"];
+    $datos = $penalizacion_model->getPenalizacionById($id);
+
+    include 'modificarPenalizacion.php';
+}
 ?>

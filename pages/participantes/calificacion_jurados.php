@@ -60,9 +60,11 @@ if($_SESSION["ROL"] == 'instructor') {
             </table>
             <!-- Aquí se inserta la tabla con los aspectos a evaluar -->
             <table class="table table-striped-columns">
+                <tr>
                 <th>Aspectos a Evaluar</th>
                 <th>Rango</th>
                 <th>Valoración (0-10)</th>
+                </tr>
                 <?php
                                        $consulta1_1 = $db->prepare("SELECT * FROM criterio where id_planilla = ?");
                                        $consulta1_1->bindValue(1,$_REQUEST["planilla"]);
@@ -81,13 +83,15 @@ if($_SESSION["ROL"] == 'instructor') {
                 <?php
                                         }
                                         ?>
+
+                <tr>
+                <td colspan="3"><label for="penalizacion">Penalizaciones:</label></td>
                 </tr>
 
-                <td><label for="penalizacion">Penalizaciones:</label></td>
-<td>
-    <div id="penalizaciones-container">
+    <tr id="penalizaciones-container">
         <!-- Contenedor para las penalizaciones -->
-        <select name="penalizacion[]" class="form-control">
+        <td colspan="2"> 
+            <select name="penalizacion" class="form-control" onchange="asignarPenalizacion($(this).val())">
             <option value="">Selecciona una penalización</option>
             <?php
             // Consulta para obtener las penalizaciones
@@ -104,13 +108,18 @@ if($_SESSION["ROL"] == 'instructor') {
                 }
 
                 // Muestra el nombre de la penalización y su valor en la opción
-                echo '<option value="' . $penalizacion->id_penalizacion . '">' . $nombre_penalizacion . ' (-' . $penalizacion->puntaje_penalizacion . ' puntos)</option>';
+            
+                echo '<option value="' . $penalizacion->id_penalizacion . '" ('.$penalizacion->puntaje_penalizacion.')">' . $nombre_penalizacion . ' (-' . $penalizacion->puntaje_penalizacion . ' puntos)</option>';
+                
             }
+
             ?>
+
         </select>
         <button type="button" class=" btn-bandrank btn-add-penalizacion"style="padding: 6px 9px; font-size: 14px;">Agregar Penalización</button>
-    </div>
-</td>
+        </td>
+        <td></td>
+    </tr>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const penalizacionesContainer = document.getElementById('penalizaciones-container');
@@ -118,9 +127,9 @@ if($_SESSION["ROL"] == 'instructor') {
 
         // Función para agregar un campo de penalización
         function agregarCampoPenalizacion() {
-            const nuevoCampoPenalizacion = document.createElement('div');
+            const nuevoCampoPenalizacion = document.createElement('tr');
             nuevoCampoPenalizacion.innerHTML = `
-                <select name="penalizacion[]" class="form-control">
+                <select name="penalizacion" class="form-control">
                     <option value="">Selecciona una penalización</option>
                     <?php
                     // Consulta para obtener las penalizaciones
@@ -180,19 +189,53 @@ if($_SESSION["ROL"] == 'instructor') {
         </form>
     </div>
     <script>
-                const valoracionInputs = document.querySelectorAll('input[type="number"]');
-                const totalAspectosInput = document.getElementById('total_aspectos');
-                valoracionInputs.forEach(input => {
-                    input.addEventListener('input', () => {
-                        let totalAspectos = 0;
-                        valoracionInputs.forEach(input => {
-                            const valoracion = parseFloat(input.value) || 0;
-                            totalAspectos += valoracion;
-                        });
-                        totalAspectosInput.value = totalAspectos.toFixed(2);
-                    });
-                });
-            </script>
+          
+    // Función para calcular el total restando las penalizaciones
+    function calcularTotal() {
+        let valoracionInputs = document.querySelectorAll('input[type="number"]');
+        const totalAspectosInput = document.getElementById('total_aspectos');
+        let totalAspectos = 0;
+
+        // Calcular la suma de las valoraciones
+        valoracionInputs.forEach(input => {
+            const valoracion = parseFloat(input.value) || 0;
+            totalAspectos += valoracion;
+        });
+
+        // Restar las penalizaciones seleccionadas
+        const penalizacionSelects = document.querySelectorAll('select[name="penalizacion"]');
+        penalizacionSelects.forEach(select => {
+            const penalizacionValue = parseFloat(select.options[select.selectedIndex].getAttribute('data-puntaje')) || 0;
+            totalAspectos -= penalizacionValue;
+        });
+
+        // Actualizar el campo del total
+        totalAspectosInput.value = totalAspectos.toFixed(2);
+    }
+
+    // Escuchar eventos de cambio en los inputs y selects relevantes
+    let valoracionInputs1 = document.querySelectorAll('input[type="number"]');
+    valoracionInputs1.forEach(input => {
+        input.addEventListener('input', calcularTotal);
+    });
+
+    const penalizacionSelects = document.querySelectorAll('select[name="penalizacion"]');
+    penalizacionSelects.forEach(select => {
+        select.addEventListener('change', calcularTotal);
+    });
+    function asignarPenalizacion(penalizacion){
+        console.log(penalizacion);
+        $.ajax(
+                url: 'concurso_controller.php?action=crear_concurso',
+                data:{id: penalizacion}
+                dataType: 'html',
+                type: 'json',
+            }).done(function(response) {
+                $('#contenedor-concursos').html(html);
+            });
+    }
+</script>
+
 </body>
 
 </html>

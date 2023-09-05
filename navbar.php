@@ -11,7 +11,7 @@ if (isset($_SESSION["ROL"]) && $_SESSION["ROL"] == 'admin') {
     $boton_home = '';
 }
 ?>
-<nav class="nav-br fixed-top mb-5">
+<nav class="nav-br fixed-top mb-5 shadow-sm">
     <input type="checkbox" id="nav-check">
     <div class="nav-header">
         <div class="nav-title">

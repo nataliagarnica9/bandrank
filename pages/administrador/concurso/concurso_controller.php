@@ -14,7 +14,7 @@ if(isset($_REQUEST["action"])) {
             response();
             break;
         case 'actualizar_concurso';
-            actualizar_concurso();
+        actualizar_concurso();
              break;
         case 'actualizar';
             actualizar();
@@ -127,12 +127,11 @@ function response() {
     /////////////////////////////////
 
     function actualizar_concurso() {
-        error_reporting(E_ALL);
         include '../../../config.php';
         $concurso_model = new Concurso($db); 
         $id = $_REQUEST["id"];
         $datos = $concurso_model->getConcursoById($id); 
-    
+
         include 'modificarConcurso.php'; 
     } 
 

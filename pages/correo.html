@@ -1,30 +1,27 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <title>Comprobante de Calificación</title>
     <style>
-        /* Estilos globales y estilos existentes aquí ... */
-    
-        /* Nuevos estilos para el borde naranja */
         .email-container {
-            border: 10px solid #FF751F; /* Agrega un borde naranja de 10px */
-            padding: 20px; /* Espacio interno alrededor del contenido */
-            text-align: center; /* Centra el contenido horizontalmente */
+            background: #FF751F; 
+            padding: 20px; 
+            text-align: center;
+            border-radius: 5px;
         }
     
         /* Estilo para el logotipo */
         .logo {
             display: block;
             margin: 0 auto;
-            max-width: 300px; /* Ajusta el ancho máximo según tus necesidades */
+            max-width: 300px; 
         }
-    </style>
     
-    <meta charset="UTF-8">
-    <title>Comprobante de Calificación</title>
-    <style>
+    
         /* Estilos globales */
         body {
-            font-family: "Inter", sans-serif;
+            font-family: "Segoe UI", sans-serif;
             background-color: #FFFFFF;
             margin: 0;
             padding: 0;
@@ -40,7 +37,7 @@
         /* Encabezado */
         h1 {
             font-size: 24px;
-            color: #FF751F; /* Color de encabezado personalizado */
+            color: #000; /* Color de encabezado personalizado */
         }
 
         /* Contenido */
@@ -86,6 +83,12 @@
             background-color: #C75A15; /* Color de botón al pasar el ratón */
         }
 
+        .body-container {
+            border: 2px solid #DCDCDC;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
         /* Pie de página */
         .footer {
             text-align: center;
@@ -98,23 +101,20 @@
 <body>
     
         <div class="container email-container">
-            <img src="../dist/images/bandrank_logotipo.png" alt="Logotipo BandRank" class="logo">
-            <h1>Comprobante de Calificación</h1>
+            <img src="../dist/images/bandrank_logotipo_blanco.png" alt="Logotipo BandRank" class="logo">
         </div>
     
     <div class="container">
-        <p>Estimado/a [Nombre del destinatario],</p>
+        <div class="body-container">
+            <h1>Comprobante de calificación</h1>
+            <p style="font-weight: bold;">Hola! Aquí te enviamos el comprobante de la calificación</p>
         
-        <p>De parte del sistema de calificación BandRank, le enviamos el comprobante de calificación</p>
-
-        <ul>
-            <li>No sé q poner aqui</li>
-            <!-- Agregar mas cosas en caso de necesitar -->
-        </ul>
-
-        <p>Gracias por su participación. Si tiene alguna pregunta o necesita más información, no dude en ponerse en contacto con nosotros.</p>
-        
-        <p>Atentamente,<br>El equipo BandRank</p>
+            <p>Se ha generado la calificación de la participación de tu agrupación en el concurso ...</p>
+    
+            <p>Gracias por su participación. Si tiene alguna pregunta o necesita más información, no dudes en ponerte en contacto con nosotros.</p>
+            <hr style="border: 1px solid #FF751F;width: 400px;">
+            <p>Atentamente,<br>El equipo BandRank</p>
+        </div>
     </div>
 
     <div class="footer">

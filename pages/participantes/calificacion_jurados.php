@@ -15,10 +15,11 @@ if($_SESSION["ROL"] == 'instructor') {
     <div class="container mt-navbar">
         <h3>Cuadro de calificación de bandas marciales</h3>
 
-        <form action="procesar_calificacion.php" method="POST">
+        <form id="formulario-calificacion" name="formulario-calificacion" method="POST">
             <input type="hidden" name="id_concurso" value="<?=$_REQUEST["concurso"]?>">
             <input type="hidden" name="id_categoria" value="<?=$_REQUEST["categoria"]?>">
             <input type="hidden" name="id_banda" value="<?=$_REQUEST["banda"]?>">
+            <input type="hidden" name="cuantos_detalle" value="1" id="cuantos_detalle">
             <input type="hidden" name="id_planilla" value="<?=$_REQUEST["planilla"]?>">
             <table class="table">
                 <tr>
@@ -78,7 +79,7 @@ if($_SESSION["ROL"] == 'instructor') {
                 <tr>
                     <td><?=$planilla->nombre_criterio?></td>
                     <td>0-<?=$planilla->rango_calificacion?></td>
-                    <td><input type="number" min="0" max="<?=$planilla->rango_calificacion?>" step="0.1" class="form-control" name="puntaje-<?=$i?>">
+                    <td><input type="number" min="0" max="<?=$planilla->rango_calificacion?>" step="0.1" class="form-control" name="puntaje-<?=$i?>"id="criterio">
                         <input type="hidden" name="id_criterioevaluacion-<?=$i?>" value="<?=$planilla->id_criterio?>">
                     </td>
                 </tr>
@@ -140,7 +141,7 @@ if($_SESSION["ROL"] == 'instructor') {
                     <td colspan="2"><textarea class="form-control" name="observaciones" rows="4" cols="15"></textarea></td>
                 </tr>
             </table>
-            <button type="submit" class="btn-bandrank my-5">Guardar calificación</button>
+            <button type="button" onclick= "guardarCalificacion() "class="btn-bandrank my-5">Guardar calificación</button>
             <td><a href="eleccionplanilla.php?concurso=<?=$_REQUEST['concurso']?>&categoria=<?=$_REQUEST["categoria"]?>&banda=<?=$banda->id_banda?>" class="btn-bandrank">Volver</a></td>
         </form>
     </div>
@@ -159,8 +160,8 @@ if($_SESSION["ROL"] == 'instructor') {
 
         // Función para agregar un campo de penalización
         function agregarCampoPenalizacion() {
-            console.log('g');
             nextinput++;
+            $('#cuantos_detalle').val(nextinput);
             const nuevoCampoPenalizacion = document.createElement('tr');
             nuevoCampoPenalizacion.innerHTML = `
                 <td colspan="2">
@@ -226,11 +227,26 @@ function calcularTotal(input) {
     totalAspectosInput.value = totalAspectos.toFixed(2);
 }
 
+    function guardarCalificacion() {
+     $.ajax({
+        url: 'procesar_calificacion.php',
+        dataType: 'json',
+        type: 'POST',
+        data:  $('#formulario-calificacion').serialize()
+        
+    }).done(function(response){
+        if (response.status == 'success'){
+            location.reload();
+        } else {
+            console.log('error');
+        }
+    });
+    }
 
         // Escuchar eventos de cambio en los inputs y selects relevantes
         let valoracionInputs1 = document.querySelectorAll('input[type="number"]');
         valoracionInputs1.forEach(input => {
-            input.addEventListener('input', calcularTotal);
+            input.addEventListener('blur', calcularTotal);
         });
 
         const penalizacionSelects = document.querySelectorAll('select[class="penalizacion-resta"]');
@@ -248,6 +264,15 @@ function calcularTotal(input) {
                 $('#penalizacion_puntaje-'+input).val(response.id);
             });
         }
+
+        $("input[type='number']").on("input", function() {
+        var valorInput = $(this).val();
+        var max = parseInt($(this).attr("max"));
+
+        if (valorInput > max) {
+            $(this).val(max); // Establecer el valor máximo si es mayor
+        }
+    });
 
 
     </script>

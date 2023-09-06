@@ -75,6 +75,9 @@ ALTER TABLE `banda` ADD `firma` VARCHAR(255) NOT NULL AFTER `clave`;
 
 ALTER TABLE `banda` DROP `categoria`;
 
+ALTER TABLE banda
+    add descalificado TINYINT(1) NOT NULL DEFAULT 0;
+
 /*---------------------------------- Tabla planilla -------------------------------------------------------------- */
 
 CREATE TABLE planilla (
@@ -141,6 +144,9 @@ alter table encabezado_calificacion
 
 alter table encabezado_calificacion
     auto_increment = 1;
+
+alter table encabezado_calificacion
+    modify total_calificacion double(20,1);
 
 
 /*---------------------------------- Tabla detalle_calificacion-------------------------------------------------------------- */

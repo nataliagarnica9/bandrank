@@ -16,10 +16,10 @@ if($_SESSION["ROL"] == 'instructor') {
         <h3>Cuadro de calificación de bandas marciales</h3>
 
         <form action="procesar_calificacion.php" method="POST">
-            <input type="hidden" name="id_concurso" value="<?=$_REQUEST[" concurso"]?>">
-            <input type="hidden" name="id_categoria" value="<?=$_REQUEST[" categoria"]?>">
-            <input type="hidden" name="id_banda" value="<?=$_REQUEST[" banda"]?>">
-            <input type="hidden" name="id_planilla" value="<?=$_REQUEST[" planilla"]?>">
+            <input type="hidden" name="id_concurso" value="<?=$_REQUEST["concurso"]?>">
+            <input type="hidden" name="id_categoria" value="<?=$_REQUEST["categoria"]?>">
+            <input type="hidden" name="id_banda" value="<?=$_REQUEST["banda"]?>">
+            <input type="hidden" name="id_planilla" value="<?=$_REQUEST["planilla"]?>">
             <table class="table">
                 <tr>
                     <td style="width: 14vw;border-bottom: 0px;"><label for="nombre">Nombre de la Banda:</label></td>
@@ -64,10 +64,10 @@ if($_SESSION["ROL"] == 'instructor') {
                 <tr>
                     <th>Aspectos a Evaluar</th>
                     <th>Rango</th>
-                    <th>Valoración (0-10)</th>
+                    <th>Valoración</th>
                 </tr>
                 <?php
-                    $consulta1_1 = $db->prepare("SELECT * FROM criterio where id_planilla = ?");
+                    $consulta1_1 = $db->prepare("SELECT * FROM criterio where id_planilla = ? and eliminado = 0");
                     $consulta1_1->bindValue(1,$_REQUEST["planilla"]);
                     $consulta1_1->execute();
                     $fetch_consulta1_1 = $consulta1_1->fetchAll(PDO::FETCH_OBJ);
@@ -141,6 +141,7 @@ if($_SESSION["ROL"] == 'instructor') {
                 </tr>
             </table>
             <button type="submit" class="btn-bandrank my-5">Guardar calificación</button>
+            <td><a href="eleccionplanilla.php?concurso=<?=$_REQUEST['concurso']?>&categoria=<?=$_REQUEST["categoria"]?>&banda=<?=$banda->id_banda?>" class="btn-bandrank">Volver</a></td>
         </form>
     </div>
     <?php require("../../footer.php"); ?>
@@ -164,7 +165,7 @@ if($_SESSION["ROL"] == 'instructor') {
             nuevoCampoPenalizacion.innerHTML = `
                 <td colspan="2">
                     <select name="penalizacion-${nextinput}" id="penalizacion-${nextinput}" class="form-control penalizacion-resta" onchange="asignarPenalizacion($(this).val(),${nextinput}),calcularTotal()">
-                    <option value="">Selecciona una penalización HEY</option>
+                    <option value="">Selecciona una penalización</option>
                     <?php
                     // Consulta para obtener las penalizaciones
                     $consulta_penalizaciones = $db->prepare("SELECT * FROM penalizacion WHERE eliminado = 0");

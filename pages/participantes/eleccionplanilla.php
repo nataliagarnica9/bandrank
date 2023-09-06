@@ -35,7 +35,6 @@ if($_SESSION["ROL"] == 'instructor') {
             <tr>
                 <td><?=$planilla->nombre_planilla?></td>
                 <td><a href="calificacion_jurados.php?concurso=<?=$_REQUEST['concurso']?>&categoria=<?=$_REQUEST["categoria"]?>&banda=<?=$_REQUEST["banda"]?>&planilla=<?=$planilla->id_planilla?>" class="btn-bandrank">Seleccionar</a></td>
-                
             </tr>
 
             <?php
@@ -43,6 +42,7 @@ if($_SESSION["ROL"] == 'instructor') {
             ?>
         </tbody>
     </table>
+    <a href="eleccionbandas.php?concurso=<?=$_REQUEST['concurso']?>&categoria=<?=$_REQUEST['banda']?>" class="btn-bandrank">Volver</a></td>
 
 </body>
 </html>

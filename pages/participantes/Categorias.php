@@ -24,8 +24,7 @@ if($_SESSION["ROL"] == 'instructor') {
         <tbody>
             <?php
             // Datos de ejemplo de categorías
-            $categorias = $db->prepare("select * from categorias_concurso where eliminado = 0 and id_concurso=?");
-            $categorias->bindValue(1,$_REQUEST["concurso"]);
+            $categorias = $db->prepare("select * from categorias_concurso where eliminado = 0");
             $categorias->execute();
             $fetch_categorias = $categorias->fetchAll(PDO::FETCH_OBJ);
 
@@ -43,6 +42,6 @@ if($_SESSION["ROL"] == 'instructor') {
             ?>
         </tbody>
     </table>
-
+    <a href="inicio.php" class="btn-bandrank">Volver</a>
 </body>
 </html>

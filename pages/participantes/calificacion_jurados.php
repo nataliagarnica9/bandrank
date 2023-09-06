@@ -97,8 +97,8 @@ if($_SESSION["ROL"] == 'instructor') {
                 <tr>
                     <!-- Contenedor para las penalizaciones -->
                     <td colspan="2">
-                        <select name="penalizacion-1" class="form-control"
-                            onchange="asignarPenalizacion($(this).val(),1)">
+                        <select name="penalizacion-1" class="form-control penalizacion-resta" id="penalizacion-1"
+                            onchange="asignarPenalizacion($(this).val(),1),calcularTotal()">
                             <option value="">Selecciona una penalización</option>
                             <?php
                                 // Consulta para obtener las penalizaciones
@@ -163,7 +163,7 @@ if($_SESSION["ROL"] == 'instructor') {
             const nuevoCampoPenalizacion = document.createElement('tr');
             nuevoCampoPenalizacion.innerHTML = `
                 <td colspan="2">
-                    <select name="penalizacion-${nextinput}" id="penalizacion-${nextinput}" class="form-control" onchange="asignarPenalizacion($(this).val(),${nextinput})">
+                    <select name="penalizacion-${nextinput}" id="penalizacion-${nextinput}" class="form-control penalizacion-resta" onchange="asignarPenalizacion($(this).val(),${nextinput}),calcularTotal()">
                     <option value="">Selecciona una penalización HEY</option>
                     <?php
                     // Consulta para obtener las penalizaciones
@@ -202,27 +202,29 @@ if($_SESSION["ROL"] == 'instructor') {
         }
 
         // Función para calcular el total restando las penalizaciones
-        function calcularTotal() {
-            let valoracionInputs = document.querySelectorAll('input[type="number"]');
-            const totalAspectosInput = document.getElementById('total_aspectos');
-            let totalAspectos = 0;
+// Función para calcular el total restando las penalizaciones
+function calcularTotal(input) {
+    let valoracionInputs = document.querySelectorAll('input[type="number"]');
+    const totalAspectosInput = document.getElementById('total_aspectos');
+    let totalAspectos = 0;
 
-            // Calcular la suma de las valoraciones
-            valoracionInputs.forEach(input => {
-                const valoracion = parseFloat(input.value) || 0;
-                totalAspectos += valoracion;
-            });
+    // Calcular la suma de las valoraciones
+    valoracionInputs.forEach(input => {
+        const valoracion = parseFloat(input.value) || 0;
+        totalAspectos += valoracion;
+    });
 
-            // Restar las penalizaciones seleccionadas
-            const penalizacionSelects = document.querySelectorAll('select[name="penalizacion"]');
-            penalizacionSelects.forEach(select => {
-                const penalizacionValue = parseFloat(select.options[select.selectedIndex].getAttribute('data-puntaje')) || 0;
-                totalAspectos -= penalizacionValue;
-            });
+    // Restar penalización específica (penalizaciones_puntaje-1)
+    //const penalizacion1Value = parseFloat(document.getElementById('penalizacion_puntaje-1').value) || 0;
+    //totalAspectos -= penalizacion1Value;
+    for(i=1; i<=nextinput; i++){
+        totalAspectos -= $("#penalizacion_puntaje-" +i).val();
+    }
 
-            // Actualizar el campo del total
-            totalAspectosInput.value = totalAspectos.toFixed(2);
-        }
+    // Actualizar el campo del total
+    totalAspectosInput.value = totalAspectos.toFixed(2);
+}
+
 
         // Escuchar eventos de cambio en los inputs y selects relevantes
         let valoracionInputs1 = document.querySelectorAll('input[type="number"]');
@@ -230,7 +232,7 @@ if($_SESSION["ROL"] == 'instructor') {
             input.addEventListener('input', calcularTotal);
         });
 
-        const penalizacionSelects = document.querySelectorAll('select[name="penalizacion"]');
+        const penalizacionSelects = document.querySelectorAll('select[class="penalizacion-resta"]');
         penalizacionSelects.forEach(select => {
             select.addEventListener('change', calcularTotal);
         });

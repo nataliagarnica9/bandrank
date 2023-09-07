@@ -210,3 +210,6 @@ create table planillaxjurado
     constraint planillaxjurado_planilla_id_planilla_fk
         foreign key (id_planilla) references planilla (id_planilla)
 );
+
+alter table encabezado_calificacion
+    add firma_instructor text null;

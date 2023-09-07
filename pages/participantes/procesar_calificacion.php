@@ -3,17 +3,20 @@ include("../../config.php");
 include '../../services/MailerService.php';
 $mailService = new MailerService();
 
-
     try {
-        $query = $db->prepare("INSERT INTO encabezado_calificacion (id_jurado, id_concurso, id_planilla, total_calificacion, observaciones, id_banda) VALUES (?, ?, ?, ?, ?, ?);");
+        $arr_firma = explode(";base64,", $_POST["signed"]);
+
+        $query = $db->prepare("INSERT INTO encabezado_calificacion (id_jurado, id_concurso, id_planilla, total_calificacion, observaciones, id_banda, firma_instructor) VALUES (?, ?, ?, ?, ?, ?, ?);");
         $query->bindValue(1, $_SESSION["ID_USUARIO"]);
         $query->bindValue(2, $_POST["id_concurso"]);
         $query->bindValue(3, $_POST["id_planilla"]);
         $query->bindValue(4, $_POST["total_calificacion"]);
         $query->bindValue(5, $_POST["observaciones"]);
         $query->bindValue(6, $_POST["id_banda"]);
+        $query->bindValue(7, $arr_firma[1]);
         $query->execute();
-        $ultimoid=$db->lastInsertId();
+        
+        $ultimoid = $db->lastInsertId();
 
         for ($i=0; $i<$_POST["numerodecriterios"];$i++){
             $query = $db->prepare("INSERT INTO detalle_calificacion (id_calificacion, id_criterioevaluacion, puntaje) VALUES (?, ?, ?);");
@@ -48,7 +51,7 @@ $mailService = new MailerService();
         }
 
         /** Consulto los datos para enviar al correo */
-        $query_banda = $db->prepare("SELECT nombre AS nombre_banda,correo_instructor,nombre_instructor FROM banda WHERE id_banda = ?;");
+        $query_banda = $db->prepare("SELECT nombre AS nombre_banda,correo_instructor,nombre_instructor,id_banda FROM banda WHERE id_banda = ?;");
         $query_banda->bindValue(1, $_POST["id_banda"]);
         $query_banda->execute();
         $fetch_banda = $query_banda->fetch(PDO::FETCH_OBJ);
@@ -66,15 +69,22 @@ $mailService = new MailerService();
 
         $nombre_planilla = $fetch_planilla->nombre_planilla;
 
+        $planilla = [
+            "id_planilla" => $_POST["id_planilla"],
+            "nombre_planilla" =>$nombre_planilla
+        ];
+
         $instructor = [
+            "id_banda" => $fetch_banda->id_banda,
             "correo_instructor" => $fetch_banda->correo_instructor,
             "nombre_banda" => $fetch_banda->nombre_banda,
             "nombre_instructor" => $fetch_banda->nombre_instructor
         ];
 
-        echo $mailService->construirCorreo($db,$instructor, $nombre_planilla);
+        echo $mailService->construirCorreo($db,$instructor, $planilla);
 
-        header("Location: inicio.php");
+        //echo json_encode(["status_cal"=>"200"]);
+
     } catch (Exception $ex) {
-        return $ex."No se pudo completar el guardado de la calificación";
+        return json_encode(["status"=>"400", "message" => $ex."No se pudo completar el guardado de la calificación"]);
     }

@@ -79,7 +79,7 @@ if ($_SESSION["ROL"] == 'instructor') {
                     <tr>
                         <td><?= $planilla->nombre_criterio ?></td>
                         <td>0-<?= $planilla->rango_calificacion ?></td>
-                        <td><input type="number" min="0" max="<?= $planilla->rango_calificacion ?>" step="0.1" class="form-control" name="puntaje-<?= $i ?>" id="criterio">
+                        <td><input type="number" min="0" max="<?= $planilla->rango_calificacion ?>" step="0.1" class="form-control" name="puntaje-<?= $i ?>">
                             <input type="hidden" name="id_criterioevaluacion-<?= $i ?>" value="<?= $planilla->id_criterio ?>">
                         </td>
                     </tr>
@@ -97,7 +97,7 @@ if ($_SESSION["ROL"] == 'instructor') {
                 <tr>
                     <!-- Contenedor para las penalizaciones -->
                     <td colspan="2">
-                        <select name="penalizacion-1" class="form-control penalizacion-resta" id="penalizacion-1" onchange="asignarPenalizacion($(this).val(),1),calcularTotal()">
+                        <select name="penalizacion-1" class="form-control penalizacion-resta" id="penalizacion-1" onchange="asignarPenalizacion($(this).val(),1)">
                             <option value="">Selecciona una penalización</option>
                             <?php
                             // Consulta para obtener las penalizaciones
@@ -138,8 +138,23 @@ if ($_SESSION["ROL"] == 'instructor') {
                     <td colspan="2"><textarea class="form-control" name="observaciones" rows="4" cols="15"></textarea></td>
                 </tr>
             </table>
+            <table class="table">
+                <tr>
+                    <th>Firma del instructor</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="sig">
+
+                        </div>
+                        <textarea name="signed" id="signature64" style="display: none;"></textarea>
+                        <br>
+                        <button class="btn btn-light" id="clear">Limpiar</button>
+                    </td>
+                </tr>
+            </table>
             <button type="button" onclick="guardarCalificacion() " class="btn-bandrank my-5">Guardar calificación</button>
-            <td><a href="eleccionplanilla.php?concurso=<?= $_REQUEST['concurso'] ?>&categoria=<?= $_REQUEST["categoria"] ?>&banda=<?= $banda->id_banda ?>" class="btn-bandrank">Volver</a></td>
+            <td><a href="eleccionplanilla.php?concurso=<?= $_REQUEST['concurso'] ?>&categoria=<?= $_REQUEST["categoria"] ?>&banda=<?= $banda->id_banda ?>" class="btn btn-light">Volver</a></td>
         </form>
     </div>
     <?php require("../../footer.php"); ?>
@@ -148,10 +163,34 @@ if ($_SESSION["ROL"] == 'instructor') {
         const penalizacionesContainer = document.getElementById('penalizaciones-container');
         const btnAddPenalizacion = document.querySelector('.btn-add-penalizacion');
 
+        $(document).ready(function(){
+            var sig = $('#sig').signature({
+            syncField: '#signature64',
+            syncFormat: 'PNG'
+            })
+
+            $('#clear').click(function(e) {
+                e.preventDefault();
+                sig.signature('clear');
+                $("#signature64").val('');
+            })
+        });
+
         penalizacionesContainer.addEventListener('click', function(event) {
             if (event.target.classList.contains('btn-remove-penalizacion')) {
                 eliminarCampoPenalizacion(event);
             }
+        });
+
+        // Escuchar eventos de cambio en los inputs y selects relevantes
+        let valoracionInputs1 = document.querySelectorAll('input[type="number"]');
+        valoracionInputs1.forEach(input => {
+            input.addEventListener('blur', calcularTotal);
+        });
+
+        const penalizacionSelects = document.querySelectorAll('select[class="penalizacion-resta"]');
+        penalizacionSelects.forEach(select => {
+            select.addEventListener('change', calcularTotal);
         });
 
 
@@ -162,7 +201,7 @@ if ($_SESSION["ROL"] == 'instructor') {
             const nuevoCampoPenalizacion = document.createElement('tr');
             nuevoCampoPenalizacion.innerHTML = `
                 <td colspan="2">
-                    <select name="penalizacion-${nextinput}" id="penalizacion-${nextinput}" class="form-control penalizacion-resta" onchange="asignarPenalizacion($(this).val(),${nextinput}),calcularTotal()">
+                    <select name="penalizacion-${nextinput}" id="penalizacion-${nextinput}" class="form-control penalizacion-resta" onchange="asignarPenalizacion($(this).val(),${nextinput})">
                     <option value="">Selecciona una penalización</option>
                     <?php
                     // Consulta para obtener las penalizaciones
@@ -197,6 +236,7 @@ if ($_SESSION["ROL"] == 'instructor') {
             const campoPenalizacion = event.target.parentElement;
             if (penalizacionesContainer.children.length > 1) {
                 penalizacionesContainer.removeChild(campoPenalizacion);
+                calcularTotal();
             }
         }
 
@@ -213,13 +253,8 @@ if ($_SESSION["ROL"] == 'instructor') {
                 totalAspectos += valoracion;
             });
 
-            // Restar penalización específica (penalizaciones_puntaje-1)
-            //const penalizacion1Value = parseFloat(document.getElementById('penalizacion_puntaje-1').value) || 0;
-            //totalAspectos -= penalizacion1Value;
             for (i = 1; i <= nextinput; i++) {
-                console.log('i');
                 let num_penalizacion = $("#penalizacion_puntaje-" + i).val() == '' ? 0 : $("#penalizacion_puntaje-" + i).val();
-                console.log(num_penalizacion);
                 totalAspectos -= num_penalizacion;
             }
 
@@ -232,27 +267,46 @@ if ($_SESSION["ROL"] == 'instructor') {
                 url: 'procesar_calificacion.php',
                 dataType: 'json',
                 type: 'POST',
-                data: $('#formulario-calificacion').serialize()
-
+                data: $('#formulario-calificacion').serialize(),
+                beforeSend: function (){
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Registrando información',
+                            text: 'Por favor espera un momento mientras se registra la calificación',
+                            allowEscapeKey: false,
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading()
+                            }
+                        });
+                    }
             }).done(function(response) {
-                if (response.status == 'success') {
-                    location.reload();
+                if (response.status == '200') {
+                    Swal.close();
+                    Swal.fire({
+                            icon: 'success',
+                            title: 'Se guardó correctamente la calificación',
+                            allowEscapeKey: false,
+                            allowOutsideClick: false
+                    });
+                    setTimeout(function(){
+                        location.href = 'inicio.php';
+                    },2000);
                 } else {
-                    console.log('error');
+                    Swal.close();
+                    Swal.fire({
+                            icon: 'error',
+                            title: 'Hubo un error al guardar la calificación',
+                            text: response.message,
+                            allowEscapeKey: false,
+                            allowOutsideClick: false
+                    });
+                    //setTimeout(function(){
+                    //    location.reload();
+                    //},2000);
                 }
             });
         }
-
-        // Escuchar eventos de cambio en los inputs y selects relevantes
-        let valoracionInputs1 = document.querySelectorAll('input[type="number"]');
-        valoracionInputs1.forEach(input => {
-            input.addEventListener('blur', calcularTotal);
-        });
-
-        const penalizacionSelects = document.querySelectorAll('select[class="penalizacion-resta"]');
-        penalizacionSelects.forEach(select => {
-            select.addEventListener('change', calcularTotal);
-        });
 
         function asignarPenalizacion(penalizacion, input) {
             $.ajax({
@@ -264,6 +318,7 @@ if ($_SESSION["ROL"] == 'instructor') {
                 type: 'get',
             }).done(function(response) {
                 $('#penalizacion_puntaje-' + input).val(response.id);
+                calcularTotal();
             });
         }
 

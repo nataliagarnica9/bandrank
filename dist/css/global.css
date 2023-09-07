@@ -393,3 +393,15 @@ li>a:only-child:after {
         padding: 8em;
     }
 }
+
+.kbw-signature {
+    width: 400px;
+    height: 200px;
+    border: 1px solid #DCDCDC !important;
+    border-radius: 3px;
+}
+
+#sig_canvas {
+    width: 100% !important;
+    height: auto;
+}

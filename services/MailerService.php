@@ -18,21 +18,21 @@ class MailerService
         $this->port = $_ENV["PORT_SMTP"];
     }
 
-    public function construirCorreo($conexion, $data_instructor, $nombre_planilla)
+    public function construirCorreo($conexion, $data_instructor, $data_planilla)
     {
 
         $this->senderName = 'BANDRANK';
         $asunto = "Comprobante de calificación de concurso";
         $html = $this->templateHtml($data_instructor);
-        $nombre_archivo = $nombre_planilla.'-'.$data_instructor["nombre_banda"];
+        $nombre_archivo = $data_planilla["nombre_planilla"].'-'.$data_instructor["nombre_banda"];
 
-        $_REQUEST["planilla"] = 2;
-        $_REQUEST["banda"] = 5;
+        $_REQUEST["planilla"] = $data_planilla["id_planilla"];
+        $_REQUEST["banda"] = $data_instructor["id_banda"];
         $_REQUEST["enviar_planilla"] = 'si';
         $db = $conexion;
         include __DIR__ ."/../pages/participantes/exportes/generarPlanilla.php";
         $adjunto = __DIR__."/../pages/participantes/planilla_correo.pdf";
-        $envio = $this->enviarCorreo($data_instructor["correo_instructor"], $asunto, $html, $adjunto, $nombre_archivo);
+        $envio = $this->enviarCorreo($data_instructor["correo_instructor"], $asunto, $html, $nombre_archivo, $adjunto );
 
         return json_encode($envio);
 

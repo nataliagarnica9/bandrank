@@ -196,7 +196,7 @@ class PlanillaExporte {
                     <p style="text-align:center;font-weight: bold">Firma jurado</p>
                 </td>
                 <td style="width:50%">
-                    <img src="https://guardiadorada.com/bandrank/dist/images/firmas/Firma.png" style="width: 250px; margin-left: 25px;margin-right: 25px;">
+                    <img src="data:image/png;base64,'.$encabezado->firma_instructor.'" style="width: 250px; margin-left: 25px;margin-right: 25px;">
                     <hr style="width: 70%;background:#FFF">
                     <p style="text-align:center;font-weight: bold">Firma instructor</p>
                 </td>

@@ -66,30 +66,21 @@
                 </select>
             </div>
         </div>
-        <div class="col-12 mb-2">
-        <label for="clave" class="form-label">Elección Planilla <i class="required">*</i></label>
-        <br>
-            <form action="Jurado.php" method="POST">
-                <select name="planillas[]" multiple="multiple">
-                    <option value="Planilla 1">Planilla 1</option>
-                    <option value="Planilla 2">Planilla 2</option>
-                    <option value="Planilla 3">Planilla 3</option>
-                    <option value="Planilla 4">Planilla 4</option>
+        <div class="row">
+            <div class="col-12 mb-2">
+                <label for="clave" class="form-label">Elección Planilla <i class="required">*</i></label>
+                <select name="planillas[]" multiple="multiple" class="form-select select_planilla">
+                <?php
+                    $query = $db->query("SELECT * FROM planilla");
+                    $fetch_planilla = $query->fetchAll(PDO::FETCH_OBJ);
+
+                    foreach ($fetch_planilla as $planilla) { ?>
+                        <option value="<?= $planilla->id_planilla ?>"><?= $planilla->nombre_planilla ?></option>
+                    <?php
+                    }
+                ?>
                 </select>
-                    <br>
-                    <label for="op1">
-                        <input type="checkbox" id="op1" name="tipoplanilla" value="Calificacion1">
-                        Calificacion1
-                    </label>
-                    <label for="op2">
-                        <input type="checkbox" id="op2" name="tipoplanilla" value="Calificacion2">
-                        Calificacion2
-                    </label>
-                    <label for="op3">
-                        <input type="checkbox" id="op3" name="tipoplanilla" value="Calificacion3">
-                        Calificacion3
-                    </label>
-            </form>
+            </div>
         </div>
         <div class="row">
             <div class="col-12 mb-3">
@@ -103,3 +94,10 @@
         <button type="submit" class="btn-bandrank">Registrar</button>
     </form>
 </div>
+<script>
+    $(document).ready(function() {
+        $('.select_planilla').select2({
+            width: 'resolve'
+        });
+    });
+</script>

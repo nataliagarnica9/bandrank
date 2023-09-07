@@ -36,6 +36,15 @@ class Jurado
 
             $ultimo_id = $this->db->lastInsertId();
 
+            foreach($_POST["planillas"] as $planilla) {
+                if($planilla > 0) {
+                    $query_planillaxjurado = $this->db->prepare("INSERT INTO planillaxjurado (id_jurado,id_planilla) VALUES (?,?)");
+                    $query_planillaxjurado->bindValue(1, $ultimo_id);
+                    $query_planillaxjurado->bindValue(2, $planilla);
+                    $query_planillaxjurado->execute();
+                }
+            }
+
             $query_login = $this->db->prepare("INSERT INTO login (correo, clave, tipo_usuario, id_registro) VALUES (?, ?, ?, ?);");
             $query_login->bindValue(1, $data["correo"]);
             $query_login->bindValue(2, $data["clave"]);

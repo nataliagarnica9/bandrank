@@ -196,3 +196,17 @@ alter table detalle_penalizacion
 
 alter table detalle_penalizacion
     auto_increment = 1;
+
+
+create table planillaxjurado
+(
+    id_planillaxjurado int auto_increment,
+    id_jurado          int null,
+    id_planilla        int null,
+    constraint planillaxjurado_pk
+        primary key (id_planillaxjurado),
+    constraint planillaxjurado_jurado_id_jurado_fk
+        foreign key (id_jurado) references jurado (id_jurado),
+    constraint planillaxjurado_planilla_id_planilla_fk
+        foreign key (id_planilla) references planilla (id_planilla)
+);

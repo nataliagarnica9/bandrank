@@ -24,8 +24,12 @@ if($_SESSION["ROL"] == 'instructor') {
         <tbody>
             <?php
             // Datos de ejemplo de categorías
-            $planilla = $db->prepare("select * from planilla where id_concurso = ?");
+            $planilla = $db->prepare("SELECT p.*
+                                      FROM planilla p
+                                      INNER JOIN planillaxjurado pxj ON p.id_planilla = pxj.id_planilla
+                                      WHERE p.id_concurso = ? AND pxj.id_jurado = ?");
             $planilla->bindValue(1,$_REQUEST["concurso"]);
+            $planilla->bindValue(2,$_SESSION["ID_USUARIO"]);
             $planilla->execute();
             $fetch_planilla = $planilla->fetchAll(PDO::FETCH_OBJ);
 

@@ -35,6 +35,9 @@ class Planillas
             2 => 'nombre_concurso',
         );
 
+        $sqlTot = '';
+        $sqlRec = '';
+
         $sql = 'SELECT p.id_planilla, p.nombre_planilla, c.nombre_concurso
                 FROM planilla p
                 INNER JOIN concurso c ON p.id_concurso = c.id_concurso
@@ -45,17 +48,25 @@ class Planillas
              OR c.nombre_concurso LIKE '%" . $params['search']['value'] . "%' )";
         }
         if (isset($whereSearch)) {
-            $sql .= $whereSearch;
+            $sqlTot .= $sql . $whereSearch;
+            $sqlRec .= $sql . $whereSearch;
+        } else {
+            $sqlTot .= $sql;
+            $sqlRec .= $sql;
         }
 
-        $sql .= ' ORDER BY ' . $columns[$params['order'][0]['column']] . ' ' . $params['order'][0]['dir'] . ' LIMIT ' . $params["start"] . '  , ' . $params['length'] . '';
+        $sqlRec .= ' ORDER BY ' . $columns[$params['order'][0]['column']] . ' ' . $params['order'][0]['dir'] . ' LIMIT ' . $params["start"] . '  , ' . $params['length'] . '';
 
-        $query = $this->db->prepare($sql);
+        $query = $this->db->prepare($sqlRec);
         $query->execute();
         $planillas = $query->fetchAll(PDO::FETCH_OBJ);
 
+        $queryTot = $this->db->prepare($sqlTot);
+        $queryTot->execute();
+        $planillasTot = $queryTot->fetchAll(PDO::FETCH_OBJ);
+
         $response['data'] = $planillas;
-        $response['totalTableRows'] = count($planillas);
+        $response['totalTableRows'] = count($planillasTot);
         $response['countRenderRows'] = count($planillas);
         return $response;
     }

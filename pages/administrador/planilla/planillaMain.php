@@ -1,13 +1,14 @@
 <?php
 include_once('../../../config.php');
-if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == 'jurado') {
-    header("Location: ".base_url."inicio.php");
+if ($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == 'jurado') {
+    header("Location: " . base_url . "inicio.php");
 }
 ?>
 
 <!doctype html>
 <html lang="es">
 <?php require("../../../head.php"); ?>
+
 <body>
     <?php require("../../../navbar.php"); ?>
     <div class="container mt-navbar">
@@ -66,6 +67,50 @@ if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == 'jurado') {
     </div>
     <?php require("../../../footer.php"); ?>
     <script>
+        $(document).ready(function() {
+            $.fn.dataTableExt.sErrMode = 'none';
+            
+            $('#tabla-planillas').DataTable({
+                "bProcessing": true,
+                "serverSide": true,
+                "order": [
+                    [0, 'asc']
+                ],
+                "ajax": {
+                    url: 'planilla_controller.php?action=response',
+                    type: "post",
+                },
+                paging: 'true',
+                "language": {
+                sProcessing: "Procesando...",
+                sLengthMenu: "Mostrar _MENU_ registros",
+                sZeroRecords: "No se encontraron resultados",
+                sEmptyTable: "Ningún dato disponible en esta tabla",
+                sInfo: "Del _START_ al _END_ de un total de _TOTAL_ reg.",
+                sInfoEmpty: "0 registros",
+                sInfoFiltered: "(filtrado de _MAX_ reg.)",
+                sInfoPostFix: "",
+                sSearch: "Buscar:",
+                sUrl: "",
+                sInfoThousands: ",",
+                sLoadingRecords: "Cargando...",
+                //sDom: "tlip",
+                oPaginate: {
+                    sFirst: "Primero",
+                    sLast: "Último",
+                    sNext: "Sig",
+                    sPrevious: "Ant"
+                },
+                oAria: {
+                    sSortAscending:
+                    ": Activar para ordenar la columna de manera ascendente",
+                    sSortDescending:
+                    ": Activar para ordenar la columna de manera descendente"
+                }
+        },
+            });
+        });
+
         //Eliminar planilla
         function eliminarPlanilla(id_planilla) {
             if (confirm('¿Estás seguro de que deseas eliminar esta planilla?')) {
@@ -85,42 +130,7 @@ if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == 'jurado') {
                 });
             }
         }
-        /*function guardarCambios() {
-var formData = $('#formEditarPlanilla').serialize();
-$.ajax({
-    url: 'planilla_controller.php?action=actualizarPlanilla',
-    type: 'POST',
-    data: formData,
-    dataType: 'json',
-    success: function(response) {
-        if (response.status === 'success') {
-            $('#modalEditarPlanilla').modal('hide');
-            $('#tabla-planillas').DataTable().ajax.reload();
-        } else {
-            console.log('Error al guardar los cambios (función guardarCambios (planillaMain.php))');
-        }
-    },
-    error: function() {
-        console.log('Error de conexión función guardarCambios (planillaMain.php)');
-    }
-});
 
-    </script>
-    <?php require("../../../footer.php"); ?>
-    <script>
-        $(document).ready(function() {
-            $('#tabla-planillas').DataTable({
-                "bProcessing": true,
-                "serverSide": true,
-                "order": [
-                    [0, 'asc']
-                ],
-                "ajax": {
-                    url: 'planilla_controller.php?action=response',
-                    type: "post",
-                },
-            });
-        });
         function verPlanillasEliminadas() {
             $('#tabla-planillas').DataTable().destroy();
             $('#tabla-planillas').DataTable({
@@ -137,6 +147,7 @@ $.ajax({
             $('#btn-ver-eliminadas').hide();
             $('#btn-ver-existentes').show();
         }
+
         function verPlanillasExistentes() {
             $('#tabla-planillas').DataTable().destroy();
             $('#tabla-planillas').DataTable({
@@ -153,6 +164,7 @@ $.ajax({
             $('#btn-ver-existentes').hide();
             $('#btn-ver-eliminadas').show();
         }
+
         function restaurarPlanilla(id_planilla) {
             if (confirm('¿Estás seguro de que deseas restaurar esta planilla?')) {
                 $.ajax({
@@ -171,6 +183,7 @@ $.ajax({
                 });
             }
         }
+
         function eliminarPlanillaDefinitivamente(id_planilla) {
             if (confirm('¿Estás seguro de que deseas eliminar definitivamente esta planilla?')) {
                 $.ajax({
@@ -189,19 +202,7 @@ $.ajax({
                 });
             }
         }
-        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        /*function editarPlanilla(id_planilla) {
-    $.ajax({
-        url: 'planilla_controller.php?action=actualizar_planilla',
-        dataType: 'html',
-        type: 'GET',
-        data: {
-            id: id_planilla
-        }
-    }).done(function(html) {
-        $('#contenedor-planillas').html(html);
-    });
-} */
+
         function editarPlanilla(id_planilla) {
             $.ajax({
                 url: 'planilla_controller.php?action=actualizar_planilla',
@@ -221,4 +222,5 @@ $.ajax({
         }
     </script>
 </body>
+
 </html>

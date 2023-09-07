@@ -44,6 +44,7 @@ if($_SESSION["ROL"] == 'instructor') {
             ?>
         </tbody>
     </table>
+    <a href="<?= base_url ?>pages/participantes/Categorias.php?concurso=<?= $_SESSION["ID_CONCURSO"] ?>" class="btn-bandrank"> Volver</a>
 
 </body>
 </html>

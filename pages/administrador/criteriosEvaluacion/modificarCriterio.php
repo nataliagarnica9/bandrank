@@ -27,8 +27,10 @@
                 <label for="rango_calificacion" class="form-label">Rango calificación <i class="required">*</i></label>
                 <select class="form-control form-control-lg" name="rango_calificacion" id="rango_calificacion">
                     <option value="">Selecciona una opción</option>
-                    <option value="0-10" <?= $datos->rango_calificacion === '0-10' ? 'selected' : '' ?>>0 a 10</option>
-                    <option value="0-15" <?= $datos->rango_calificacion === '0-15' ? 'selected' : '' ?>>0 a 15</option>
+                    <option value="5" <?= $datos->rango_calificacion === '5' ? 'selected' : '' ?>>0 a 5</option>
+                    <option value="10" <?= $datos->rango_calificacion === '10' ? 'selected' : '' ?>>0 a 10</option>
+                    <option value="15" <?= $datos->rango_calificacion === '15' ? 'selected' : '' ?>>0 a 15</option>
+                    <option value="20" <?= $datos->rango_calificacion === '20' ? 'selected' : '' ?>>0 a 20</option>
                 </select>
             </div>
         </div>

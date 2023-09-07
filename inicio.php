@@ -25,7 +25,7 @@ session_destroy();
                     </select>
                 </div>
                 <div class="col-1">
-                    <a class="btn-bandrank animate__animated animate__backInUp" data-bs-toggle="modal" data-bs-target="#modal_autenticacion" onclick="detectarEnter();iniciar_sesion()">Ingresar</a>
+                    <a class="btn-bandrank animate__animated animate__backInUp" onclick="detectarEnter();iniciar_sesion()">Ingresar</a>
                 </div>
                 <div class="col-4">&nbsp;</div>
             </div>

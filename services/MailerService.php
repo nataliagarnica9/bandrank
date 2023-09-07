@@ -7,7 +7,7 @@ use \PHPMailer\PHPMailer\SMTP;
 
 class MailerService
 {
-    protected  $identificador, $sender, $usernameSmtp, $passwordSmtp, $host, $port, $senderName;
+    protected  $sender, $usernameSmtp, $passwordSmtp, $host, $port, $senderName;
 
     public function __construct()
     {
@@ -18,24 +18,27 @@ class MailerService
         $this->port = $_ENV["PORT_SMTP"];
     }
 
-    public function construirCorreo($destinatario, $banda = 1)
+    public function construirCorreo($conexion, $data_instructor, $nombre_planilla)
     {
+
         $this->senderName = 'BANDRANK';
         $asunto = "Comprobante de calificación de concurso";
-        $html = $this->templateHtml();
-        $nombreArchivo = 'planilla_'.$banda;
-        include __DIR__.'/../pages/participantes/exportes/generarPlanilla.php?planilla=3&banda=3?enviar_planilla=si';
-        $adjunto = __DIR__.'/../pages/participantes/exportes/planilla_correo.pdf';
-        $envio = $this->enviarCorreo($destinatario, $asunto, $html, $adjunto);
+        $html = $this->templateHtml($data_instructor);
+        $nombre_archivo = $nombre_planilla.'-'.$data_instructor["nombre_banda"];
 
-        if ($envio["statusEmail"] == '200') {
-            return true;
-        } else {
-            return false;
-        }
+        $_REQUEST["planilla"] = 2;
+        $_REQUEST["banda"] = 5;
+        $_REQUEST["enviar_planilla"] = 'si';
+        $db = $conexion;
+        include __DIR__ ."/../pages/participantes/exportes/generarPlanilla.php";
+        $adjunto = __DIR__."/../pages/participantes/planilla_correo.pdf";
+        $envio = $this->enviarCorreo($data_instructor["correo_instructor"], $asunto, $html, $adjunto, $nombre_archivo);
+
+        return json_encode($envio);
+
     }
 
-    public function enviarCorreo($destinatario,$asunto, $bodyHtml, $adjunto = null)
+    public function enviarCorreo($destinatario,$asunto, $bodyHtml, $nombre_archivo, $adjunto = null )
     {
 
         $mail = new PHPMailer();
@@ -56,16 +59,16 @@ class MailerService
             $mail->Body = $bodyHtml;
             $mail->AltBody = '';
             if( $adjunto != null){
-                $mail->AddAttachment($adjunto, 'banda11.pdf');
+                $mail->AddAttachment($adjunto, $nombre_archivo);
             }
             if(!$mail->send()){
-                return ["statusEmail" => "400", 'resp' => $mail->ErrorInfo];
+                return ["status" => "400", 'resp' => $mail->ErrorInfo];
             }else{
-                return ["statusEmail" => "200", 'resp' => 'Operación exitosa'];
+                return ["status" => "200", 'resp' => 'Operación exitosa'];
             }
     }
 
-    private function templateHtml()
+    private function templateHtml($instructor)
     {
         // necesito el nombre del instructor, de la banda y del concurso
         return '

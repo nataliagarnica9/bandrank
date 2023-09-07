@@ -3,6 +3,7 @@
     "vlucas/phpdotenv": "^4.3",
     "ext-imap": "*",
     "phpmailer/phpmailer": "^6.5",
-    "dompdf/dompdf": "^2.0"
+    "dompdf/dompdf": "^2.0",
+    "ext-json": "*"
   }
 }

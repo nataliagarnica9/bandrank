@@ -1,24 +1,24 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'dev-main',
-    'version' => 'dev-main',
+    'pretty_version' => '1.0.0+no-version-set',
+    'version' => '1.0.0.0',
     'aliases' => 
     array (
     ),
-    'reference' => '122358072a846a97652daaf6159fe153accfce3c',
+    'reference' => NULL,
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
+      'pretty_version' => '1.0.0+no-version-set',
+      'version' => '1.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '122358072a846a97652daaf6159fe153accfce3c',
+      'reference' => NULL,
     ),
     'dompdf/dompdf' => 
     array (
@@ -58,12 +58,12 @@
     ),
     'phpmailer/phpmailer' => 
     array (
-      'pretty_version' => 'v6.8.0',
-      'version' => '6.8.0.0',
+      'pretty_version' => 'v6.8.1',
+      'version' => '6.8.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'df16b615e371d81fb79e506277faea67a1be18f1',
+      'reference' => 'e88da8d679acc3824ff231fdc553565b802ac016',
     ),
     'phpoption/phpoption' => 
     array (
@@ -85,12 +85,12 @@
     ),
     'symfony/polyfill-ctype' => 
     array (
-      'pretty_version' => 'v1.27.0',
-      'version' => '1.27.0.0',
+      'pretty_version' => 'v1.28.0',
+      'version' => '1.28.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5bbc823adecdae860bb64756d639ecfec17b050a',
+      'reference' => 'ea208ce43cbb04af6867b4fdddb1bdbf84cc28cb',
     ),
     'vlucas/phpdotenv' => 
     array (

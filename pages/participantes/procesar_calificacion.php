@@ -1,5 +1,8 @@
 <?php
 include("../../config.php");
+include '../../services/MailerService.php';
+$mailService = new MailerService();
+
 
     try {
         $query = $db->prepare("INSERT INTO encabezado_calificacion (id_jurado, id_concurso, id_planilla, total_calificacion, observaciones, id_banda) VALUES (?, ?, ?, ?, ?, ?);");
@@ -19,6 +22,34 @@ include("../../config.php");
             $query->bindValue(3, $_POST["puntaje-".$i]);
             $query->execute();
         }
+
+
+        $query_banda = $db->prepare("SELECT nombre AS nombre_banda,correo_instructor,nombre_instructor FROM banda WHERE id_banda = ?;");
+        $query_banda->bindValue(1, $_POST["id_banda"]);
+        $query_banda->execute();
+        $fetch_banda = $query_banda->fetch(PDO::FETCH_OBJ);
+
+        $instructor = [
+            "correo_instructor" => $fetch_banda->correo_instructor,
+            "nombre_banda" => $fetch_banda->nombre_banda,
+            "nombre_instructor" => $fetch_banda->nombre_instructor
+        ];
+
+        $query_planilla = $db->prepare("SELECT nombre_planilla FROM planilla WHERE id_planilla = ?;");
+        $query_planilla->bindValue(1, $_POST["id_planilla"]);
+        $query_planilla->execute();
+        $fetch_planilla = $query_planilla->fetch(PDO::FETCH_OBJ);
+
+        $nombre_planilla = $fetch_planilla->nombre_planilla;
+
+        $instructor = [
+            "correo_instructor" => $fetch_banda->correo_instructor,
+            "nombre_banda" => $fetch_banda->nombre_banda,
+            "nombre_instructor" => $fetch_banda->nombre_instructor
+        ];
+
+        echo $mailService->construirCorreo($db,$instructor, $nombre_planilla);
+
         header("Location: inicio.php");
     } catch (Exception $ex) {
         return $ex."No se pudo completar el guardado de la calificación";

@@ -18,12 +18,13 @@ $dompdf->render();
 $canvas = $dompdf->getCanvas();
 //$canvas->page_text(280, 770, "Página: {PAGE_NUM} de {PAGE_COUNT}", 'helvetica', 8, array(0,0,0));
 $pdf = $dompdf->output();
-$filename = "planilla.pdf";
-file_put_contents($filename, $pdf);
 
-if( isset( $_REQUEST["enviar_planilla"] ) && $_REQUEST["enviar_planilla"] !== 'si') {
+if( isset( $_REQUEST["enviar_planilla"] ) && $_REQUEST["enviar_planilla"] == 'si') {
     $filename = "planilla_correo.pdf";
-    $dompdf->stream($filename, array("Attachment" => 0));
+    file_put_contents($filename, $pdf);
+    //$dompdf->stream($filename, array("Attachment" => false));
 } else {
-    $dompdf->stream($filename, array("Attachment" => 0));
+    $filename = "planilla.pdf";
+    file_put_contents($filename, $pdf);
+    $dompdf->stream($filename, array("Attachment" => false));
 }

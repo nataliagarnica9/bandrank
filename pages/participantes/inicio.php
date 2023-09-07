@@ -88,11 +88,6 @@
                     <?php endif; ?>
                 </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <a href="enviarCorreo.php" class="btn-bandrank">enviar correo</a>
-            </div>
-        </div>
 
         <?php if ($_SESSION["ROL"] == 'jurado') : ?>
             <div class="bloque-vector">
@@ -108,7 +103,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="<?= base_url ?>pages/participantes/exportes/generarPlanilla.php" method="post">
+                        <form action="<?= base_url ?>pages/participantes/exportes/generarPlanilla.php" method="post" target="_blank">
                             <div class="row">
                                 <div class="col-12 mb-2">
                                     <b>Banda: </b>
@@ -183,7 +178,6 @@
             <?php endif; ?>
 
             function recargarTablaPuntuaciones() {
-                console.log('carga');
                 $.ajax({
                     url: 'tabla_puntuaciones_unica.php',
                     type: 'GET',
@@ -191,6 +185,45 @@
 
                 }).done(function(html) {
                     $('#tabla-puntuaciones').html(html);
+                })
+            }
+
+            function enviarCorreo() {
+                $.ajax({
+                    url: 'enviarCorreo.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        correo: 'natagarge@gmail.com'
+                    },
+                    beforeSend: function (){
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Enviando correo',
+                            allowEscapeKey: false,
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading()
+                            }
+                        });
+                    }
+                }).done(function(response) {
+                    if(response.status == '200' || response.status == 200){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Se envió el correo correctamente',
+                            allowEscapeKey: false,
+                            allowOutsideClick: false
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'No se pudo enviar el correo correctamente',
+                            html: response.resp,
+                            allowEscapeKey: false,
+                            allowOutsideClick: false
+                        });
+                    }
                 })
             }
         </script>

@@ -170,4 +170,23 @@ alter table jurado
 /*---------------------------------- Tabla penalizacion-------------------------------------------------------------- */
 
 
-    CREATE TABLE `bandrank`.`penalizacionxcalificacion` (`id_penalizacionxcalificacion` INT(10) NOT NULL AUTO_INCREMENT , `id_penalizacion` INT(10) NOT NULL , `id_calificacion` INT(10) NOT NULL , PRIMARY KEY (`id_penalizacionxcalificacion`)) ENGINE = InnoDB;
+CREATE TABLE `bandrank`.`penalizacionxcalificacion` (`id_penalizacionxcalificacion` INT(10) NOT NULL AUTO_INCREMENT , `id_penalizacion` INT(10) NOT NULL , `id_calificacion` INT(10) NOT NULL , PRIMARY KEY (`id_penalizacionxcalificacion`)) ENGINE = InnoDB;
+
+create table detalle_penalizacion
+(
+    id_detalle_penalizacion int null,
+    id_calificacion         int null,
+    id_penalizacion         int null,
+    constraint detalle_penalizacion_pk
+        primary key (id_detalle_penalizacion),
+    constraint detalle_penalizacion_encabezado_calificacion_id_calificacion_fk
+        foreign key (id_calificacion) references encabezado_calificacion (id_calificacion),
+    constraint detalle_penalizacion_penalizacion_id_penalizacion_fk
+        foreign key (id_penalizacion) references penalizacion (id_penalizacion)
+);
+
+alter table detalle_penalizacion
+    modify id_detalle_penalizacion int auto_increment;
+
+alter table detalle_penalizacion
+    auto_increment = 1;

@@ -18,7 +18,10 @@ class PlanillaExporte {
     }
 
     protected function getConcurso() {
-        $sel_concurso = $this->db->prepare("SELECT * FROM concurso WHERE id_concurso = ?");
+        $sel_concurso = $this->db->prepare("SELECT co.*, cc.nombre_categoria
+                                            FROM concurso co
+                                                     INNER JOIN categorias_concurso cc on co.id_concurso = cc.id_concurso
+                                            WHERE co.id_concurso = ?");
         $sel_concurso->bindValue(1, $this->id_concurso);
         $sel_concurso->execute();
         $fetch_concurso = $sel_concurso->fetch(PDO::FETCH_OBJ);
@@ -130,6 +133,8 @@ class PlanillaExporte {
     protected function generarDetalles(){
             $encabezado = $this->getEncabezadoPlanilla();
             $detalles = $this->getDetallesCalificacion();
+            $concurso = $this->getConcurso();
+
             $detalles_calificacion = "";
 
             foreach($detalles as $detalle) {
@@ -152,7 +157,11 @@ class PlanillaExporte {
                 </tr>
                 '.$detalles_calificacion.'
                 <tr>
-                    <td style="padding: 3px;text-align:center; border: 1px solid #DCDCDC"></td>
+                    <td style="padding: 3px;font-size: 11px; border: 1px solid #DCDCDC">
+                        <p>
+                            Modalidad: '.$concurso->nombre_categoria.'
+                        </p>
+                    </td>
                     <td style="padding: 3px;text-align:center; border: 1px solid #DCDCDC; font-weight: bold">Parcial total</td>
                     <td style="padding: 3px;text-align:center; border: 1px solid #DCDCDC">'.$encabezado->total_calificacion.'</td>
                 </tr>   
@@ -181,13 +190,28 @@ class PlanillaExporte {
         </table>
         <table class="informacion" style="margin-top: 20px; border 1px solid #DCDCDC">  
             <tr>
-                <td>
-                    <img src="https://guardiadorada.com/bandrank/dist/images/firmas/Firma.png" style="width: 200px">
-                    <p>firma jurado</p>
+                <td style="width:50%">
+                    <img src="https://guardiadorada.com/bandrank/dist/images/firmas/Firma.png" style="width: 250px; margin-left: 25px;margin-right: 25px;">
+                    <hr style="width: 70%;background:#FFF">
+                    <p style="text-align:center;font-weight: bold">Firma jurado</p>
                 </td>
-                <td>
-                    <p>firma instructor</p>
+                <td style="width:50%">
+                    <img src="https://guardiadorada.com/bandrank/dist/images/firmas/Firma.png" style="width: 250px; margin-left: 25px;margin-right: 25px;">
+                    <hr style="width: 70%;background:#FFF">
+                    <p style="text-align:center;font-weight: bold">Firma instructor</p>
                 </td>
+            </tr>
+        </table> 
+
+        <table class="informacion" style="margin-top: 100px; border 1px solid #DCDCDC">  
+            <tr>
+                <td style="width:10%">
+                    <img src="https://guardiadorada.com/bandrank/dist/images/logo_buc.png" style="width: 50px; margin-left: 25px;margin-right: 25px;">
+                </td>
+                <td style="width:10%">
+                    <img src="https://guardiadorada.com/bandrank/dist/images/escudo_colegio.png" style="width: 50px; margin-left: 25px;margin-right: 25px;">
+                </td>
+                <td style="width:80%"></td>
             </tr>
         </table> 
         </body>

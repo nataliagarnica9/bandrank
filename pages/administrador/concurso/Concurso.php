@@ -51,16 +51,25 @@ class Concurso {
 
     public function save($data) {
         try {
-            $query = $this->db->prepare("INSERT INTO concurso (nombre_concurso, ubicacion, director, eliminado, id_categoria, fecha_evento) VALUES (?, ?, ?, ?, ?, ?);");
+            $query = $this->db->prepare("INSERT INTO concurso (nombre_concurso, ubicacion, director, eliminado, fecha_evento) VALUES (?, ?, ?, ?, ?);");
             $query->bindValue(1, $data["nombre_concurso"]);
             $query->bindValue(2, $data["ubicacion"]);
             $query->bindValue(3, $data["director"]);
             $query->bindValue(4, '0');
-            $query->bindValue(5, $data["categoria"]);
-            $query->bindValue(6, $data["fecha_evento"]);
+            $query->bindValue(5, $data["fecha_evento"]);
             $query->execute();
+            $ultimo_id = $this->db->lastInsertId();
 
             $status = $query->errorInfo();
+            
+            foreach($_POST["categorias"] as $categoria) {
+                if($categoria > 0) {
+                    $query_catxconcurso = $this->db->prepare("INSERT INTO categoriasxconcurso (id_concurso,id_categoria) VALUES (?,?)");
+                    $query_catxconcurso->bindValue(1, $ultimo_id);
+                    $query_catxconcurso->bindValue(2, $categoria);
+                    $query_catxconcurso->execute();
+                }
+            }
 
             // Valido que el código de mensaje sea válido para identificar que si se guardó el registro
             if($status[0] == '00000') {
@@ -80,14 +89,24 @@ class Concurso {
     public function actualizar($data)
 {
     try {
-        $query = $this->db->prepare("UPDATE concurso SET nombre_concurso = ?, ubicacion = ?, director = ?, id_categoria = ?, fecha_evento = ? WHERE id_concurso = ?");
+        $query = $this->db->prepare("UPDATE concurso SET nombre_concurso = ?, ubicacion = ?, director = ?, fecha_evento = ? WHERE id_concurso = ?");
         $query->bindValue(1, $data["nombre_concurso"]);
         $query->bindValue(2, $data["ubicacion"]);
         $query->bindValue(3, $data["director"]);
-        $query->bindValue(4, $data["id_categoria"]);
-        $query->bindValue(5, $data["fecha_evento"]);
-        $query->bindValue(6, $data["id_concurso"]);
+        $query->bindValue(4, $data["fecha_evento"]);
+        $query->bindValue(5, $data["id_concurso"]);
         $query->execute();
+        
+        $query_eliminar = $this->db->query("DELETE FROM categoriasxconcurso WHERE id_categoria = ".$data["id_jurado"]);
+            
+            foreach($_POST["categorias"] as $categoria) {
+                if($categoria > 0) {
+                    $query_catxconcurso = $this->db->prepare("INSERT INTO categoriasxconcurso (id_concurso,id_categoria) VALUES (?,?)");
+                    $query_catxconcurso->bindValue(1, $data["id_concurso"]);
+                    $query_catxconcurso->bindValue(2, $categoria);
+                    $query_catxconcurso->execute();
+                }
+            }
 
         $status = $query->errorInfo();
 

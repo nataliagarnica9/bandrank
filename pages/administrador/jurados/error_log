@@ -1,0 +1,14 @@
+[04-Sep-2023 17:23:12 America/Bogota] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'j.id' in 'field list' in /home/guardiad/public_html/bandrank/pages/administrador/jurados/Jurado.php:93
+Stack trace:
+#0 /home/guardiad/public_html/bandrank/pages/administrador/jurados/Jurado.php(93): PDOStatement->execute()
+#1 /home/guardiad/public_html/bandrank/pages/administrador/jurados/jurado_controller.php(73): Jurado->response()
+#2 /home/guardiad/public_html/bandrank/pages/administrador/jurados/jurado_controller.php(11): response()
+#3 {main}
+  thrown in /home/guardiad/public_html/bandrank/pages/administrador/jurados/Jurado.php on line 93
+[05-Sep-2023 18:03:04 America/Bogota] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'j.id' in 'field list' in /home/guardiad/public_html/bandrank/pages/administrador/jurados/Jurado.php:93
+Stack trace:
+#0 /home/guardiad/public_html/bandrank/pages/administrador/jurados/Jurado.php(93): PDOStatement->execute()
+#1 /home/guardiad/public_html/bandrank/pages/administrador/jurados/jurado_controller.php(73): Jurado->response()
+#2 /home/guardiad/public_html/bandrank/pages/administrador/jurados/jurado_controller.php(11): response()
+#3 {main}
+  thrown in /home/guardiad/public_html/bandrank/pages/administrador/jurados/Jurado.php on line 93

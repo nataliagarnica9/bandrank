@@ -1,6 +1,6 @@
 <?php
 include_once('../../../config.php');
-if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == 'jurado') {
+if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == 'jurado' || $_SESSION["ROL"] == '') {
     header("Location: ".base_url."inicio.php");
 }
 ?>
@@ -160,12 +160,12 @@ if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == 'jurado') {
             }).done(function(response) {
                 if (response.status == 'success') {
                     $('#modalVerJurado').modal('show');
-                    $('#nombres').html(response.data.nombres + " " + response.data.apellidos);
-                    $('#documento').html(response.data.documento_identificacion);
-                    $('#concurso').html(response.data.nombre_concurso);
-                    $('#celular').html(response.data.celular);
-                    $('#correo').html(response.data.correo);
-                    $('#firma').attr("src","../../../dist/images/firmas/" + response.data.firma);
+                    $('#nombres').html(response.data.datos.nombres + " " + response.data.datos.apellidos);
+                    $('#documento').html(response.data.datos.documento_identificacion);
+                    $('#concurso').html(response.data.datos.nombre_concurso);
+                    $('#celular').html(response.data.datos.celular);
+                    $('#correo').html(response.data.datos.correo);
+                    $('#firma').attr("src","../../../dist/images/firmas/" + response.data.datos.firma);
                 } else {
                     console.log('error');
                 }

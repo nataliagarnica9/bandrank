@@ -116,8 +116,25 @@ class Jurado
                                      WHERE j.id_jurado = ?;");
         $query->bindValue(1, $id);
         $query->execute();
+        
+        $query_planillas = $this->db->prepare("SELECT pxj.*
+                                     FROM jurado j
+                                              INNER JOIN planillaxjurado pxj on j.id_jurado = pxj.id_jurado
+                                     WHERE j.id_jurado = ?;");
+        $query_planillas->bindValue(1, $id);
+        $query_planillas->execute();
+        $fetch_planillas = $query_planillas->fetchAll(PDO::FETCH_OBJ);
+        $planillas = [];
+        foreach($fetch_planillas as $planilla){
+            array_push($planillas, $planilla->id_planilla);
+        }
+        
+        $datos = [
+            "datos"=>$query->fetch(PDO::FETCH_OBJ),
+            "planillas"=>$planillas
+            ];
 
-        return $query->fetch(PDO::FETCH_OBJ);
+        return $datos;
     }
 
     public function actualizar($data, $files) {
@@ -144,6 +161,17 @@ class Jurado
             $query->bindValue(6, $data["concurso"]);
             $query->bindValue(7, $data["id_jurado"]);
             $query->execute();
+            
+            $query_eliminar = $this->db->query("DELETE FROM planillaxjurado WHERE id_jurado = ".$data["id_jurado"]);
+            
+            foreach($_POST["planillas"] as $planilla) {
+                if($planilla > 0) {
+                    $query_planillaxjurado = $this->db->prepare("INSERT INTO planillaxjurado (id_jurado,id_planilla) VALUES (?,?)");
+                    $query_planillaxjurado->bindValue(1, $data["id_jurado"]);
+                    $query_planillaxjurado->bindValue(2, $planilla);
+                    $query_planillaxjurado->execute();
+                }
+            }
 
             $query_login = $this->db->prepare("UPDATE login SET correo = ? WHERE id_registro = ?");
                 $query_login->bindValue(1, $data["correo"]);

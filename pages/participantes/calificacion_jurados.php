@@ -1,7 +1,7 @@
 <?php
 include_once('../../config.php');
-if ($_SESSION["ROL"] == 'instructor') {
-    header("Location: inicio.php");
+if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == '') {
+    header("Location: ".base_url."inicio.php");
 }
 ?>
 

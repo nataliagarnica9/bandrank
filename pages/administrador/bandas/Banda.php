@@ -118,7 +118,7 @@ public function actualizar($data) {
             $query->bindValue(3, $data["nombre_instructor"]);
             $query->bindValue(4, $data["id_categoria"]);
             $query->bindValue(5, $data["correo_instructor"]);
-            $query->bindValue(6, $data["id_categoria"]);
+            $query->bindValue(6, $data["id_concurso"]);
             $query->bindValue(7, $data["id_banda"]);
             $query->execute();
 

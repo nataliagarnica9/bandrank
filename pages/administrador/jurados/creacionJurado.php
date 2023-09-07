@@ -71,7 +71,7 @@
                 <label for="clave" class="form-label">Elección Planilla <i class="required">*</i></label>
                 <select name="planillas[]" multiple="multiple" class="form-select select_planilla">
                 <?php
-                    $query = $db->query("SELECT * FROM planilla");
+                    $query = $db->query("SELECT * FROM planilla WHERE eliminado = 0");
                     $fetch_planilla = $query->fetchAll(PDO::FETCH_OBJ);
 
                     foreach ($fetch_planilla as $planilla) { ?>
@@ -92,6 +92,7 @@
         </div>
 
         <button type="submit" class="btn-bandrank">Registrar</button>
+        <a href="<?=base_url?>pages/administrador/inicio.php" type="button" class="btn btn-light">Volver</a>
     </form>
 </div>
 <script>

@@ -1,6 +1,6 @@
 <?php
 include_once('../../config.php');
-if($_SESSION["ROL"] == 'instructor') {
+if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == '') {
     header("Location: inicio.php");
 }
 ?>
@@ -24,7 +24,13 @@ if($_SESSION["ROL"] == 'instructor') {
         <tbody>
             <?php
             // Datos de ejemplo de categorías
-            $categorias = $db->prepare("select * from categorias_concurso where eliminado = 0");
+            $categorias = $db->prepare("SELECT c.*
+                                        FROM categorias_concurso c
+                                                 INNER JOIN categoriasxconcurso cc
+                                                            ON c.id_categoria = cc.id_categoria
+                                        WHERE c.id_concurso = ?
+                                          AND eliminado = 0");
+            $categorias->bindValue(1,$_SESSION["ID_CONCURSO"]);                              
             $categorias->execute();
             $fetch_categorias = $categorias->fetchAll(PDO::FETCH_OBJ);
 

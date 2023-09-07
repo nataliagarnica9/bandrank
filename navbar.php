@@ -2,7 +2,7 @@
 include_once('config.php');
 if (isset($_SESSION["ROL"]) && $_SESSION["ROL"] == 'admin') {
     $url_inicio = base_url . "pages/administrador/inicio.php";
-    $boton_home = '<a href="' . base_url . 'inicio.php">Inicio</a>';
+    $boton_home = '<a href="' . base_url . 'pages/administrador/inicio.php">Inicio</a>';
 } elseif (isset($_SESSION["ROL"]) && ($_SESSION["ROL"] == 'jurado' || $_SESSION["ROL"] == 'instructor')) {
     $url_inicio = base_url . "pages/participantes/inicio.php";
     $boton_home = '<a href="' . base_url . 'autenticacion.php?type=logout" style="color:#000;">Cerrar sesión</a>';

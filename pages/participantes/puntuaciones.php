@@ -14,7 +14,7 @@ $fetch_concurso = $query_concurso->fetch(PDO::FETCH_OBJ);
 <?php require("../head.php"); ?>
 <body>
     <div class="container">
-    <a class="btn" href="<?=base_url?>pages/administrador/inicio.php">Regresar</a>
+    <a class="btn" href="<?=base_url?>inicio.php">Regresar</a>
         <div class="row">
             <div class="col-8">
                 <h1>Puntuación en tiempo real</h1>
@@ -33,10 +33,8 @@ $fetch_concurso = $query_concurso->fetch(PDO::FETCH_OBJ);
 <?php require("../footer.php"); ?>
 <script>
     $(document).ready(function () { 
-        recargarTablaPuntuaciones()
+        setInterval(recargarTablaPuntuaciones, 60000);
      })
-
-    setInterval(recargarTablaPuntuaciones, 30000);
 
     function recargarTablaPuntuaciones() {
         console.log('carga');

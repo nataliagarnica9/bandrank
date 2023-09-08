@@ -206,12 +206,12 @@ function verDatosConcurso(id_concurso) {
     }).done(function(response) {
         if (response.status == 'success') {
             $('#modalVerConcurso').modal('show'); // Muestra el modal
-            $('#nombreConcurso').html(response.data.nombre_concurso);
-            $('#ubicacionConcurso').html(response.data.ubicacion);
-            $('#directorConcurso').html(response.data.director);
-            $('#categoriaConcurso').html(response.data.nombre_categoria_concurso);
-            $('#fechaConcurso').html(response.data.fecha_evento);
-            $('#estadoConcurso').html(response.data.finalizado == '0' ? 'Activo' : 'Finalizado');
+            $('#nombreConcurso').html(response.data.datos.nombre_concurso);
+            $('#ubicacionConcurso').html(response.data.datos.ubicacion);
+            $('#directorConcurso').html(response.data.datos.director);
+            $('#categoriaConcurso').html(response.data.datos.nombre_categoria_concurso);
+            $('#fechaConcurso').html(response.data.datos.fecha_evento);
+            $('#estadoConcurso').html(response.data.datos.finalizado == '0' ? 'Activo' : 'Finalizado');
         } else {
             console.log('error');
         }

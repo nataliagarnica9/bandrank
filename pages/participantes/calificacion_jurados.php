@@ -158,6 +158,9 @@ if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == '') {
         </form>
     </div>
     <?php require("../../footer.php"); ?>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="<?= base_url?>dist/signature_pad1.2.1/js/jquery.signature.js"></script>
     <script>
         var nextinput = 1;
         const penalizacionesContainer = document.getElementById('penalizaciones-container');

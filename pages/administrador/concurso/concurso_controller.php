@@ -126,14 +126,13 @@ function response() {
 }
     /////////////////////////////////
 
-    function actualizar_concurso() {
-        include '../../../config.php';
-        $concurso_model = new Concurso($db); 
-        $id = $_REQUEST["id"];
-        $datos = $concurso_model->getConcursoById($id); 
-
-        include 'modificarConcurso.php'; 
-    } 
+function actualizar_concurso() {
+    include '../../../config.php';
+    $concurso_model = new Concurso($db); 
+    $id = $_REQUEST["id"];
+    $datos = $concurso_model->getConcursoById($id); 
+    include 'modificarConcurso.php'; 
+} 
 
     function actualizar()
 {

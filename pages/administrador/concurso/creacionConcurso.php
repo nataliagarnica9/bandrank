@@ -25,21 +25,21 @@
             </div>
             
             <div class="row">
-            <div class="col-12 mb-2">
-                <label for="categoria" class="form-label">Categorias <i class="required">*</i></label>
-                <select name="categorias[]" multiple="multiple" class="form-select select_categoria">
-                <?php
-                    $query = $db->query("SELECT * FROM categorias_concurso WHERE eliminado = 0");
-                    $fetch_cat = $query->fetchAll(PDO::FETCH_OBJ);
-
-                    foreach ($fetch_cat as $categoria) { ?>
-                        <option value="<?= $categoria->id_categoria ?>"><?= $categoria->nombre_categoria ?></option>
+                <div class="col-12 mb-2">
+                    <label for="categoria" class="form-label">Categorias <i class="required">*</i></label>
+                    <select name="categorias[]" multiple="multiple" class="form-select select_categoria">
                     <?php
-                    }
-                ?>
-                </select>
+                        $query = $db->query("SELECT * FROM categorias_concurso WHERE eliminado = 0");
+                        $fetch_cat = $query->fetchAll(PDO::FETCH_OBJ);
+
+                        foreach ($fetch_cat as $categoria) { ?>
+                            <option value="<?= $categoria->id_categoria ?>"><?= $categoria->nombre_categoria ?></option>
+                        <?php
+                        }
+                    ?>
+                    </select>
+                </div>
             </div>
-        </div>
 
             <button type="button" class="btn-bandrank" onclick="registrarConcurso()">Registrar</button>
             <a href="<?=base_url?>pages/administrador/inicio.php" type="button" class="btn btn-light">Volver</a>

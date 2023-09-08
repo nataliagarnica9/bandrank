@@ -123,14 +123,31 @@ class Concurso {
 }
 
 public function getConcursoById($id) {
-    $query = $this->db->prepare("SELECT c.*, cc.nombre_categoria AS nombre_categoria_concurso
-                                 FROM concurso c
-                                 INNER JOIN categorias_concurso cc ON c.id_categoria = cc.id_categoria
-                                 WHERE c.id_concurso = ?");
+    $query = $this->db->prepare("SELECT *
+                                 FROM concurso 
+                                 WHERE id_concurso = ?");
     $query->bindValue(1, $id);
     $query->execute();
 
-    return $query->fetch(PDO::FETCH_OBJ);
+    $query_categorias = $this->db->prepare("SELECT cxc.*
+                                     FROM concurso c
+                                              INNER JOIN categoriasxconcurso cxc on c.id_concurso = cxc.id_concurso
+                                     WHERE c.id_concurso = ?;");
+    $query_categorias->bindValue(1, $id);
+    $query_categorias->execute();
+    
+    $fetch_categorias = $query_categorias->fetchAll(PDO::FETCH_OBJ);
+    $categorias = [];
+    foreach($fetch_categorias as $categoria){
+        array_push($categorias, $categoria->id_categoria);
+    }
+    
+    $datos = [
+        "datos"=>$query->fetch(PDO::FETCH_OBJ),
+        "categorias"=>$categorias
+    ];
+
+    return $datos;
 }
 
 //Eliminaciones////////////////////////////////////////////////////////////////////////////

@@ -28,9 +28,9 @@ if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == '') {
                                         FROM categorias_concurso c
                                                  INNER JOIN categoriasxconcurso cc
                                                             ON c.id_categoria = cc.id_categoria
-                                        WHERE c.id_concurso = ?
+                                        WHERE cc.id_concurso = ?
                                           AND eliminado = 0");
-            $categorias->bindValue(1,$_SESSION["ID_CONCURSO"]);                              
+            $categorias->bindValue(1,$_REQUEST["concurso"]);
             $categorias->execute();
             $fetch_categorias = $categorias->fetchAll(PDO::FETCH_OBJ);
 

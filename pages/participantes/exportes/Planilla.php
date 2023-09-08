@@ -18,9 +18,10 @@ class PlanillaExporte {
     }
 
     protected function getConcurso() {
-        $sel_concurso = $this->db->prepare("SELECT co.*, cc.nombre_categoria
+        $sel_concurso = $this->db->prepare("SELECT co.*, cco.nombre_categoria
                                             FROM concurso co
-                                                     INNER JOIN categorias_concurso cc on co.id_concurso = cc.id_concurso
+                                                     INNER JOIN categoriasxconcurso cc on co.id_concurso = cc.id_concurso
+                                                     inner join categorias_concurso cco on cc.id_categoria = cco.id_categoria
                                             WHERE co.id_concurso = ?");
         $sel_concurso->bindValue(1, $this->id_concurso);
         $sel_concurso->execute();

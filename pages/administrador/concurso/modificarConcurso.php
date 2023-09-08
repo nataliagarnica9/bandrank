@@ -19,41 +19,49 @@
         <div class="row">
             <div class="col-6 mb-3">
                 <label for="nombre_concurso" class="form-label">Nombre del concurso <i class="required">*</i></label>
-                <input type="text" class="form-control form-control-lg" id="nombre_concurso" name="nombre_concurso" required autocomplete="off" value="<?= $datos->nombre_concurso ?>">
+                <input type="text" class="form-control form-control-lg" id="nombre_concurso" name="nombre_concurso" required autocomplete="off" value="<?= $datos["datos"]->nombre_concurso ?>">
             </div>
         </div>
         <div class="row">
             <div class="col-6 mb-3">
                 <label for="ubicacion" class="form-label">Ubicación <i class="required">*</i></label>
-                <input type="text" class="form-control form-control-lg" id="ubicacion" name="ubicacion" required autocomplete="off" value="<?= $datos->ubicacion ?>">
+                <input type="text" class="form-control form-control-lg" id="ubicacion" name="ubicacion" required autocomplete="off" value="<?= $datos["datos"]->ubicacion ?>">
             </div>
             <div class="col-6 mb-3">
                 <label for="director" class="form-label">Director <i class="required">*</i></label>
-                <input type="text" class="form-control form-control-lg" id="director" name="director" required autocomplete="off" value="<?= $datos->director ?>">
+                <input type="text" class="form-control form-control-lg" id="director" name="director" required autocomplete="off" value="<?= $datos["datos"]->director ?>">
             </div>
         </div>
         <div class="row">
-            <div class="col-6 mb-3">
-                <label for="id_categoria" class="form-label">Categoría <i class="required">*</i></label>
-                <select class="form-control form-control-lg" name="id_categoria" id="id_categoria">
-                    <option value="">Selecciona una opción</option>
-                    <?php
-                    $query = $db->query("SELECT * FROM categorias_concurso");
-                    $fetch_categorias = $query->fetchAll(PDO::FETCH_OBJ);
+        <div class="col-6 mb-3">
+                <label for="fecha_evento" class="form-label">Fecha del evento <i class="required">*</i></label>
+                <input type="date" class="form-control form-control-lg" id="fecha_evento" name="fecha_evento" required value="<?= $datos["datos"]->fecha_evento ?>">
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-12 mb-2">
+                <label for="categoria" class="form-label">Categorias <i class="required">*</i></label>
+                <select name="categorias[]" multiple="multiple" class="form-select select_categoria">
+                <?php
+                    $query = $db->query("SELECT * FROM categorias_concurso WHERE eliminado = 0");
+                    $fetch_cat = $query->fetchAll(PDO::FETCH_OBJ);
 
-                    foreach ($fetch_categorias as $categoria) { ?>
-                        <option value="<?= $categoria->id_categoria ?>" <?= $datos->id_categoria == $categoria->id_categoria ? 'selected' : '' ?>><?= $categoria->nombre_categoria ?></option>
+                    foreach ($fetch_cat as $categoria) { ?>
+                        <option value="<?= $categoria->id_categoria ?>" <?php if(in_array($categoria->id_categoria,$datos["categorias"])){echo 'selected';}?>><?= $categoria->nombre_categoria ?></option>
                     <?php
                     }
-                    ?>
+                ?>
                 </select>
-            </div>
-            <div class="col-6 mb-3">
-                <label for="fecha_evento" class="form-label">Fecha del evento <i class="required">*</i></label>
-                <input type="date" class="form-control form-control-lg" id="fecha_evento" name="fecha_evento" required value="<?= $datos->fecha_evento ?>">
             </div>
         </div>
         <button type="submit" class="btn-bandrank">Guardar Cambios</button>
         <a href="concursos.php" class="btn">Volver</a>
     </form>
 </div>
+<script>
+    $(document).ready(function() {
+        $('.select_categoria').select2({
+            width: 'resolve'
+        });
+    });
+</script>

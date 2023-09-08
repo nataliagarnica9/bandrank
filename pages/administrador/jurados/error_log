@@ -12,3 +12,7 @@ Stack trace:
 #2 /home/guardiad/public_html/bandrank/pages/administrador/jurados/jurado_controller.php(11): response()
 #3 {main}
   thrown in /home/guardiad/public_html/bandrank/pages/administrador/jurados/Jurado.php on line 93
+[07-Sep-2023 22:35:26 America/Bogota] PHP Warning:  Undefined array key "ROL" in /home/guardiad/public_html/bandrank/pages/administrador/jurados/jurados.php on line 3
+[07-Sep-2023 22:35:26 America/Bogota] PHP Warning:  Undefined array key "ROL" in /home/guardiad/public_html/bandrank/pages/administrador/jurados/jurados.php on line 3
+[07-Sep-2023 22:35:26 America/Bogota] PHP Warning:  Undefined array key "ROL" in /home/guardiad/public_html/bandrank/pages/administrador/jurados/jurados.php on line 3
+[07-Sep-2023 22:35:26 America/Bogota] PHP Warning:  Undefined array key "ROL" in /home/guardiad/public_html/bandrank/navbar.php on line 30

@@ -1,0 +1,10 @@
+[07-Sep-2023 16:19:32 America/Bogota] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'j.id_concurso' in 'where clause' in /home/guardiad/public_html/bandrank/pages/administrador/concurso/Concurso.php:138
+Stack trace:
+#0 /home/guardiad/public_html/bandrank/pages/administrador/concurso/Concurso.php(138): PDOStatement->execute()
+#1 /home/guardiad/public_html/bandrank/pages/administrador/concurso/concurso_controller.php(133): Concurso->getConcursoById()
+#2 /home/guardiad/public_html/bandrank/pages/administrador/concurso/concurso_controller.php(17): actualizar_concurso()
+#3 {main}
+  thrown in /home/guardiad/public_html/bandrank/pages/administrador/concurso/Concurso.php on line 138
+[07-Sep-2023 21:24:48 America/Bogota] PHP Warning:  Attempt to read property "id_concurso" on array in /home/guardiad/public_html/bandrank/pages/administrador/concurso/concurso_controller.php on line 85
+[07-Sep-2023 21:24:48 America/Bogota] PHP Warning:  Undefined array key 4 in /home/guardiad/public_html/bandrank/pages/administrador/concurso/concurso_controller.php on line 88
+[07-Sep-2023 21:24:48 America/Bogota] PHP Warning:  Attempt to read property "finalizado" on bool in /home/guardiad/public_html/bandrank/pages/administrador/concurso/concurso_controller.php on line 104

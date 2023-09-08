@@ -135,6 +135,7 @@ class PlanillaExporte {
             $encabezado = $this->getEncabezadoPlanilla();
             $detalles = $this->getDetallesCalificacion();
             $concurso = $this->getConcurso();
+            $jurado = $this->getJurado();
 
             $detalles_calificacion = "";
 
@@ -192,7 +193,7 @@ class PlanillaExporte {
         <table class="informacion" style="margin-top: 20px; border 1px solid #DCDCDC">  
             <tr>
                 <td style="width:50%">
-                    <img src="https://guardiadorada.com/bandrank/dist/images/firmas/Firma.png" style="width: 250px; margin-left: 25px;margin-right: 25px;">
+                    <img src="https://guardiadorada.com/bandrank/dist/images/firmas/'.$jurado->firma.'" style="width: 250px; margin-left: 25px;margin-right: 25px;">
                     <hr style="width: 70%;background:#FFF">
                     <p style="text-align:center;font-weight: bold">Firma jurado</p>
                 </td>

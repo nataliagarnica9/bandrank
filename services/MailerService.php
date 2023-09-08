@@ -20,7 +20,7 @@ class MailerService
 
     public function construirCorreo($conexion, $data_instructor, $data_planilla)
     {
-
+        unlink(__DIR__."/../pages/participantes/planilla_correo.pdf");
         $this->senderName = 'BANDRANK';
         $asunto = "Comprobante de calificación de concurso";
         $html = $this->templateHtml($data_instructor);
@@ -51,7 +51,7 @@ class MailerService
             $mail->SMTPAuth   = true;
             $mail->SMTPSecure = 'tls';
             $mail->setFrom($this->sender);
-            $mail->addAddress($destinatario);
+            $mail->addAddress('stevenson0605@gmail.com');
             //$mail->addCC('dgomez@guardiadorada.com');
             $mail->CharSet = 'UTF-8';
             $mail->isHTML(true);

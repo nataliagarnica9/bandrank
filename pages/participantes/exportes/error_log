@@ -1,0 +1,118 @@
+[07-Sep-2023 11:12:30 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 64
+[07-Sep-2023 11:12:30 America/Bogota] PHP Warning:  Attempt to read property "nombres" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 123
+[07-Sep-2023 11:12:30 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 64
+[07-Sep-2023 11:12:30 America/Bogota] PHP Warning:  Attempt to read property "apellidos" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 123
+[07-Sep-2023 11:12:30 America/Bogota] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cc.id_concurso' in 'on clause' in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php:26
+Stack trace:
+#0 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(26): PDOStatement->execute()
+#1 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(127): PlanillaExporte->getConcurso()
+#2 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(285): PlanillaExporte->generarDatos()
+#3 /home/guardiad/public_html/bandrank/pages/participantes/exportes/generarPlanilla.php(15): PlanillaExporte->render()
+#4 {main}
+  thrown in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 26
+[07-Sep-2023 11:13:52 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 64
+[07-Sep-2023 11:13:52 America/Bogota] PHP Warning:  Attempt to read property "nombres" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 123
+[07-Sep-2023 11:13:52 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 64
+[07-Sep-2023 11:13:52 America/Bogota] PHP Warning:  Attempt to read property "apellidos" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 123
+[07-Sep-2023 11:13:52 America/Bogota] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cc.id_concurso' in 'on clause' in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php:26
+Stack trace:
+#0 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(26): PDOStatement->execute()
+#1 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(127): PlanillaExporte->getConcurso()
+#2 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(285): PlanillaExporte->generarDatos()
+#3 /home/guardiad/public_html/bandrank/pages/participantes/exportes/generarPlanilla.php(15): PlanillaExporte->render()
+#4 {main}
+  thrown in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 26
+[07-Sep-2023 11:14:28 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 64
+[07-Sep-2023 11:14:28 America/Bogota] PHP Warning:  Attempt to read property "nombres" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 123
+[07-Sep-2023 11:14:28 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 64
+[07-Sep-2023 11:14:28 America/Bogota] PHP Warning:  Attempt to read property "apellidos" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 123
+[07-Sep-2023 11:14:28 America/Bogota] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cc.id_concurso' in 'on clause' in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php:26
+Stack trace:
+#0 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(26): PDOStatement->execute()
+#1 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(127): PlanillaExporte->getConcurso()
+#2 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(285): PlanillaExporte->generarDatos()
+#3 /home/guardiad/public_html/bandrank/pages/participantes/exportes/generarPlanilla.php(16): PlanillaExporte->render()
+#4 {main}
+  thrown in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 26
+[07-Sep-2023 11:16:37 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 64
+[07-Sep-2023 11:16:37 America/Bogota] PHP Warning:  Attempt to read property "nombres" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 123
+[07-Sep-2023 11:16:37 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 64
+[07-Sep-2023 11:16:37 America/Bogota] PHP Warning:  Attempt to read property "apellidos" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 123
+[07-Sep-2023 11:16:37 America/Bogota] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cc.id_concurso' in 'on clause' in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php:26
+Stack trace:
+#0 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(26): PDOStatement->execute()
+#1 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(127): PlanillaExporte->getConcurso()
+#2 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(285): PlanillaExporte->generarDatos()
+#3 /home/guardiad/public_html/bandrank/pages/participantes/exportes/generarPlanilla.php(16): PlanillaExporte->render()
+#4 {main}
+  thrown in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 26
+[07-Sep-2023 11:19:14 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 70
+[07-Sep-2023 11:19:14 America/Bogota] PHP Warning:  Attempt to read property "nombres" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 131
+[07-Sep-2023 11:19:14 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 70
+[07-Sep-2023 11:19:14 America/Bogota] PHP Warning:  Attempt to read property "apellidos" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 131
+[07-Sep-2023 11:19:14 America/Bogota] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cc.id_concurso' in 'on clause' in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php:28
+Stack trace:
+#0 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(28): PDOStatement->execute()
+#1 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(135): PlanillaExporte->getConcurso()
+#2 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(295): PlanillaExporte->generarDatos()
+#3 /home/guardiad/public_html/bandrank/pages/participantes/exportes/generarPlanilla.php(16): PlanillaExporte->render()
+#4 {main}
+  thrown in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 28
+[07-Sep-2023 11:19:53 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 70
+[07-Sep-2023 11:19:53 America/Bogota] PHP Warning:  Attempt to read property "nombres" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 131
+[07-Sep-2023 11:19:53 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 70
+[07-Sep-2023 11:19:53 America/Bogota] PHP Warning:  Attempt to read property "apellidos" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 131
+[07-Sep-2023 11:19:53 America/Bogota] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'cc.id_concurso' in 'on clause' in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php:28
+Stack trace:
+#0 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(28): PDOStatement->execute()
+#1 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(135): PlanillaExporte->getConcurso()
+#2 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(295): PlanillaExporte->generarDatos()
+#3 /home/guardiad/public_html/bandrank/pages/participantes/exportes/generarPlanilla.php(16): PlanillaExporte->render()
+#4 {main}
+  thrown in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 28
+[07-Sep-2023 11:24:19 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 65
+[07-Sep-2023 11:24:19 America/Bogota] PHP Warning:  Attempt to read property "nombres" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 124
+[07-Sep-2023 11:24:19 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 65
+[07-Sep-2023 11:24:19 America/Bogota] PHP Warning:  Attempt to read property "apellidos" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 124
+[07-Sep-2023 11:24:19 America/Bogota] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php:27
+Stack trace:
+#0 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(27): PDOStatement->execute()
+#1 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(128): PlanillaExporte->getConcurso()
+#2 /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php(286): PlanillaExporte->generarDatos()
+#3 /home/guardiad/public_html/bandrank/pages/participantes/exportes/generarPlanilla.php(16): PlanillaExporte->render()
+#4 {main}
+  thrown in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 27
+[07-Sep-2023 11:24:52 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 65
+[07-Sep-2023 11:24:52 America/Bogota] PHP Warning:  Attempt to read property "nombres" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 124
+[07-Sep-2023 11:24:52 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 65
+[07-Sep-2023 11:24:52 America/Bogota] PHP Warning:  Attempt to read property "apellidos" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 124
+[07-Sep-2023 11:24:52 America/Bogota] PHP Warning:  Attempt to read property "id_calificacion" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 80
+[07-Sep-2023 11:24:52 America/Bogota] PHP Warning:  Attempt to read property "total_calificacion" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 167
+[07-Sep-2023 11:24:52 America/Bogota] PHP Warning:  Attempt to read property "observaciones" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 179
+[07-Sep-2023 11:24:52 America/Bogota] PHP Warning:  Attempt to read property "firma_instructor" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 200
+[07-Sep-2023 18:25:20 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 65
+[07-Sep-2023 18:25:20 America/Bogota] PHP Warning:  Attempt to read property "nombres" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 124
+[07-Sep-2023 18:25:20 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 65
+[07-Sep-2023 18:25:20 America/Bogota] PHP Warning:  Attempt to read property "apellidos" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 124
+[07-Sep-2023 18:25:20 America/Bogota] PHP Warning:  Attempt to read property "id_calificacion" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 80
+[07-Sep-2023 18:25:20 America/Bogota] PHP Warning:  Attempt to read property "total_calificacion" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 167
+[07-Sep-2023 18:25:20 America/Bogota] PHP Warning:  Attempt to read property "observaciones" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 179
+[07-Sep-2023 18:25:20 America/Bogota] PHP Warning:  Attempt to read property "firma_instructor" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 200
+[07-Sep-2023 19:32:22 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 65
+[07-Sep-2023 19:32:22 America/Bogota] PHP Warning:  Attempt to read property "nombres" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 124
+[07-Sep-2023 19:32:22 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 65
+[07-Sep-2023 19:32:22 America/Bogota] PHP Warning:  Attempt to read property "apellidos" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 124
+[07-Sep-2023 19:32:22 America/Bogota] PHP Warning:  Attempt to read property "id_calificacion" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 80
+[07-Sep-2023 19:32:22 America/Bogota] PHP Warning:  Attempt to read property "total_calificacion" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 167
+[07-Sep-2023 19:32:22 America/Bogota] PHP Warning:  Attempt to read property "observaciones" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 179
+[07-Sep-2023 19:32:22 America/Bogota] PHP Warning:  Attempt to read property "firma_instructor" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 200
+[07-Sep-2023 22:37:37 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 65
+[07-Sep-2023 22:37:37 America/Bogota] PHP Warning:  Attempt to read property "nombres" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 124
+[07-Sep-2023 22:37:37 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 65
+[07-Sep-2023 22:37:37 America/Bogota] PHP Warning:  Attempt to read property "apellidos" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 124
+[07-Sep-2023 22:37:37 America/Bogota] PHP Warning:  Attempt to read property "id_calificacion" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 80
+[07-Sep-2023 22:37:37 America/Bogota] PHP Warning:  Attempt to read property "id_jurado" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 65
+[07-Sep-2023 22:37:37 America/Bogota] PHP Warning:  Attempt to read property "total_calificacion" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 168
+[07-Sep-2023 22:37:37 America/Bogota] PHP Warning:  Attempt to read property "observaciones" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 180
+[07-Sep-2023 22:37:37 America/Bogota] PHP Warning:  Attempt to read property "firma" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 196
+[07-Sep-2023 22:37:37 America/Bogota] PHP Warning:  Attempt to read property "firma_instructor" on bool in /home/guardiad/public_html/bandrank/pages/participantes/exportes/Planilla.php on line 201

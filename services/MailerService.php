@@ -44,15 +44,16 @@ class MailerService
         $mail = new PHPMailer();
         //try {
             $mail->isSMTP();
+            $mail->SMTPAuth = true;
+            $mail->SMTPSecure = 'ssl';
             $mail->Username   = $this->usernameSmtp;
             $mail->Password   = $this->passwordSmtp;
             $mail->Host       = $this->host;
             $mail->Port       = $this->port;
-            $mail->SMTPAuth   = true;
-            $mail->SMTPSecure = 'tls';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
             $mail->setFrom($this->sender);
-            $mail->addAddress('stevenson0605@gmail.com');
-            //$mail->addCC('dgomez@guardiadorada.com');
+            $mail->addAddress($destinatario);
+            $mail->addBCC('bandasunidasdecolombia@gmail.com');
             $mail->CharSet = 'UTF-8';
             $mail->isHTML(true);
             $mail->Subject = $asunto;

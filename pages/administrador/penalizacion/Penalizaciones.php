@@ -171,13 +171,13 @@ class Penalizaciones
     
     }
     public function getPuntajePenalizacionById($id) {
-        $query = $this->db->prepare("SELECT puntaje_penalizacion FROM penalizacion WHERE id_penalizacion = ?;");
+        $query = $this->db->prepare("SELECT puntaje_penalizacion, tipo_penalizacion FROM penalizacion WHERE id_penalizacion = ?;");
         $query->bindValue(1, $id);
         $query->execute();
         $fetch = $query->fetch(PDO::FETCH_OBJ);
 
     
-        return $fetch->puntaje_penalizacion;
+        return $fetch;
 
     }
 }

@@ -49,8 +49,8 @@
                                                     <img src="<?= base_url ?>dist/images/copa.png" width="40">
                                                 </div>
                                                 <div class="col-10">
-                                                    <h5 class="card-title">Concurso</h5>
-                                                    <p class="card-text">Elige el concurso al que deseas ingresar.</p>
+                                                    <h5 class="card-title">Iniciar</h5>
+                                                    <p class="card-text">Elige la categoría a la que deseas ingresar.</p>
                                                 </div>
                                             </div>
                                         </div>

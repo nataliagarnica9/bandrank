@@ -4,7 +4,7 @@ require_once(__DIR__.'/../../../vendor/autoload.php');
 require_once('Planilla.php');
 
 use Dompdf\Dompdf;
-
+error_reporting(E_ALL);
 $id_planilla = $_REQUEST["planilla"];
 $id_banda = $_REQUEST["banda"];
 

@@ -237,6 +237,6 @@ function obtenerPuntajeCalificacion()
     $id = $_REQUEST["id"];
     $datos = $penalizacion_model->getPuntajePenalizacionById($id);
 
-    echo json_encode(["id" => $datos]);
+    echo json_encode(["id" => $datos->puntaje_penalizacion, "tipo"=>$datos->tipo_penalizacion]);
 }
 ?>

@@ -122,7 +122,7 @@ if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == '') {
 
                         </select>
                     </td>
-                    <td><input type="text" disabled id="penalizacion_puntaje-1" class="form-control" value=""></td>
+                    <td><input type="text" disabled id="penalizacion_puntaje-1" class="form-control penalizaciones" value=""></td>
                 </tr>
 
             </table>
@@ -161,6 +161,7 @@ if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == '') {
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="<?= base_url?>dist/signature_pad1.2.1/js/jquery.signature.js"></script>
+    <script type="text/javascript" src="<?= base_url?>dist/jquery-ui-touch-punch-master/jquery.ui.touch-punch.min.js"></script>
     <script>
         var nextinput = 1;
         const penalizacionesContainer = document.getElementById('penalizaciones-container');
@@ -227,7 +228,7 @@ if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == '') {
                 </select>
                 </td>
                 <td>
-                    <input type="text" disabled id="penalizacion_puntaje-${nextinput}" class="form-control" value="">
+                    <input type="text" disabled id="penalizacion_puntaje-${nextinput}" class="form-control penalizaciones" value="">
                 </td>
                 <button type="button" class="btn-bandrank btn-remove-penalizacion"style="padding: 6px 9px; font-size: 14px;">Eliminar</button>
             `;
@@ -257,7 +258,7 @@ if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == '') {
             });
 
             for (i = 1; i <= nextinput; i++) {
-                let num_penalizacion = $("#penalizacion_puntaje-" + i).val() == '' ? 0 : $("#penalizacion_puntaje-" + i).val();
+                let num_penalizacion = $("#penalizacion_puntaje-" + i).val() == '' || $("#penalizacion_puntaje-" + i).val() == undefined ? 0 : $("#penalizacion_puntaje-" + i).val();
                 totalAspectos -= num_penalizacion;
             }
 
@@ -320,7 +321,29 @@ if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == '') {
                 dataType: 'json',
                 type: 'get',
             }).done(function(response) {
-                $('#penalizacion_puntaje-' + input).val(response.id);
+                if(response.tipo == 'Descalificación') {
+                    $('#penalizacion_puntaje-' + input).val(response.id);
+                    Swal.fire({
+                            icon: 'info',
+                            title: 'Importante',
+                            text: 'Seleccionaste una penalización de tipo penalización, automáticamente se pondrán los aspectos en 0,'+
+                            ' si modificas algún valor no se procesará la descalificación. ',
+                            confirmButtonText:'Entendido',
+                            confirmButtonColor: '#FF751F'
+                        });
+                    
+                    let valoracionInputs = document.querySelectorAll('input[type="number"]');
+                    const totalAspectosInput = document.getElementById('total_aspectos');
+                        
+                    // Calcular la suma de las valoraciones
+                    valoracionInputs.forEach(input => {
+                        input.value = 0;
+                        totalAspectos = 0;
+                    });
+
+                } else {
+                    $('#penalizacion_puntaje-' + input).val(response.id);
+                }
                 calcularTotal();
             });
         }

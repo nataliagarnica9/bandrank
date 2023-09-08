@@ -84,6 +84,21 @@ class PlanillaExporte {
         return $fetch_detalles;
     }
 
+    protected function getDetallesPenalizacion() {
+        $encabezado = $this->getEncabezadoPlanilla();
+
+        $sel_detalles = $this->db->prepare("SELECT p.descripcion_penalizacion, p.puntaje_penalizacion
+                                            FROM detalle_penalizacion dp
+                                                     INNER JOIN encabezado_calificacion ec on dp.id_calificacion = ec.id_calificacion
+                                                     INNER JOIN penalizacion p on dp.id_penalizacion = p.id_penalizacion
+                                            WHERE ec.id_calificacion = ?;");
+        $sel_detalles->bindValue(1, $encabezado->id_calificacion);
+        $sel_detalles->execute();
+        $fetch_detalles = $sel_detalles->fetchAll(PDO::FETCH_OBJ);
+
+        return $fetch_detalles;
+    }
+
     protected function generarEncabezado(){
         $html = '
         <html lang="es">
@@ -100,7 +115,7 @@ class PlanillaExporte {
                 </tr>
                 <tr style="padding: 0px; height:100px">
                     <td style="padding: 0px"> </td>
-                    <td style="padding: 0px 5px 0px 450px;font-weight: bold">'. $this->getPlanilla()->nombre_planilla.'</td>
+                    <td style="padding: 0px 5px 0px 250px;font-weight: bold">'. $this->getPlanilla()->nombre_planilla.'</td>
                 </tr>
             </table>
             </header>';
@@ -129,6 +144,32 @@ class PlanillaExporte {
                 </tr>
             </table>';
             return $html;
+    }
+
+    protected function generarDetallesPenalizacion(){
+        $detalles = $this->getDetallesPenalizacion();
+
+        $detalles_penalizacion = "";
+
+        foreach($detalles as $detalle) {
+            $detalles_penalizacion .= '
+            <tr>
+                <td colspan="2" style="padding: 3px;border: 1px solid #DCDCDC">'.$detalle->descripcion_penalizacion.'</td>
+                <td style="padding: 3px;text-align:center; border: 1px solid #DCDCDC">'.$detalle->puntaje_penalizacion.'</td>
+            </tr>
+            ';
+        }
+
+
+        $html = '<table class="informacion" style="margin-top: 10px" border="0">
+                    <tr>
+                        <th colspan="2" class="red-text">Nombre de la penalizacion</th>
+                        <th class="red-text">Valoración</th>
+                    </tr>
+                    '.$detalles_penalizacion.'  
+                </table>';
+
+        return $html;        
     }
 
     protected function generarDetalles(){
@@ -167,57 +208,65 @@ class PlanillaExporte {
                     <td style="padding: 3px;text-align:center; border: 1px solid #DCDCDC; font-weight: bold">Parcial total</td>
                     <td style="padding: 3px;text-align:center; border: 1px solid #DCDCDC">'.$encabezado->total_calificacion.'</td>
                 </tr>   
+            </table>';
+
+            return $html;
+        }
+
+    protected function generarPieDocumento(){
+        $encabezado = $this->getEncabezadoPlanilla();
+        $jurado = $this->getJurado();
+
+        $html = '
+            <table class="informacion" style="margin-top: 10px;">
+                <tr>
+                    <th colspan="2" class="red-text">
+                        Observaciones generales
+                    </th>
+                </tr>
+                <tr>
+                    <td colspan="2" style="border: 1px solid #DCDCDC;padding: 3px 5px">
+                        '.$encabezado->observaciones.'
+                    </td>
+                </tr>
             </table>
 
-        <table class="informacion" style="margin-top: 10px;">
-            <tr>
-                <th colspan="2" class="red-text">
-                    Observaciones generales
-                </th>
-            </tr>
-            <tr>
-                <td colspan="2" style="border: 1px solid #DCDCDC;padding: 3px 5px">
-                    '.$encabezado->observaciones.'
-                </td>
-            </tr>
-        </table>
+            <table class="informacion" style="margin-top: 10px; border 1px solid #DCDCDC">
+                <tr>
+                    <td colspan="2" style="font-size: 10px">
+                        * La firma del instructor, sobrentiende la aceptación de la valoración otorgada y no da cabida a apelaciones
+                        posteriores a su entrega a la organización.
+                    </td>
+                </tr>
+            </table>
+            <table class="informacion" style="margin-top: 20px; border 1px solid #DCDCDC">  
+                <tr>
+                    <td style="width:50%">
+                        <img src="https://guardiadorada.com/bandrank/dist/images/firmas/'.$jurado->firma.'" style="width: 120px; margin-left: 25px;margin-right: 25px;">
+                        <hr style="width: 70%;background:#FFF">
+                        <p style="text-align:center;font-weight: bold">Firma jurado</p>
+                    </td>
+                    <td style="width:50%">
+                        <img src="data:image/png;base64,'.$encabezado->firma_instructor.'" style="width: 250px; margin-left: 25px;margin-right: 25px;">
+                        <hr style="width: 70%;background:#FFF">
+                        <p style="text-align:center;font-weight: bold">Firma instructor</p>
+                    </td>
+                </tr>
+            </table> 
 
-        <table class="informacion" style="margin-top: 10px; border 1px solid #DCDCDC">
-            <tr>
-                <td colspan="2" style="font-size: 10px">
-                    * La firma del instructor, sobrentiende la aceptación de la valoración otorgada y no da cabida a apelaciones
-                    posteriores a su entrega a la organización.
-                </td>
-            </tr>
-        </table>
-        <table class="informacion" style="margin-top: 20px; border 1px solid #DCDCDC">  
-            <tr>
-                <td style="width:50%">
-                    <img src="https://guardiadorada.com/bandrank/dist/images/firmas/'.$jurado->firma.'" style="width: 250px; margin-left: 25px;margin-right: 25px;">
-                    <hr style="width: 70%;background:#FFF">
-                    <p style="text-align:center;font-weight: bold">Firma jurado</p>
-                </td>
-                <td style="width:50%">
-                    <img src="data:image/png;base64,'.$encabezado->firma_instructor.'" style="width: 250px; margin-left: 25px;margin-right: 25px;">
-                    <hr style="width: 70%;background:#FFF">
-                    <p style="text-align:center;font-weight: bold">Firma instructor</p>
-                </td>
-            </tr>
-        </table> 
-
-        <table class="informacion" style="margin-top: 100px; border 1px solid #DCDCDC">  
-            <tr>
-                <td style="width:10%">
-                    <img src="https://guardiadorada.com/bandrank/dist/images/logo_buc.png" style="width: 50px; margin-left: 25px;margin-right: 25px;">
-                </td>
-                <td style="width:10%">
-                    <img src="https://guardiadorada.com/bandrank/dist/images/escudo_colegio.png" style="width: 50px; margin-left: 25px;margin-right: 25px;">
-                </td>
-                <td style="width:80%"></td>
-            </tr>
-        </table> 
-        </body>
-        </html>';
+            <table class="informacion" style="margin-top: 100px; border 1px solid #DCDCDC">  
+                <tr>
+                    <td style="width:10%">
+                        <img src="https://guardiadorada.com/bandrank/dist/images/logo_buc.png" style="width: 50px; margin-left: 25px;margin-right: 25px;">
+                    </td>
+                    <td style="width:10%">
+                        <img src="https://guardiadorada.com/bandrank/dist/images/escudo_colegio.png" style="width: 50px; margin-left: 25px;margin-right: 25px;">
+                    </td>
+                    <td style="width:80%"></td>
+                </tr>
+            </table> 
+            </body>
+            </html>';
         return $html;
     }
 
@@ -282,9 +331,16 @@ class PlanillaExporte {
     }
 
     public function render() {
+        $detalles_penalizacion = count($this->getDetallesPenalizacion());
+
         echo $this->generarEncabezado();
         echo $this->crearEstilos();
         echo $this->generarDatos();
         echo $this->generarDetalles();
+        if($detalles_penalizacion > 0){
+            echo $this->generarDetallesPenalizacion();
+        }
+       
+        echo $this->generarPieDocumento();
     }
 }

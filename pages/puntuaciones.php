@@ -12,8 +12,15 @@ $fetch_concurso = $query_concurso->fetch(PDO::FETCH_OBJ);
 <!DOCTYPE html>
 <html lang="en">
 <?php require("../head.php"); ?>
+<style>
+    #tabla-puntuaciones {
+        width: 82vw;
+        overflow-x: scroll;
+        height: 73vh;
+    }
+</style>
 <body>
-    <div class="container">
+    <div class="container-xl mt-5">
     <a class="btn" href="<?=base_url?>pages/administrador/inicio.php">Regresar</a>
         <div class="row">
             <div class="col-8">

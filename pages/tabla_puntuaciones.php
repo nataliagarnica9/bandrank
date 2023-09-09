@@ -3,7 +3,7 @@ require_once("../config.php");
 
 error_reporting(0);
 
-$query_concurso = $db->prepare("SELECT * FROM concurso WHERE fecha_evento = ? LIMIT 1");
+$query_concurso = $db->prepare("SELECT * FROM concurso WHERE fecha_evento = ? AND eliminado = 0 LIMIT 1");
 $query_concurso->bindValue(1, date('Y-m-d', time()));
 $query_concurso->execute();
 $fetch_concurso = $query_concurso->fetch(PDO::FETCH_OBJ);
@@ -20,7 +20,7 @@ $fetch_planilla = $sel_planilla->fetchAll(PDO::FETCH_OBJ);
 
 ?>
 
-<table class="table table-hover table-sm table-bordered mt-5">
+<table class="table table-hover table-sm table-bordered mt-5 table-responsive">
     <thead>
         <tr>
             <td rowspan="2"><b>Banda</b></td>

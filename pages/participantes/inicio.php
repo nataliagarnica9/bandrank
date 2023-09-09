@@ -8,7 +8,7 @@
     <div class="bloque-presentacion mt-navbar">
         <div class="row">
             <?php if ($_SESSION["ROL"] == 'instructor') : ?>
-                <div class="col-4 p-3">
+                <div class="col-12 col-md-4 p-3">
                 <?php else : ?>
                     <div class="col-12 p-3">
                     <?php endif; ?>
@@ -38,9 +38,9 @@
                         echo $fetch_usuario->nombre_banda != null ? '<br><br> Representas a la banda <span style="color:#FF914D">' . $fetch_usuario->nombre_banda . '</span>' : '';
                         ?>
                     </p>
-                    <div class="row g-4 m-5">
+                    <div class="row g-4">
                         <?php if ($_SESSION["ROL"] == 'jurado') : ?>
-                            <div class="col">
+                            <div class="col-12">
                                 <a href="<?= base_url ?>pages/participantes/Categorias.php?concurso=<?= $_SESSION["ID_CONCURSO"] ?>" class="tarjeta-opcion">
                                     <div class="card border-light shadow-sm">
                                         <div class="card-body">
@@ -58,7 +58,7 @@
                                 </a>
                             </div>
                         <?php endif; ?>
-                        <div class="col">
+                        <div class="col-12">
                             <a href="javascript:void(0)" onclick="parametrosExporte()" class="tarjeta-opcion">
                                 <div class="card border-light shadow-sm">
                                     <div class="card-body">
@@ -79,7 +79,7 @@
                     </div>
 
                     <?php if ($_SESSION["ROL"] == 'instructor') : ?>
-                        <div class="col-7 mt-5 mx-5">
+                        <div class="col-12 col-md-7">
                             <small>* Puedes hacer scroll para ver todos los puntajes</small>
                             <div id="tabla-puntuaciones" style="overflow-x: scroll;">
 

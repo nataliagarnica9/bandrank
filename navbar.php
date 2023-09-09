@@ -41,6 +41,7 @@ if (isset($_SESSION["ROL"]) && $_SESSION["ROL"] == 'admin') {
                 </ul>
             </li>
             <li><a href="<?= base_url ?>pages/puntuaciones.php">Ver en tiempo real</a></li>
+            <li><a href="<?= base_url ?>pages/resultados.php">Resultados</a></li>
         <?php endif; ?>
         <li><?= $boton_home ?></li>
     </ul>

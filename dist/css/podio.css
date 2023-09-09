@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto');
+
+h1
+{
+	font-family: "Raleway";
+	font-weight: 400;
+	text-align : center;
+}
+
+
+@mixin centerer {
+  position: absolute;
+  //top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+h1
+{
+  text-align : center;
+  
+}
+
+$gray: #ececec;
+$first: #BD4F6C;
+$second: #F0CF65;
+$third: #5E9EAD;
+
+body {
+  font-size: 16px;
+  background: #fafafa;
+  font-family: "Roboto";
+  font-weight : 300;
+}
+
+.number-holder {
+  transition: all 500ms ease-in-out;
+}
+
+.scoreboard {
+  border-radius: 5px;
+  display: flex;
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 3rem 50px;
+  flex-direction: column;
+  background: #fafafa;
+  &__item {
+    display: flex;
+    padding: 1rem 0;
+    width: 100%;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    jusitfy-content : flex-end;
+    opacity: 0;
+    top: 20px;
+    transition: 500ms ease-in-out;
+    &.is-visible {
+      opacity: 1;
+      top: 0;
+      transition: 500ms ease-in-out;
+    }
+  }
+  &__title {
+    width: 300px;
+    font-weight: 600;
+    small {
+      color: #333;
+    }
+  }
+  &__status {
+    font-weight: 300;
+  }
+  &__numbers {
+    font-weight: 600;
+    text-align: right;
+    align-self: flex-end;
+    margin-left: 20px;
+    flex: 1;
+  }
+  &__update {
+    
+  }
+}
+
+.scoreboard__bar {
+  width: 100%;
+  margin-top: 1rem;
+  background: $gray;
+  height: 10px;
+  position: relative;
+  border-radius: 5px;
+  transition: all 500ms ease-in-out;
+  display: flex;
+  flex-basis: 100%;
+  &:before {
+    content: "";
+    width: 100%;
+    flex-basis: 100%;
+    clear: both;
+    display: block;
+  }
+  &-bar {
+    position: absolute;
+    height: 10px;
+    left: 0;
+    top: 0;
+    width: 0;
+    border-radius: 5px;
+    background: linear-gradient(to right, $second 0%, darken($second,10%) 100%);
+    transition: all 250ms ease-in-out;
+  }
+}
+
+.scoreboard__podiums {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 20px auto 100px auto;
+  min-height: 350px;
+  .scoreboard__podium {
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    flex-wrap: wrap;
+    flex: 1;
+    opacity: 0;
+    top: -10px;
+    &.is-visible {
+      top: 0;
+      opacity: 1;
+      transition: all 500ms ease-in-out;
+    }
+    
+    &-rank {
+      font-size: 4rem;
+      font-weight: 700;
+      @include centerer();
+      bottom: 0px;
+    }
+    &-base {
+      height: 0;
+      background: $gray;
+      color: #fff;
+      min-width: 150px;
+      border-radius: 5px;
+      transition: all 1000ms ease-in-out;
+      opacity: 0;
+      position: relative;
+      &.is-expanding {
+        opacity: 1;
+      }
+      &--first {
+        background: linear-gradient(to bottom, $first 0%, darken($first,10%) 100%);
+        
+      }
+      &--second {
+        background-color: $second;
+        background: linear-gradient(to bottom, $second 0%, darken($second,10%) 100%);
+        
+      }
+      
+      &--third {
+         background-color: $third;
+        background: linear-gradient(to bottom, $third 0%, darken($third,10%) 100%);
+      }
+      
+    }
+    &-number {
+      text-align :center;
+      font-size: 1.2rem;
+      margin-top: 10px;
+      
+      small {
+        display: block;
+        font-size: 60%;
+        color: #333;
+        line-height: 1.5;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+.credits {
+  font-size: 14px;
+  text-align: center;
+  margin: 20px 0;
+}
+
+#scoreboard__items {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style-type: decimal;
+}
+
+.oneup-audio {
+  display: none;
+}
+
+.style-switch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  font-size: 15px;
+}
+
+body.dark-mode {
+  background: #111;
+  color: #fff;
+  .scoreboard {
+    background: #111;
+    color: #fff;
+    small {
+      color: #eee !important;
+    }
+  }
+  .scoreboard__bar {
+    background: #333;
+  }
+}
+
+.bump {
+ animation: bump 500ms ease-in-out; 
+}
+
+@keyframes bump {
+  0% {
+    
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  60% {
+    transform: scale(1);
+  }
+}

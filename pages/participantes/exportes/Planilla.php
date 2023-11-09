@@ -107,7 +107,7 @@ class PlanillaExporte {
             <table class="informacion" style="padding: 0px" border="0">
                 <tr>
                     <td>
-                        <img src="https://guardiadorada.com/bandrank/dist/images/logo_concurso_general_santander.png" style="width:200px;">
+                        <img src="https://guardiadorada.com/bandrank/dist/images/logo-uniminuto.png" style="width:200px;">
                     </td>
                     <td>
                         <img src="https://guardiadorada.com/bandrank/dist/images/bandrank_logotipo.png" style="width:200px;margin-left:300px">
@@ -127,7 +127,7 @@ class PlanillaExporte {
         $html='
             <table class="informacion-datos" style="padding: 5px;margin-top: 30px;" border="0">
                 <tr>
-                    <td style="width: 30%;padding: 5px; font-weight: bold"><label for="nombre_banda">Nombre de la banda:</td>
+                    <td style="width: 30%;padding: 5px; font-weight: bold"><label for="nombre_banda">Participante:</td>
                     <td style="border-bottom: 1px solid #000;padding: 5px">'. $this->getBanda()->nombre.'  </td>
                 </tr>
                 <tr>
@@ -230,7 +230,6 @@ class PlanillaExporte {
                     </td>
                 </tr>
             </table>
-
             <table class="informacion" style="margin-top: 10px; border 1px solid #DCDCDC">
                 <tr>
                     <td colspan="2" style="font-size: 10px">
@@ -241,32 +240,36 @@ class PlanillaExporte {
             </table>
             <table class="informacion" style="margin-top: 20px; border 1px solid #DCDCDC">  
                 <tr>
-                    <td style="width:50%">
-                        <img src="https://guardiadorada.com/bandrank/dist/images/firmas/'.$jurado->firma.'" style="width: 120px; margin-left: 25px;margin-right: 25px;">
-                        <hr style="width: 70%;background:#FFF">
-                        <p style="text-align:center;font-weight: bold">Firma jurado</p>
-                    </td>
-                    <td style="width:50%">
+                    <td style="width:70%"></td>
+                    <td style="width:30%">
                         <img src="data:image/png;base64,'.$encabezado->firma_instructor.'" style="width: 250px; margin-left: 25px;margin-right: 25px;">
                         <hr style="width: 70%;background:#FFF">
                         <p style="text-align:center;font-weight: bold">Firma instructor</p>
                     </td>
                 </tr>
             </table> 
-
-            <table class="informacion" style="margin-top: 100px; border 1px solid #DCDCDC">  
                 <tr>
-                    <td style="width:10%">
-                        <img src="https://guardiadorada.com/bandrank/dist/images/logo_buc.png" style="width: 50px; margin-left: 25px;margin-right: 25px;">
-                    </td>
-                    <td style="width:10%">
-                        <img src="https://guardiadorada.com/bandrank/dist/images/escudo_colegio.png" style="width: 50px; margin-left: 25px;margin-right: 25px;">
-                    </td>
-                    <td style="width:80%"></td>
-                </tr>
-            </table> 
+            <footer>
+                <table class="informacion" style="margin-top: 100px; border 1px solid #DCDCDC">
+                    <tr>
+                        <td style="width:20%">
+                            <img src="https://guardiadorada.com/bandrank/dist/images/logo-largo-uniminuto.png" style="width: 150px; margin-left: 25px;margin-right: 25px;">
+                        </td>
+                        <td style="width:80%"></td>
+                    </tr>
+                </table> 
+            </footer>
             </body>
             </html>';
+
+            
+            //<td style="width:50%">
+            //            <img src="https://guardiadorada.com/bandrank/dist/images/firmas/'.$jurado->firma.'" style="width: 120px; margin-left: 25px;margin-right: 25px;">
+            //            <hr style="width: 70%;background:#FFF">
+            //            <p style="text-align:center;font-weight: bold">Firma jurado</p>
+            //        </td>
+//
+            
         return $html;
     }
 
@@ -321,10 +324,15 @@ class PlanillaExporte {
             }
 
             .red-text {
-                background: red;
+                background: #004A93;
                 color: #FFF;
                 text-align: center;
                 padding: 5px 0px;
+            }
+
+            footer {
+                position: fixed;
+                bottom: 2px;
             }
         </style>";
         return $estilos;

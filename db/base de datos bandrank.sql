@@ -217,3 +217,6 @@ alter table encabezado_calificacion
     CREATE TABLE categoriasxconcurso (`id_calificacionxconcurso` INT(11) NOT NULL AUTO_INCREMENT , `id_concurso` INT(11) NOT NULL , `id_categoria` INT(11) NOT NULL , PRIMARY KEY (`id_calificacionxconcurso`)) ENGINE = InnoDB;
     
     ALTER TABLE `concurso` DROP `id_categoria`;
+
+    alter table detalle_calificacion
+    modify puntaje double(20, 1) not null;

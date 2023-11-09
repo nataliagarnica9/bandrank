@@ -21,7 +21,7 @@ $fetch_planilla = $sel_planilla->fetchAll(PDO::FETCH_OBJ);
 ?>
 
 <table class="table table-hover table-sm table-bordered mt-5 table-responsive">
-    <thead>
+    <thead style="position: sticky;top: 0;">
         <tr>
             <td rowspan="2"><b>Banda</b></td>
             <?php
@@ -34,7 +34,7 @@ $fetch_planilla = $sel_planilla->fetchAll(PDO::FETCH_OBJ);
                     $num_planilla = count($fetch_criterios1);
 
             ?>
-            <td class="text-center" colspan="<?= $num_planilla?>"><?= $planilla->nombre_planilla ?></td>
+            <td class="text-center fw-bold" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;" colspan="<?= $num_planilla?>"><?= $planilla->nombre_planilla ?></td>
             <?php
                 endforeach;
             ?>
@@ -50,7 +50,7 @@ $fetch_planilla = $sel_planilla->fetchAll(PDO::FETCH_OBJ);
                     $fetch_criterios = $sel_criterios->fetchAll(PDO::FETCH_OBJ);
 
                     foreach($fetch_criterios as $criterio): ?>
-                        <td><?=$criterio->nombre_criterio?></td>
+                        <td class="text-center" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><?=$criterio->nombre_criterio?></td>
 
 
             <?php
@@ -64,7 +64,7 @@ $fetch_planilla = $sel_planilla->fetchAll(PDO::FETCH_OBJ);
             foreach($fetch_banda as $banda):
         ?>
         <tr>
-            <td><?= $banda->nombre ?></td>
+            <td class="text-center fw-bold" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><?= $banda->nombre ?></td>
             <?php
                 foreach($fetch_planilla as $planilla):
                     $sel_criterios2 = $db->prepare("SELECT * FROM criterio WHERE id_planilla = ?");

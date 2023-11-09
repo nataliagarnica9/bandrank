@@ -1,6 +1,6 @@
 <?php
 require_once('../../config.php');
-$query_concurso = $db->prepare("SELECT * FROM concurso WHERE fecha_evento = ? LIMIT 1");
+$query_concurso = $db->prepare("SELECT * FROM concurso WHERE fecha_evento = ? AND eliminado = 0 LIMIT 1");
 $query_concurso->bindValue(1, date('Y-m-d', time()));
 $query_concurso->execute();
 $fetch_concurso = $query_concurso->fetch(PDO::FETCH_OBJ);
@@ -75,7 +75,7 @@ $fetch_planilla = $sel_planilla->fetchAll(PDO::FETCH_OBJ);
                                                           WHERE ec.id_banda = ?
                                                             AND ec.id_planilla = ?
                                                             AND dc.id_criterioevaluacion = ? ");
-                $sel_calificacion->bindValue(1, $banda->id_banda);
+                $sel_calificacion->bindValue(1, $fetch_banda->id_banda);
                 $sel_calificacion->bindValue(2, $planilla->id_planilla);
                 $sel_calificacion->bindValue(3, $criterio->id_criterio);
                 $sel_calificacion->execute();

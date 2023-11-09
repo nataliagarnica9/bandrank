@@ -40,7 +40,7 @@
                     </p>
                     <div class="row g-4">
                         <?php if ($_SESSION["ROL"] == 'jurado') : ?>
-                            <div class="col-12">
+                            <div class="col-12 col-md-6">
                                 <a href="<?= base_url ?>pages/participantes/Categorias.php?concurso=<?= $_SESSION["ID_CONCURSO"] ?>" class="tarjeta-opcion">
                                     <div class="card border-light shadow-sm">
                                         <div class="card-body">
@@ -58,7 +58,7 @@
                                 </a>
                             </div>
                         <?php endif; ?>
-                        <div class="col-12">
+                        <div class="col-12 col-md-6">
                             <a href="javascript:void(0)" onclick="parametrosExporte()" class="tarjeta-opcion">
                                 <div class="card border-light shadow-sm">
                                     <div class="card-body">

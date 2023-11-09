@@ -183,11 +183,6 @@ class Jurado
                 $query_clave->bindValue(1, $data["clave"]);
                 $query_clave->bindValue(2, $data["id_jurado"]);
                 $query_clave->execute();
-
-                $query_login1 = $this->db->prepare("UPDATE login SET clave = ? WHERE id_registro = ?");
-                $query_login1->bindValue(1, $data["clave"]);
-                $query_login1->bindValue(2, $data["id_jurado"]);
-                $query_login1->execute();
             }
 
             $status = $query->errorInfo();

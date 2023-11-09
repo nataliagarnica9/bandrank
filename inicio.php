@@ -15,8 +15,8 @@ session_destroy();
         </p>
         <form action="post" id="form-login">
             <div class="row justify-content-md-center">
-                <div class="col-4">&nbsp;</div>
-                <div class="col-3">
+                <div class="col-12 col-md-4">&nbsp;</div>
+                <div class="col-12 col-md-3">
                     <select name="tipo_usuario" id="tipo_usuario" class="form-select animate__animated animate__backInUp">
                         <option value="">Selecciona una opción</option>
                         <option value="administrador">Administrador</option>
@@ -24,8 +24,8 @@ session_destroy();
                         <option value="jurado">Jurado</option>
                     </select>
                 </div>
-                <div class="col-1">
-                    <a class="btn-bandrank animate__animated animate__backInUp" onclick="detectarEnter();iniciar_sesion()">Ingresar</a>
+                <div class="col-12 col-md-1">
+                    <a class="btn-bandrank animate__animated animate__backInUp" onclick="iniciar_sesion()">Ingresar</a>
                 </div>
                 <div class="col-4">&nbsp;</div>
             </div>
@@ -63,9 +63,14 @@ session_destroy();
 
     function iniciar_sesion() {
         let tipo_usuario = $('#tipo_usuario').val();
-
         if(tipo_usuario == 'administrador') {
             $('#modal_autenticacion').modal('show');
+            localStorage.setItem('rol','admin');
+            $(document).keyup(function(event) {
+            if (event.which === 13) {
+                iniciar_sesion();
+            }
+            });
         } else {
             location.href = 'pages/participantes/inicio_sesion.php';
         }
@@ -92,14 +97,7 @@ session_destroy();
             }
         })
     }
-
-    function detectarEnter() {
-        $(document).keyup(function(event) {
-            if (event.which === 13) {
-                iniciar_sesion();
-            }
-        });
-    }
+    
 </script>
 
 </html>

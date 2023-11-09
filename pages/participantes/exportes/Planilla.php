@@ -248,7 +248,6 @@ class PlanillaExporte {
                     </td>
                 </tr>
             </table> 
-                <tr>
             <footer>
                 <table class="informacion" style="margin-top: 100px; border 1px solid #DCDCDC">
                     <tr>

@@ -1,4 +1,2 @@
 # Defino en que ruta inicia la aplicación
 DirectoryIndex inicio.php
-RewriteCond %{QUERY_STRING} .
-RewriteRule ^(.*)$ https://www.guardiadorada.com/bandrank/$1? [R=301,L]

@@ -1,148 +1,105 @@
-<!doctype html>
-<html lang="es">
-<?php 
+<?php
+include_once('../../config.php');
+if($_SESSION["ROL"] != 'admin') {
+    header("Location: ../../inicio.php");
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<?php include '../../head.php'; ?>
+<title>Inicio - BandRank</title>
+</head>
 
-require("../../head.php"); ?>
 <body>
-<?php require("../../navbar.php");?>
+<div id="app">
+    <div class="main-wrapper">
+        <div class="navbar-bg"></div>
+        <?php include '../../navbar.php'; ?>
 
-<div class="bloque-presentacion mt-navbar">
-    <h1 class="titulo-bienv">Bienvenido al administrador de BandRank</h1>
-    <p class="subtitulo-bienv mb-5">Sistema de Evaluación de Eventos Marciales</p>
-    <div class="row row-cols-1 row-cols-md-3 g-4 m-5">
+        <!-- Main Content -->
+        <div class="main-content">
+            <section class="section">
+                <div class="section-header">
+                    <h1>Bienvenido/a a BandRank</h1>
+                    <div class="section-header-breadcrumb">
+                        <div class="breadcrumb-item active"><a href="#">Inicio</a></div>
+                        <div class="breadcrumb-item">Página de bienvenida</div>
+                    </div>
+                </div>
 
-    <div class="col-md-12 col-lg-4">
-            <a href="<?= base_url ?>pages/administrador/jurados/jurados.php" class="tarjeta-opcion">
-                <div class="card border-light shadow-sm">
-                    <div class="card-body">
+                <div class="section-body">
+                    <h2 class="section-title">Resumen</h2>
+                    <p class="section-lead">
+                        Sistema de gestión y evaluación de eventos marciales.
+                    </p>
+
                     <div class="row">
-                            <div class="col-2">
-                                <img src="<?= base_url?>dist/images/jurado.png" width="40">
+                        <div class="col-lg-6">
+                            <div class="card card-large-icons">
+                                <div class="card-icon bg-primary text-white">
+                                    <i class="fas fa-drum"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h4>Concurso</h4>
+                                    <p>Crea, edita y administra los concursos en marcha.</p>
+                                    <a href="<?= base_url ?>pages/administrador/concurso/concursos.php" class="card-cta">Ingresar <i class="fas fa-chevron-right"></i></a>
+                                </div>
                             </div>
-                            <div class="col-10">
-                                <h5 class="card-title">Registro de jurados</h5>
-                                <p class="card-text">Crea el jurado y le permite calificar bandas.</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card card-large-icons">
+                                <div class="card-icon bg-primary text-white">
+                                    <i class="fas fa-user-friends"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h4>Bandas</h4>
+                                    <p>Crea, edita y administra las bandas participantes.</p>
+                                    <a href="<?= base_url ?>pages/administrador/bandas/bandas.php" class="card-cta">Administrar <i class="fas fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card card-large-icons">
+                                <div class="card-icon bg-primary text-white">
+                                    <i class="far fa-list-alt"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h4>Planillas</h4>
+                                    <p>Crea, edita y administra las planillas de calificación.</p>
+                                    <a href="<?= base_url ?>pages/administrador/planilla/planillaMain.php" class="card-cta">Ir a crear <i class="fas fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card card-large-icons">
+                                <div class="card-icon bg-primary text-white">
+                                    <i class="fas fa-layer-group"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h4>Categorías</h4>
+                                    <p>Crea, edita y administra las categorías.</p>
+                                    <a href="<?= base_url ?>pages/administrador/categoria/categorias.php" class="card-cta">Administrar <i class="fas fa-chevron-right"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </a>
+            </section>
         </div>
 
-        <div class="col-md-12 col-lg-4">
-            <a href="<?= base_url ?>pages/administrador/concurso/concursos.php" class="tarjeta-opcion">
-                <div class="card border-light shadow-sm">
-                    <div class="card-body">
-                    <div class="row">
-                            <div class="col-2">
-                                <img src="<?= base_url?>dist/images/concurso.png" width="40">
-                            </div>
-                            <div class="col-10">
-                                <h5 class="card-title">Registro de concursos</h5>
-                                <p class="card-text">Crea la competencia y permite la calificación del evento.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-12 col-lg-4">
-            <a href="<?= base_url ?>pages/administrador/bandas/bandas.php" class="tarjeta-opcion">
-                <div class="card border-light shadow-sm">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-2">
-                                <img src="<?= base_url?>dist/images/tambor.png" width="50">
-                            </div>
-                            <div class="col-10">
-                                <h5 class="card-title">Registro de bandas</h5>
-                                <p class="card-text">Crea las bandas participantes.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-12 col-lg-4">
-            <a href="<?= base_url ?>pages/administrador/criteriosEvaluacion/criteriosMain.php" class="tarjeta-opcion">
-                <div class="card border-light shadow-sm">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-2">
-                                <img src="<?= base_url?>dist/images/banda.png" width="50">
-                            </div>
-                            <div class="col-10">
-                                <h5 class="card-title">Registro de calificaciones</h5>
-                                <p class="card-text">Crea los estándares de calificación del concurso.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-12 col-lg-4">
-            <a href="<?= base_url ?>pages/administrador/categoria/registros.php" class="tarjeta-opcion">
-                <div class="card border-light shadow-sm">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-2">
-                                <img src="<?= base_url?>dist/images/categorias.png" width="50">
-                            </div>
-                            <div class="col-10">
-                                <h5 class="card-title">Registro de categorías de concurso</h5>
-                                <p class="card-text">Crea las categorias de los concursos.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-12 col-lg-4">
-            <a href="<?= base_url ?>pages/administrador/penalizacion/penalizacionMain.php" class="tarjeta-opcion">
-                <div class="card border-light shadow-sm">
-                    <div class="card-body">
-                    <div class="row">
-                            <div class="col-2">
-                                <img src="<?= base_url?>dist/images/penalizacion.png" width="40">
-                            </div>
-                            <div class="col-10">
-                                <h5 class="card-title">Penalizacion</h5>
-                                <p class="card-text">Crea las penalizaciones para la calificación.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col-md-12 col-lg-4">
-            <a href="<?= base_url ?>pages/administrador/planilla/planillaMain.php" class="tarjeta-opcion">
-                <div class="card border-light shadow-sm">
-                    <div class="card-body">
-                    <div class="row">
-                            <div class="col-2">
-                                <img src="<?= base_url?>dist/images/planilla.png" width="40">
-                            </div>
-                            <div class="col-10">
-                                <h5 class="card-title">Planillas</h5>
-                                <p class="card-text">Crea las planillas para segmentar la calificación.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        
+        <footer class="main-footer">
+            <div class="footer-left">
+                Copyright &copy; 2023
+                <div class="bullet"></div>
+            </div>
+            <div class="footer-right">
+                <?php echo date('d') . ' de ' . date('M') . ' de ' . date('Y');?>
+            </div>
+        </footer>
     </div>
 </div>
-<div class="bloque-vector">
-    <img src="<?= base_url?>dist/images/curva.png">
-</div>
 
-<?php require("../../footer.php");?>
+<!-- General JS Scripts -->
+<?php include '../../footer.php'; ?>
 </body>
 </html>

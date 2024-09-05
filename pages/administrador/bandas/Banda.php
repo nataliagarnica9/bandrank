@@ -35,6 +35,15 @@ class Banda
 
             $ultimo_id = $this->db->lastInsertId();
 
+            foreach($_POST["planillas"] as $planilla) {
+                if($planilla > 0) {
+                    $query_planillaxjurado = $this->db->prepare("INSERT INTO planillaxbanda (id_banda,id_planilla) VALUES (?,?)");
+                    $query_planillaxjurado->bindValue(1, $ultimo_id);
+                    $query_planillaxjurado->bindValue(2, $planilla);
+                    $query_planillaxjurado->execute();
+                }
+            }
+
             $query_login = $this->db->prepare("INSERT INTO login (correo, clave, tipo_usuario, id_registro) VALUES (?, ?, ?, ?);");
             $query_login->bindValue(1, $data["correo_instructor"]);
             $query_login->bindValue(2, $data["clave"]);
@@ -129,6 +138,17 @@ public function actualizar($data) {
     
             $status = $query->errorInfo();
 
+            $query_eliminar = $this->db->query("DELETE FROM planillaxbanda WHERE id_banda = ".$data["id_banda"]);
+
+            foreach($_POST["planillas"] as $planilla) {
+                if($planilla > 0) {
+                    $query_planillaxbanda = $this->db->prepare("INSERT INTO planillaxbanda (id_banda,id_planilla) VALUES (?,?)");
+                    $query_planillaxbanda->bindValue(1, $data["id_banda"]);
+                    $query_planillaxbanda->bindValue(2, $planilla);
+                    $query_planillaxbanda->execute();
+                }
+            }
+
             if($data["clave"] != '') {
                 $query_clave = $this->db->prepare("UPDATE banda SET clave = ? WHERE id_banda = ?");
                 $query_clave->bindValue(1, $data["clave"]);
@@ -157,7 +177,24 @@ public function actualizar($data) {
         $query = $this->db->prepare("SELECT * FROM banda WHERE id_banda = ?;");
         $query->bindValue(1, $id);
         $query->execute();
-    
-        return $query->fetch(PDO::FETCH_OBJ);
+
+        $query_planillas = $this->db->prepare("SELECT pxb.*
+                                     FROM banda b
+                                              INNER JOIN planillaxbanda pxb on b.id_banda = pxb.id_banda
+                                     WHERE b.id_banda = ?;");
+        $query_planillas->bindValue(1, $id);
+        $query_planillas->execute();
+        $fetch_planillas = $query_planillas->fetchAll(PDO::FETCH_OBJ);
+        $planillas = [];
+        foreach($fetch_planillas as $planilla){
+            array_push($planillas, $planilla->id_planilla);
+        }
+
+        $datos = [
+            "datos"=>$query->fetch(PDO::FETCH_OBJ),
+            "planillas"=>$planillas
+        ];
+
+        return $datos;
     }
 }

@@ -107,10 +107,10 @@ class PlanillaExporte {
             <table class="informacion" style="padding: 0px" border="0">
                 <tr>
                     <td>
-                        <img src="https://guardiadorada.com/bandrank/dist/images/logo-uniminuto.png" style="width:200px;">
+                        <img src="https://app.bandrank.com.co/dist/images/logo_concurso_riohacha.png" style="width:200px;">
                     </td>
                     <td>
-                        <img src="https://guardiadorada.com/bandrank/dist/images/bandrank_logotipo.png" style="width:200px;margin-left:300px">
+                        <img src="https://app.bandrank.com.co/dist/images/bandrank_logotipo.png" style="width:200px;margin-left:300px">
                     </td>
                 </tr>
                 <tr style="padding: 0px; height:100px">
@@ -119,15 +119,15 @@ class PlanillaExporte {
                 </tr>
             </table>
             </header>';
-            return $html;
+        return $html;
     }
 
     protected function generarDatos() {
-        
+
         $html='
             <table class="informacion-datos" style="padding: 5px;margin-top: 30px;" border="0">
                 <tr>
-                    <td style="width: 30%;padding: 5px; font-weight: bold"><label for="nombre_banda">Participante:</td>
+                    <td style="width: 30%;padding: 5px; font-weight: bold"><label for="nombre_banda">Nombre de la banda:</td>
                     <td style="border-bottom: 1px solid #000;padding: 5px">'. $this->getBanda()->nombre.'  </td>
                 </tr>
                 <tr>
@@ -143,7 +143,7 @@ class PlanillaExporte {
                     <td style="border-bottom: 1px solid #000;padding: 5px">'. $this->getConcurso()->nombre_concurso.'</td>
                 </tr>
             </table>';
-            return $html;
+        return $html;
     }
 
     protected function generarDetallesPenalizacion(){
@@ -169,29 +169,29 @@ class PlanillaExporte {
                     '.$detalles_penalizacion.'  
                 </table>';
 
-        return $html;        
+        return $html;
     }
 
     protected function generarDetalles(){
-            $encabezado = $this->getEncabezadoPlanilla();
-            $detalles = $this->getDetallesCalificacion();
-            $concurso = $this->getConcurso();
-            $jurado = $this->getJurado();
+        $encabezado = $this->getEncabezadoPlanilla();
+        $detalles = $this->getDetallesCalificacion();
+        $concurso = $this->getConcurso();
+        $jurado = $this->getJurado();
 
-            $detalles_calificacion = "";
+        $detalles_calificacion = "";
 
-            foreach($detalles as $detalle) {
-                $detalles_calificacion .= '
+        foreach($detalles as $detalle) {
+            $detalles_calificacion .= '
                 <tr>
                     <td style="padding: 3px;border: 1px solid #DCDCDC">'.$detalle->nombre_criterio.'</td>
                     <td style="padding: 3px;text-align:center; border: 1px solid #DCDCDC">0-'.$detalle->rango_calificacion.'</td>
                     <td style="padding: 3px;text-align:center; border: 1px solid #DCDCDC">'.$detalle->puntaje.'</td>
                 </tr>
                 ';
-            }
+        }
 
 
-            $html = '
+        $html = '
             <table class="informacion" style="margin-top: 10px" border="0">
                 <tr>
                     <th class="red-text">Aspectos a evaluar</th>
@@ -210,8 +210,8 @@ class PlanillaExporte {
                 </tr>   
             </table>';
 
-            return $html;
-        }
+        return $html;
+    }
 
     protected function generarPieDocumento(){
         $encabezado = $this->getEncabezadoPlanilla();
@@ -252,7 +252,7 @@ class PlanillaExporte {
                 <table class="informacion" style="margin-top: 100px; border 1px solid #DCDCDC">
                     <tr>
                         <td style="width:20%">
-                            <img src="https://guardiadorada.com/bandrank/dist/images/logo-largo-uniminuto.png" style="width: 150px; margin-left: 25px;margin-right: 25px;">
+                            <img src="https://app.bandrank.com.co/dist/images/logo_corporacion.png" style="width: 200px; margin-left: 25px;margin-right: 25px;">
                         </td>
                         <td style="width:80%"></td>
                     </tr>
@@ -261,14 +261,14 @@ class PlanillaExporte {
             </body>
             </html>';
 
-            
-            //<td style="width:50%">
-            //            <img src="https://guardiadorada.com/bandrank/dist/images/firmas/'.$jurado->firma.'" style="width: 120px; margin-left: 25px;margin-right: 25px;">
-            //            <hr style="width: 70%;background:#FFF">
-            //            <p style="text-align:center;font-weight: bold">Firma jurado</p>
-            //        </td>
-//
-            
+
+        //<td style="width:50%">
+        //            <img src="https://guardiadorada.com/bandrank/dist/images/firmas/'.$jurado->firma.'" style="width: 120px; margin-left: 25px;margin-right: 25px;">
+        //            <hr style="width: 70%;background:#FFF">
+        //            <p style="text-align:center;font-weight: bold">Firma jurado</p>
+        //        </td>
+
+
         return $html;
     }
 
@@ -323,7 +323,7 @@ class PlanillaExporte {
             }
 
             .red-text {
-                background: #004A93;
+                background: red;
                 color: #FFF;
                 text-align: center;
                 padding: 5px 0px;
@@ -347,7 +347,7 @@ class PlanillaExporte {
         if($detalles_penalizacion > 0){
             echo $this->generarDetallesPenalizacion();
         }
-       
+
         echo $this->generarPieDocumento();
     }
 }

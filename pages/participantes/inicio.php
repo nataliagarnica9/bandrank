@@ -1,109 +1,109 @@
-<!doctype html>
-<html lang="es">
-<?php require("../../head.php"); ?>
+<?php
+include_once('../../config.php');
+if($_SESSION["ROL"] == '' || $_SESSION["ROL"] == 'admin') {
+    header("Location: ../../inicio.php");
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<?php
+include '../../head.php';
 
-<body>
-    <?php require("../../navbar.php"); ?>
-
-    <div class="bloque-presentacion mt-navbar">
-        <div class="row">
-            <?php if ($_SESSION["ROL"] == 'instructor') : ?>
-                <div class="col-12 col-md-4 p-3">
-                <?php else : ?>
-                    <div class="col-12 p-3">
-                    <?php endif; ?>
-                    <h3 class="titulo-bienv">Hola!</h3>
-                    <!--<p class="subtitulo-bienv mb-5">Sistema de Evaluación de Eventos Marciales</p>-->
-                    <p class="saludo-usuario">
-                        <?php
-                        switch ($_SESSION["ROL"]) {
-                            case 'jurado':
-                                $query = $db->prepare("SELECT CONCAT(j.nombres, ' ', j.apellidos) AS nombre, c.nombre_concurso AS nombre_concurso
+switch ($_SESSION["ROL"]) {
+    case 'jurado':
+        $query = $db->prepare("SELECT CONCAT(j.nombres, ' ', j.apellidos) AS nombre, c.nombre_concurso AS nombre_concurso
                                                FROM jurado j
                                                         INNER JOIN concurso c ON j.id_concurso = c.id_concurso
                                                WHERE j.id_jurado = ?");
-                                break;
-                            case 'instructor':
-                                $query = $db->prepare("SELECT b.nombre_instructor AS nombre, c.nombre_concurso, b.nombre as nombre_banda
+        break;
+    case 'instructor':
+        $query = $db->prepare("SELECT b.nombre_instructor AS nombre, c.nombre_concurso, b.nombre as nombre_banda
                                                FROM banda b
                                                         INNER JOIN concurso c ON b.id_concurso = c.id_concurso
                                                WHERE b.id_banda = ?");
-                                break;
-                        }
-                        $query->bindValue(1, $_SESSION["ID_USUARIO"]);
-                        $query->execute();
-                        $fetch_usuario = $query->fetch(PDO::FETCH_OBJ);
+        break;
+}
+$query->bindValue(1, $_SESSION["ID_USUARIO"]);
+$query->execute();
+$fetch_usuario = $query->fetch(PDO::FETCH_OBJ);
 
+?>
+<title>Inicio - BandRank</title>
+</head>
+
+<body>
+<div id="app">
+    <div class="main-wrapper">
+        <div class="navbar-bg"></div>
+        <?php include '../../navbar.php'; ?>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <section class="section">
+                <div class="section-header">
+                    <p class="saludo-usuario">
+                    </p>
+                    <h1>Bienvenido/a a BandRank</h1>
+                    <div class="section-header-breadcrumb">
+                        <div class="breadcrumb-item active"><a href="#">Inicio</a></div>
+                        <div class="breadcrumb-item">Página de bienvenida</div>
+                    </div>
+                </div>
+
+                <div class="section-body">
+                    <h2 class="section-title">Resumen</h2>
+                    <p class="section-lead">
+                        <?php
                         echo '<span style="color:#FF914D">' . $fetch_usuario->nombre . '</span><br> Ingresaste como ' . $_SESSION["ROL"] . ' al concurso ' . $fetch_usuario->nombre_concurso;
                         echo $fetch_usuario->nombre_banda != null ? '<br><br> Representas a la banda <span style="color:#FF914D">' . $fetch_usuario->nombre_banda . '</span>' : '';
-                        ?>
+                    ?>
                     </p>
-                    <div class="row g-4">
+
+                    <div class="row">
                         <?php if ($_SESSION["ROL"] == 'jurado') : ?>
-                            <div class="col-12 col-md-6">
-                                <a href="<?= base_url ?>pages/participantes/Categorias.php?concurso=<?= $_SESSION["ID_CONCURSO"] ?>" class="tarjeta-opcion">
-                                    <div class="card border-light shadow-sm">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-2">
-                                                    <img src="<?= base_url ?>dist/images/copa.png" width="40">
-                                                </div>
-                                                <div class="col-10">
-                                                    <h5 class="card-title">Iniciar</h5>
-                                                    <p class="card-text">Elige la categoría a la que deseas ingresar.</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="col-lg-6">
+                                <div class="card card-large-icons">
+                                    <div class="card-icon bg-primary text-white">
+                                        <i class="far fa-play-circle"></i>
                                     </div>
-                                </a>
-                            </div>
-                        <?php endif; ?>
-                        <div class="col-12 col-md-6">
-                            <a href="javascript:void(0)" onclick="parametrosExporte()" class="tarjeta-opcion">
-                                <div class="card border-light shadow-sm">
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-2">
-                                                <img src="<?= base_url ?>dist/images/generar.png" width="40">
-                                            </div>
-                                            <div class="col-10">
-                                                <h5 class="card-title">Generar</h5>
-                                                <p class="card-text">Genera reporte de la planilla de calificación.</p>
-                                            </div>
-                                        </div>
+                                        <h4>Empezar</h4>
+                                        <p>Elige la categoría a la que deseas ingresar.</p>
+                                        <a href="<?= base_url ?>pages/participantes/eleccion_categorias.php?concurso=<?= $_SESSION["ID_CONCURSO"] ?>" class="card-cta">Ingresar <i class="fas fa-chevron-right"></i></a>
                                     </div>
                                 </div>
-                            </a>
-                        </div>
-                    </div>
-                    </div>
+                            </div>
+                        <?php endif; ?>
 
-                    <?php if ($_SESSION["ROL"] == 'instructor') : ?>
-                        <div class="col-12 col-md-7">
-                            <small>* Puedes hacer scroll para ver todos los puntajes</small>
-                            <div id="tabla-puntuaciones" style="overflow-x: scroll;">
-
+                        <div class="col-lg-6">
+                            <div class="card card-large-icons">
+                                <div class="card-icon bg-primary text-white">
+                                    <i class="far fa-file-pdf"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h4>Exportar</h4>
+                                    <p>Genera reporte de la planilla de calificación.</p>
+                                    <a href="javascript:void(0)" onclick="parametrosExporte()" class="card-cta">Exportar <i class="fas fa-chevron-right"></i></a>
+                                </div>
                             </div>
                         </div>
-                    <?php endif; ?>
+                    </div>
                 </div>
+            </section>
         </div>
 
-        <?php if ($_SESSION["ROL"] == 'jurado') : ?>
-            <div class="bloque-vector">
-                <img src="<?= base_url ?>dist/images/curva.png">
-            </div>
-        <?php endif; ?>
-
-        <div class="modal" id="modalExportePlanilla" tabindex="-1">
-            <div class="modal-dialog modal-md">
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalExportePlanilla">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Generar planilla</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="modal-body">
-                        <form action="<?= base_url ?>pages/participantes/exportes/generarPlanilla.php" method="post" target="_blank">
+                    <form action="<?= base_url ?>pages/participantes/exportes/generarPlanilla.php" method="post"
+                          target="_blank">
+                        <div class="modal-body">
                             <div class="row">
                                 <div class="col-12 mb-2">
                                     <b>Banda: </b>
@@ -126,7 +126,7 @@
 
                                         foreach ($fetch_banda as $banda) { ?>
                                             <option value="<?= $banda->id_banda ?>"><?= $banda->nombre ?></option>
-                                        <?php
+                                            <?php
                                         }
                                         ?>
                                     </select>
@@ -138,95 +138,110 @@
                                         <option value="">Seleccionar</option>
                                         <?php
                                         // Obtengo las bandas del concurso
-                                        $sel_planillas = $db->prepare("SELECT id_planilla, nombre_planilla FROM planilla WHERE id_concurso = ?");
+                                        $sel_planillas = $db->prepare("SELECT p.id_planilla, p.nombre_planilla
+                                                                              FROM planilla p
+                                                                                       INNER JOIN planillaxbanda pb ON p.id_planilla = pb.id_planilla
+                                                                              WHERE p.id_concurso = ?
+                                                                                AND pb.id_banda = ?");
                                         $sel_planillas->bindValue(1, $_SESSION["ID_CONCURSO"]);
+                                        $sel_planillas->bindValue(2, $_SESSION["ID_USUARIO"]);
                                         $sel_planillas->execute();
 
                                         $fetch_planillas = $sel_planillas->fetchAll(PDO::FETCH_OBJ);
 
                                         foreach ($fetch_planillas as $planilla) { ?>
                                             <option value="<?= $planilla->id_planilla ?>"><?= $planilla->nombre_planilla ?></option>
-                                        <?php
+                                            <?php
                                         }
                                         ?>
                                     </select>
                                 </div>
                             </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn-bandrank">Generar</button>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-warning">Generar</button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
 
+        <footer class="main-footer">
+            <div class="footer-left">
+                Copyright &copy; 2023
+                <div class="bullet"></div>
+            </div>
+            <div class="footer-right">
+                <?php echo date('d') . ' de ' . date('M') . ' de ' . date('Y');?>
+            </div>
+        </footer>
+    </div>
+</div>
+<!-- General JS Scripts -->
+<?php include '../../footer.php'; ?>
 
-        <?php require("../../footer.php"); ?>
-        <script>
-            function parametrosExporte() {
-                $('#modalExportePlanilla').modal('show');
-            }
+<script>
+    function parametrosExporte() {
+        $('#modalExportePlanilla').modal('show');
+    }
 
-            <?php if ($_SESSION["ROL"] == 'instructor') : ?>
-                $(document).ready(function() {
-                    recargarTablaPuntuaciones()
-                })
-            
-                setInterval(recargarTablaPuntuaciones, 30000);
-            <?php endif; ?>
+    <?php if ($_SESSION["ROL"] == 'instructor') : ?>
+    $(document).ready(function() {
+        recargarTablaPuntuaciones()
+    })
 
-            function recargarTablaPuntuaciones() {
-                $.ajax({
-                    url: 'tabla_puntuaciones_unica.php',
-                    type: 'GET',
-                    dataType: 'html',
+    setInterval(recargarTablaPuntuaciones, 30000);
+    <?php endif; ?>
 
-                }).done(function(html) {
-                    $('#tabla-puntuaciones').html(html);
-                })
-            }
+    function recargarTablaPuntuaciones() {
+        $.ajax({
+            url: 'tabla_puntuaciones_unica.php',
+            type: 'GET',
+            dataType: 'html',
 
-            function enviarCorreo() {
-                $.ajax({
-                    url: 'enviarCorreo.php',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        correo: 'natagarge@gmail.com'
-                    },
-                    beforeSend: function (){
-                        Swal.fire({
-                            icon: 'info',
-                            title: 'Enviando correo',
-                            allowEscapeKey: false,
-                            allowOutsideClick: false,
-                            didOpen: () => {
-                                Swal.showLoading()
-                            }
-                        });
+        }).done(function(html) {
+            $('#tabla-puntuaciones').html(html);
+        })
+    }
+
+    function enviarCorreo() {
+        $.ajax({
+            url: 'enviarCorreo.php',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                correo: 'natagarge@gmail.com'
+            },
+            beforeSend: function (){
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Enviando correo',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading()
                     }
-                }).done(function(response) {
-                    if(response.status == '200' || response.status == 200){
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Se envió el correo correctamente',
-                            allowEscapeKey: false,
-                            allowOutsideClick: false
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'No se pudo enviar el correo correctamente',
-                            html: response.resp,
-                            allowEscapeKey: false,
-                            allowOutsideClick: false
-                        });
-                    }
-                })
+                });
             }
-        </script>
+        }).done(function(response) {
+            if(response.status == '200' || response.status == 200){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se envió el correo correctamente',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false
+                });
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'No se pudo enviar el correo correctamente',
+                    html: response.resp,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false
+                });
+            }
+        })
+    }
+</script>
 </body>
-
 </html>

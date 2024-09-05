@@ -176,7 +176,7 @@ class MailerService
         <body>
             
                 <div class="container email-container">
-                    <img src="https://guardiadorada.com/bandrank/dist/images/bandrank_logotipo_blanco.png" alt="Logotipo BandRank" class="logo">
+                    <img src="https://app.bandrank.com.co/dist/images/bandrank_logotipo_blanco.png" alt="Logotipo BandRank" class="logo">
                 </div>
             
             <div class="container">

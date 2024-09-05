@@ -84,7 +84,7 @@ $mailService = new MailerService();
         echo $mailService->construirCorreo($db,$instructor, $planilla);
 
         //echo json_encode(["status_cal"=>"200"]);
-
+        exit();
     } catch (Exception $ex) {
         return json_encode(["status"=>"400", "message" => $ex."No se pudo completar el guardado de la calificación"]);
     }

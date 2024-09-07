@@ -207,7 +207,7 @@ $penalizaciones = $consulta_penalizaciones->fetchAll(PDO::FETCH_OBJ);
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <input type="button" class="btn btn-primary" id="draw-submitBtn" value="Crear Imagen"></input>
+                                                                <!--<input type="button" class="btn btn-primary" id="draw-submitBtn" value="Crear Imagen"></input>-->
                                                                 <input type="button" class="btn" id="draw-clearBtn" value="Limpiar"></input>
                                                                 <label>Tamaño Puntero</label>
                                                                 <input type="range" class="form-range" id="puntero" min="1" default="1" max="5" width="10%">
@@ -245,7 +245,7 @@ $penalizaciones = $consulta_penalizaciones->fetchAll(PDO::FETCH_OBJ);
     </div>
 </div>
 <!-- General JS Scripts -->
-<script src="../../dist/js/signature.js"></script>
+<script src="../../dist/js/signature.js?vs=<?=rand()?>"></script>
 <?php include '../../footer.php'; ?>
 
 <script>

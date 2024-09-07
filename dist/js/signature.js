@@ -37,11 +37,11 @@
         //drawImage.setAttribute("src", "");
     }, false);
     // Definimos que pasa cuando el boton draw-submitBtn es pulsado
-    submitBtn.addEventListener("click", function (e) {
-        var dataUrl = canvas.toDataURL();
-        drawText.innerHTML = dataUrl;
-        //drawImage.setAttribute("src", dataUrl);
-    }, false);
+    //submitBtn.addEventListener("click", function (e) {
+    //    var dataUrl = canvas.toDataURL();
+    //    drawText.innerHTML = dataUrl;
+    //    //drawImage.setAttribute("src", dataUrl);
+    //}, false);
 
     // Activamos MouseEvent para nuestra pagina
     var drawing = false;

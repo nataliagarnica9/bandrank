@@ -13,7 +13,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="<?= base_url ?>dist/js/stisla.js"></script>
 
-<script src="<?= base_url ?>dist/js/scripts.js"></script>
+<script src="<?= base_url ?>dist/js/scripts.js?v=<?=rand()?>"></script>
 <script src="<?= base_url ?>dist/js/custom.js"></script>
 
 <script>

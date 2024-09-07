@@ -97,7 +97,7 @@ class Concurso {
         $query->bindValue(5, $data["id_concurso"]);
         $query->execute();
         
-        $query_eliminar = $this->db->query("DELETE FROM categoriasxconcurso WHERE id_categoria = ".$data["id_jurado"]);
+        $query_eliminar = $this->db->query("DELETE FROM categoriasxconcurso WHERE id_categoria = ".$data["id_concurso"]);
             
             foreach($_POST["categorias"] as $categoria) {
                 if($categoria > 0) {

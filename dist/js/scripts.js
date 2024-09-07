@@ -590,4 +590,10 @@ $(function() {
       }
     });
   }
+
+  let anchoVentana = window.innerWidth;
+  let altoVentana = window.innerHeight;
+  if(anchoVentana < 500 && altoVentana < 950) {
+    update_sidebar_nicescroll();
+  }
 });

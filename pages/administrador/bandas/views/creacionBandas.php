@@ -152,7 +152,7 @@ if($_SESSION["ROL"] == 'instructor' || $_SESSION["ROL"] == 'jurado') {
             width: 'resolve'
         });
     });
-|
+
     function registrar() {
         $.ajax({
             url: '../bandasController.php?action=guardar',

@@ -220,3 +220,12 @@ alter table encabezado_calificacion
 
     alter table detalle_calificacion
     modify puntaje double(20, 1) not null;
+
+CREATE TABLE planillaxbanda
+(
+    id_planillaxbanda INT AUTO_INCREMENT,
+    id_planilla       INT NOT NULL,
+    id_banda          INT NULL,
+    CONSTRAINT planillaxbanda_pk
+        PRIMARY KEY (id_planillaxbanda)
+);
